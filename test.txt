@@ -1,2 +1,8 @@
 just a test
 does it detect changes?
+
+I used:
+  git pull origin master
+and got your changes. 
+
+Now to see if I can push them. 
