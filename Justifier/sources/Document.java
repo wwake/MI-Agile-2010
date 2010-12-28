@@ -1,17 +1,21 @@
+import java.util.Vector;
 
-//Note: This corresponds to Seq. Project
 
-public class Document {
+//Note: This corresponds to Seq. Contig
 
-	private TextLine.LineType howCreated;
+public class Document extends TextBlock {
+
+	private TextLine.CreationType howCreated;
 	private Settings settings;
+	private Vector<TextLine> textLines;
 	
-	public Document()
+	public Document() 
 	{
+		super();
 		settings = new Settings();
 	}
 	
-	public void setHowCreated(TextLine.LineType theType)
+	public void setHowCreated(TextLine.CreationType theType)
 	{
 		howCreated = theType;
 	}
@@ -19,5 +23,19 @@ public class Document {
 	public Settings settings()
 	{
 		return settings;
+	}
+	
+	public void remove(TextLine aLine)
+	{
+		for (TextLine line : textLines)
+		{
+			if (line.equals(aLine))
+				textLines.remove(line);
+		}
+	}
+	
+	public Boolean IsDocument()
+	{
+		return true;
 	}
 }

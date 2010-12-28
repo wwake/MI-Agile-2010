@@ -12,10 +12,10 @@ public class Justifier {
 	
 	private Library library;
 	private Document result;
-	private Vector<String> lines;
+	private Vector<TextBlock> lines;
 	private JoinType type = JoinType.None;
 	
-	public Justifier(Library theLibrary, Vector<String> theLines, JoinType howToJoin)
+	public Justifier(Library theLibrary, Vector<TextBlock> theLines, JoinType howToJoin)
 	{
 		lines = theLines;
 		type = howToJoin;
@@ -25,10 +25,10 @@ public class Justifier {
 	public void resetResultDocument()
 	{
 		result = new Document();
-		result.setHowCreated(TextLine.LineType.AppCreated);
+		result.setHowCreated(TextLine.CreationType.AppCreated);
 	}
 	
-	public Vector<String> selectedLines()
+	public Vector<TextBlock> selectedLines()
 	{
 		return lines;
 	}
@@ -49,28 +49,73 @@ public class Justifier {
 	    this.library().input(this.document());
 	}
 
-	void joinAllFrom(Vector<String> linesToAlign, String defaultName)
+	public void joinAllFrom(Vector<TextBlock> linesToAlign, String defaultName)
 	{
-		nameResultContigUsing(sequencesToJoin, defaultName);
+		this.nameResultDocumentUsing(linesToAlign, defaultName);
 	
-		// Remove the Selected sequences from the project
-		GCUtilities::for_each(sequencesToJoin, boost::bind(&GCModel::Project::removeSequence, &m_ownerProject, _1, false, Project::kNotifyBeforeAndAfter));
+		// Remove the Selected lines from the document if they are already in there
+		for (TextBlock textLine : linesToAlign)
+			this.document().remove((TextLine)textLine);
 	
-		SequenceList::const_iterator itr = sequencesToJoin.begin();
-		SequenceList::const_iterator endItr = sequencesToJoin.end();
-		for (; itr != endItr; ++itr)
+		for (TextBlock textBlock : linesToAlign)
 		{
-			if (isFragment(*itr))
+			if (textBlock.IsLine())
 			{
-				addFragment(*asFragment(*itr));
+				this.addLine((TextLine)textBlock);
 			}
-			else if (isContig(*itr))
+			else if (textBlock.IsDocument())
 			{
-				addContig(asContig(*itr));
+				addAllFrom((Document)textBlock);
 			}
 		}
 	}
-
+	
+	public void addLine(TextLine aLine)
+	{
+		
+	}
+	
+	public void addAllFrom(Document bunchOfLines)
+	{
+		
+	}
+	
+	public void nameResultDocumentUsing(Vector<TextBlock> linesToAlign, String defaultName)
+	{
+//		std::set<QString, UserNamedCompare> userNames;
+//		 // TODO: user pref for contig name pattern instead of hardwired Contig[*]
+//		std::set<QString, GeneratedNameCompare> generatedNames(GeneratedNameCompare("Contig[*]"));
+//		SequenceList::const_iterator sequenceItr = sequences.begin();
+//		SequenceList::const_iterator sequenceEnd = sequences.end();
+//		for (; sequenceItr != sequenceEnd; ++sequenceItr)
+//		{
+//			if (isContig(*sequenceItr))
+//			{
+//				Contig* inputContig = asContig(*sequenceItr);
+//				if (inputContig->nameIsUserSpecified())
+//				{
+//					userNames.insert(inputContig->name());
+//				}
+//				else
+//				{
+//					// TODO: further distinguish between handle and assembly generated names?
+//					generatedNames.insert(inputContig->name());
+//				}
+//			}
+//		}
+//		if (userNames.size() > 0)
+//		{
+//			m_resultContig->setName(*userNames.begin(), true);
+//		}
+//		else if (generatedNames.size() > 0)
+//		{
+//			m_resultContig->setName(*generatedNames.begin());
+//		}
+//		else
+//		{
+//			m_resultContig->setName(defaultName);
+//		}
+	}
 }
 //void MindlesslyJoinBase::joinFragmentsFrom(Contig* sourceContig, int offsetAdjustment)
 //{
@@ -114,42 +159,6 @@ public class Justifier {
 //    joinFragmentsFrom(sourceContig, originalLength);
 //}
 //
-//void MindlesslyJoinBase::nameResultContigUsing(const GCModel::SequenceList& sequences, QString defaultName)
-//{
-//	std::set<QString, UserNamedCompare> userNames;
-//	 // TODO: user pref for contig name pattern instead of hardwired Contig[*]
-//	std::set<QString, GeneratedNameCompare> generatedNames(GeneratedNameCompare("Contig[*]"));
-//	SequenceList::const_iterator sequenceItr = sequences.begin();
-//	SequenceList::const_iterator sequenceEnd = sequences.end();
-//	for (; sequenceItr != sequenceEnd; ++sequenceItr)
-//	{
-//		if (isContig(*sequenceItr))
-//		{
-//			Contig* inputContig = asContig(*sequenceItr);
-//			if (inputContig->nameIsUserSpecified())
-//			{
-//				userNames.insert(inputContig->name());
-//			}
-//			else
-//			{
-//				// TODO: further distinguish between handle and assembly generated names?
-//				generatedNames.insert(inputContig->name());
-//			}
-//		}
-//	}
-//	if (userNames.size() > 0)
-//	{
-//		m_resultContig->setName(*userNames.begin(), true);
-//	}
-//	else if (generatedNames.size() > 0)
-//	{
-//		m_resultContig->setName(*generatedNames.begin());
-//	}
-//	else
-//	{
-//		m_resultContig->setName(defaultName);
-//	}
-//}
 //
 //void MindlesslyJoinBase::joinAllFrom(const GCModel::SequenceList& sequencesToJoin, const QString& defaultName)
 //{

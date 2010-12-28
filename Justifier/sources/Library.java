@@ -1,6 +1,6 @@
 import java.util.Vector;
 
-// Note: this corresponds to Seq. Contig
+// Note: this corresponds to Seq. Project
 
 public class Library {
 	
