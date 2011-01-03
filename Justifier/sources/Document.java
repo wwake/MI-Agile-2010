@@ -7,7 +7,7 @@ public class Document extends TextBlock {
 
 	private TextLine.CreationType howCreated;
 	private Settings settings;
-	private Vector<TextLine> textLines;
+	private Vector<TextBlock> textBlocks;
 	
 	public Document() 
 	{
@@ -15,9 +15,14 @@ public class Document extends TextBlock {
 		settings = new Settings();
 	}
 	
-	public void setHowCreated(TextLine.CreationType theType)
+	public void setHowCreated(TextLine.CreationType creationMethod)
 	{
-		howCreated = theType;
+		howCreated = creationMethod;
+	}
+	
+	public Boolean isNameUserCreated()
+	{
+		return howCreated == TextLine.CreationType.UserEntered;
 	}
 	
 	public Settings settings()
@@ -25,17 +30,43 @@ public class Document extends TextBlock {
 		return settings;
 	}
 	
-	public void remove(TextLine aLine)
+	public void add(TextLine text, int offset)
 	{
-		for (TextLine line : textLines)
+		textBlocks.add(text);
+		text.setOffset(offset);
+	}
+	
+	public void remove(TextBlock text)
+	{
+		for (TextBlock currentBlock : textBlocks)
 		{
-			if (line.equals(aLine))
-				textLines.remove(line);
+			if (currentBlock.equals(text))
+				textBlocks.remove(currentBlock);
 		}
+	}
+	
+	public Vector<TextBlock> blocks()
+	{
+		return textBlocks;
 	}
 	
 	public Boolean IsDocument()
 	{
 		return true;
+	}
+
+	@Override
+	int width() {
+		if (textBlocks.size() == 0)
+			return 0;
+		
+		int minPosition = Integer.MAX_VALUE;
+		int maxPosition = Integer.MIN_VALUE;
+		for (TextBlock currentBlock : textBlocks)
+		{
+			minPosition = Math.min(minPosition, currentBlock.offset());
+			maxPosition = Math.max(maxPosition, currentBlock.offset() + currentBlock.width());
+		}
+		return maxPosition - minPosition + 1;
 	}
 }

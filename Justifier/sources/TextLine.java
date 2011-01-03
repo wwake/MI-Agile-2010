@@ -9,11 +9,20 @@ public class TextLine extends TextBlock {
 		Imported
 	}
 	
-	public TextLine()
-	{}
+	private String text;
+	
+	public TextLine(String theText)
+	{
+		text = theText;
+	}
 	
 	public Boolean IsLine()
 	{
 		return true;
+	}
+
+	@Override
+	int width() {
+		return text.length();
 	}
 }

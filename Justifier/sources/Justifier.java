@@ -2,7 +2,7 @@ import java.util.Vector;
 
 public class Justifier {
 
-	public static enum JoinType
+	public static enum Arrangement
 	{
 		AllLeft,
 		AllRight,
@@ -13,12 +13,12 @@ public class Justifier {
 	private Library library;
 	private Document result;
 	private Vector<TextBlock> lines;
-	private JoinType type = JoinType.None;
+	private Arrangement arrangement = Arrangement.None;
 	
-	public Justifier(Library theLibrary, Vector<TextBlock> theLines, JoinType howToJoin)
+	public Justifier(Library theLibrary, Vector<TextBlock> theLines, Arrangement howToJoin)
 	{
 		lines = theLines;
-		type = howToJoin;
+		arrangement = howToJoin;
 		this.resetResultDocument();
 	}
 	
@@ -49,15 +49,15 @@ public class Justifier {
 	    this.library().input(this.document());
 	}
 
-	public void joinAllFrom(Vector<TextBlock> linesToAlign, String defaultName)
+	public void joinAllFrom(Vector<TextBlock> textToAlign, String defaultName)
 	{
-		this.nameResultDocumentUsing(linesToAlign, defaultName);
+		this.nameResultDocumentUsing(textToAlign, defaultName);
 	
 		// Remove the Selected lines from the document if they are already in there
-		for (TextBlock textLine : linesToAlign)
-			this.document().remove((TextLine)textLine);
+		for (TextBlock currentBlock : textToAlign)
+			this.document().remove(currentBlock);
 	
-		for (TextBlock textBlock : linesToAlign)
+		for (TextBlock textBlock : textToAlign)
 		{
 			if (textBlock.IsLine())
 			{
@@ -65,159 +65,121 @@ public class Justifier {
 			}
 			else if (textBlock.IsDocument())
 			{
-				addAllFrom((Document)textBlock);
+				addDocument((Document)textBlock);
 			}
 		}
 	}
 	
 	public void addLine(TextLine aLine)
 	{
-		
+		int offset = 0;  // arrangement == AllLeft
+		int currentResultLength = result.width();
+		if (arrangement == Arrangement.EndToEnd)
+		{
+			offset = currentResultLength;
+		}
+		else if (arrangement == Arrangement.AllRight)
+		{
+			if (currentResultLength >= aLine.width())
+			{
+				offset = currentResultLength - aLine.width();
+			}
+			else
+			{
+				adjustResultSequencesBy(aLine.width() - currentResultLength);
+			}			
+		}
+		result.add(aLine, offset);		
 	}
 	
-	public void addAllFrom(Document bunchOfLines)
+	public void addDocument(Document bunchOfLines)
 	{
-		
+		if (arrangement == Arrangement.AllLeft)
+			this.leftJustify(bunchOfLines);
+		else if (arrangement == Arrangement.AllRight)
+			this.rightJustify(bunchOfLines);
+		else if (arrangement == Arrangement.EndToEnd)
+			this.spread(bunchOfLines);		
 	}
 	
 	public void nameResultDocumentUsing(Vector<TextBlock> linesToAlign, String defaultName)
 	{
-//		std::set<QString, UserNamedCompare> userNames;
-//		 // TODO: user pref for contig name pattern instead of hardwired Contig[*]
-//		std::set<QString, GeneratedNameCompare> generatedNames(GeneratedNameCompare("Contig[*]"));
-//		SequenceList::const_iterator sequenceItr = sequences.begin();
-//		SequenceList::const_iterator sequenceEnd = sequences.end();
-//		for (; sequenceItr != sequenceEnd; ++sequenceItr)
-//		{
-//			if (isContig(*sequenceItr))
-//			{
-//				Contig* inputContig = asContig(*sequenceItr);
-//				if (inputContig->nameIsUserSpecified())
-//				{
-//					userNames.insert(inputContig->name());
-//				}
-//				else
-//				{
-//					// TODO: further distinguish between handle and assembly generated names?
-//					generatedNames.insert(inputContig->name());
-//				}
-//			}
-//		}
-//		if (userNames.size() > 0)
-//		{
-//			m_resultContig->setName(*userNames.begin(), true);
-//		}
-//		else if (generatedNames.size() > 0)
-//		{
-//			m_resultContig->setName(*generatedNames.begin());
-//		}
-//		else
-//		{
-//			m_resultContig->setName(defaultName);
-//		}
+		Vector<String> userGeneratedNames = new Vector<String>();
+		Vector<String> appGeneratedNames = new Vector<String>();
+		
+		for (TextBlock textBlock : linesToAlign)
+		{
+			if (textBlock.IsDocument())
+			{
+				Document inputDoc = (Document) textBlock;
+				if (inputDoc.isNameUserCreated())
+				{
+					userGeneratedNames.add(inputDoc.getName());
+				}
+				else
+				{
+					appGeneratedNames.add(inputDoc.getName());
+				}
+			}
+		}
+		if (userGeneratedNames.size() > 0)
+		{
+			result.setName(userGeneratedNames.firstElement());
+		}
+		else if (appGeneratedNames.size() > 0)
+		{
+			result.setName(appGeneratedNames.firstElement());
+		}
+		else
+		{
+			result.setName(defaultName);
+		}
+	}
+
+	void adjustResultSequencesBy(int offsetAdjustment)
+	{
+		for(TextBlock block : result.blocks())
+		{
+			block.setOffset(block.offset() + offsetAdjustment);
+		}
+	}
+
+	void leftJustify(Document sourceDocument)
+	{
+	    this.joinTextBlocksFrom(sourceDocument, 0);
+	}
+	
+	void rightJustify(Document sourceDocument)
+	{
+		int currentResultLength = result.width();
+	 	int sourceLength = sourceDocument.width();
+	
+		int sourceAdjustmentForFinalLength = 0;
+		if (currentResultLength < sourceLength)
+	    {
+		    adjustResultSequencesBy(sourceLength - currentResultLength);
+	    }
+		else
+		{
+			sourceAdjustmentForFinalLength = currentResultLength - sourceLength;
+		}
+	    joinTextBlocksFrom(sourceDocument, sourceAdjustmentForFinalLength);
+	}
+
+	void spread(Document sourceDocument)
+	{
+	    int originalLength = result.width();
+	    this.joinTextBlocksFrom(sourceDocument, originalLength);
+	}
+	
+	void joinTextBlocksFrom(Document sourceDocument, int offsetAdjustment)
+	{
+		for (TextBlock sourceBlock : sourceDocument.blocks())
+		{
+			sourceDocument.remove(sourceBlock);
+			TextLine line = (TextLine) sourceBlock;
+			result.add(line, offsetAdjustment + line.offset());
+		}
 	}
 }
-//void MindlesslyJoinBase::joinFragmentsFrom(Contig* sourceContig, int offsetAdjustment)
-//{
-//	SequenceList::const_iterator itr = sourceContig->sequences().begin();
-//	SequenceList::const_iterator endItr = sourceContig->sequences().end();
-//	for (; itr != endItr; ++itr)
-//	{
-//		(*itr)->disconnect();
-//		Fragment* fragment = asFragment(*itr);
-//		result()->adoptFragment(*fragment, offsetAdjustment + fragment->contigOffset(), false);
-//	}
-//	delete sourceContig;
-//	sourceContig = NULL;
-//}
-//
-//void MindlesslyJoinBase::alignTo5PrimeEnd(Contig* sourceContig)
-//{
-//    joinFragmentsFrom(sourceContig, 0);
-//}
-//
-//void MindlesslyJoinBase::alignTo3PrimeEnd(Contig* sourceContig)
-//{
-//	int currentResultLength = m_resultContig->unCalculatedConsensusLength();
-// 	int sourceLength = sourceContig->length();
-//
-//	int sourceFragmentAdjustmentForFinalLength = 0;
-//	if (currentResultLength < sourceLength)
-//    {
-//	    adjustResultSequencesBy(sourceLength - currentResultLength);
-//    }
-//	else
-//	{
-//		sourceFragmentAdjustmentForFinalLength = currentResultLength - sourceLength;
-//	}
-//    joinFragmentsFrom(sourceContig, sourceFragmentAdjustmentForFinalLength);
-//}
-//
-//void MindlesslyJoinBase::appendTo3PrimeEnd(Contig* sourceContig)
-//{
-//    int originalLength = result()->unCalculatedConsensusLength();
-//    joinFragmentsFrom(sourceContig, originalLength);
-//}
-//
-//
-//void MindlesslyJoinBase::joinAllFrom(const GCModel::SequenceList& sequencesToJoin, const QString& defaultName)
-//{
-//	nameResultContigUsing(sequencesToJoin, defaultName);
-//
-//	// Remove the Selected sequences from the project
-//	GCUtilities::for_each(sequencesToJoin, boost::bind(&GCModel::Project::removeSequence, &m_ownerProject, _1, false, Project::kNotifyBeforeAndAfter));
-//
-//	SequenceList::const_iterator itr = sequencesToJoin.begin();
-//	SequenceList::const_iterator endItr = sequencesToJoin.end();
-//	for (; itr != endItr; ++itr)
-//	{
-//		if (isFragment(*itr))
-//		{
-//			addFragment(*asFragment(*itr));
-//		}
-//		else if (isContig(*itr))
-//		{
-//			addContig(asContig(*itr));
-//		}
-//	}
-//}
-//
-//void MindlesslyJoinBase::addFragment(Fragment& fragment)
-//{
-//	int offset = 0;  // m_type == ALL_LEFT
-//	int currentResultLength = result()->unCalculatedConsensusLength();
-//	if (m_type == END_TO_END)
-//	{
-//		offset = currentResultLength;
-//	}
-//	else if (m_type == ALL_RIGHT)
-//	{
-//		if (currentResultLength >= fragment.length())
-//		{
-//			offset = currentResultLength - fragment.length();
-//		}
-//		else
-//		{
-//			adjustResultSequencesBy(fragment.length() - currentResultLength);
-//		}			
-//	}
-//	result()->adoptFragment(fragment, offset, false);
-//}
-//
-//void MindlesslyJoinBase::addContig(Contig* contig)
-//{
-//	if (m_type == ALL_LEFT)
-//		this->alignTo5PrimeEnd(contig);
-//	else if (m_type == ALL_RIGHT)
-//		this->alignTo3PrimeEnd(contig);
-//	else if (m_type == END_TO_END)
-//		this->appendTo3PrimeEnd(contig);
-//}
-//
-//void MindlesslyJoinBase::adjustResultSequencesBy(int offsetAdjustment)
-//{
-//	GCUtilities::for_each(
-//		result()->sequences(), 
-//		boost::bind(&GCModel::Sequence::adjustOffset, _1, offsetAdjustment, UpdatableItem::kNotify));
-//}
 
