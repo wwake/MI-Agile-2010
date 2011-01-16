@@ -1,7 +1,7 @@
 
 //Note: this corresponds to Sequence
 
-public class TextLine extends TextBlock {
+public class TextLine extends TextSection {
 
 	public static enum CreationType {
 		AppCreated,

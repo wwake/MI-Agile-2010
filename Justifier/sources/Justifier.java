@@ -10,12 +10,11 @@ public class Justifier {
 		None
 	};
 	
-	private Library library;
-	private Document result;
-	private Vector<TextBlock> lines;
+	private TextBlock result;
+	private Vector<TextSection> lines;
 	private Arrangement arrangement = Arrangement.None;
 	
-	public Justifier(Library theLibrary, Vector<TextBlock> theLines, Arrangement howToJoin)
+	public Justifier(Vector<TextSection> theLines, Arrangement howToJoin)
 	{
 		lines = theLines;
 		arrangement = howToJoin;
@@ -24,21 +23,16 @@ public class Justifier {
 	
 	public void resetResultDocument()
 	{
-		result = new Document();
+		result = new TextBlock();
 		result.setHowCreated(TextLine.CreationType.AppCreated);
 	}
 	
-	public Vector<TextBlock> selectedLines()
+	public Vector<TextSection> selectedLines()
 	{
 		return lines;
 	}
-	
-	public Library library()
-	{
-		return library;
-	}
-	
-	public Document document()
+		
+	public TextBlock document()
 	{
 		return result;
 	}
@@ -46,18 +40,17 @@ public class Justifier {
 	public void execute()
 	{
 	    this.joinAllFrom(this.selectedLines(), this.document().settings().nextName());
-	    this.library().input(this.document());
 	}
 
-	public void joinAllFrom(Vector<TextBlock> textToAlign, String defaultName)
+	public void joinAllFrom(Vector<TextSection> textToAlign, String defaultName)
 	{
 		this.nameResultDocumentUsing(textToAlign, defaultName);
 	
 		// Remove the Selected lines from the document if they are already in there
-		for (TextBlock currentBlock : textToAlign)
+		for (TextSection currentBlock : textToAlign)
 			this.document().remove(currentBlock);
 	
-		for (TextBlock textBlock : textToAlign)
+		for (TextSection textBlock : textToAlign)
 		{
 			if (textBlock.IsLine())
 			{
@@ -65,7 +58,7 @@ public class Justifier {
 			}
 			else if (textBlock.IsDocument())
 			{
-				addDocument((Document)textBlock);
+				addDocument((TextBlock)textBlock);
 			}
 		}
 	}
@@ -92,7 +85,7 @@ public class Justifier {
 		result.add(aLine, offset);		
 	}
 	
-	public void addDocument(Document bunchOfLines)
+	public void addDocument(TextBlock bunchOfLines)
 	{
 		if (arrangement == Arrangement.AllLeft)
 			this.leftJustify(bunchOfLines);
@@ -102,16 +95,16 @@ public class Justifier {
 			this.spread(bunchOfLines);		
 	}
 	
-	public void nameResultDocumentUsing(Vector<TextBlock> linesToAlign, String defaultName)
+	public void nameResultDocumentUsing(Vector<TextSection> linesToAlign, String defaultName)
 	{
 		Vector<String> userGeneratedNames = new Vector<String>();
 		Vector<String> appGeneratedNames = new Vector<String>();
 		
-		for (TextBlock textBlock : linesToAlign)
+		for (TextSection textBlock : linesToAlign)
 		{
 			if (textBlock.IsDocument())
 			{
-				Document inputDoc = (Document) textBlock;
+				TextBlock inputDoc = (TextBlock) textBlock;
 				if (inputDoc.isNameUserCreated())
 				{
 					userGeneratedNames.add(inputDoc.getName());
@@ -138,18 +131,18 @@ public class Justifier {
 
 	void adjustResultSequencesBy(int offsetAdjustment)
 	{
-		for(TextBlock block : result.blocks())
+		for(TextSection block : result.blocks())
 		{
 			block.setOffset(block.offset() + offsetAdjustment);
 		}
 	}
 
-	void leftJustify(Document sourceDocument)
+	void leftJustify(TextBlock sourceDocument)
 	{
 	    this.joinTextBlocksFrom(sourceDocument, 0);
 	}
 	
-	void rightJustify(Document sourceDocument)
+	void rightJustify(TextBlock sourceDocument)
 	{
 		int currentResultLength = result.width();
 	 	int sourceLength = sourceDocument.width();
@@ -166,15 +159,15 @@ public class Justifier {
 	    joinTextBlocksFrom(sourceDocument, sourceAdjustmentForFinalLength);
 	}
 
-	void spread(Document sourceDocument)
+	void spread(TextBlock sourceDocument)
 	{
 	    int originalLength = result.width();
 	    this.joinTextBlocksFrom(sourceDocument, originalLength);
 	}
 	
-	void joinTextBlocksFrom(Document sourceDocument, int offsetAdjustment)
+	void joinTextBlocksFrom(TextBlock sourceDocument, int offsetAdjustment)
 	{
-		for (TextBlock sourceBlock : sourceDocument.blocks())
+		for (TextSection sourceBlock : sourceDocument.blocks())
 		{
 			sourceDocument.remove(sourceBlock);
 			TextLine line = (TextLine) sourceBlock;
