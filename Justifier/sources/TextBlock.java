@@ -1,42 +1,72 @@
+import java.util.Vector;
 
-public abstract class TextBlock {
-	
-	private String name;
-	private int offset;
 
-	public TextBlock() {
-		this.setName("");
-		offset = 0;
-	}
+//Note: This corresponds to Seq. Contig
+
+public class TextBlock extends TextSection {
+
+	private TextLine.CreationType howCreated;
+	private Settings settings;
+	private Vector<TextSection> textBlocks;
 	
-	abstract int width();	
-	
-	public void setOffset(int newOffset)
+	public TextBlock() 
 	{
-		offset = newOffset;
+		super();
+		settings = new Settings();
 	}
 	
-	public int offset()
+	public void setHowCreated(TextLine.CreationType creationMethod)
 	{
-		return offset;
+		howCreated = creationMethod;
 	}
-
-	public void setName(String aName) {
-		name = aName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Boolean IsLine()
+	
+	public Boolean isNameUserCreated()
 	{
-		return false;
+		return howCreated == TextLine.CreationType.UserEntered;
+	}
+	
+	public Settings settings()
+	{
+		return settings;
+	}
+	
+	public void add(TextLine text, int offset)
+	{
+		textBlocks.add(text);
+		text.setOffset(offset);
+	}
+	
+	public void remove(TextSection text)
+	{
+		for (TextSection currentBlock : textBlocks)
+		{
+			if (currentBlock.equals(text))
+				textBlocks.remove(currentBlock);
+		}
+	}
+	
+	public Vector<TextSection> blocks()
+	{
+		return textBlocks;
 	}
 	
 	public Boolean IsDocument()
 	{
-		return false;
+		return true;
 	}
-	
+
+	@Override
+	int width() {
+		if (textBlocks.size() == 0)
+			return 0;
+		
+		int minPosition = Integer.MAX_VALUE;
+		int maxPosition = Integer.MIN_VALUE;
+		for (TextSection currentBlock : textBlocks)
+		{
+			minPosition = Math.min(minPosition, currentBlock.offset());
+			maxPosition = Math.max(maxPosition, currentBlock.offset() + currentBlock.width());
+		}
+		return maxPosition - minPosition + 1;
+	}
 }
