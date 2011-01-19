@@ -49,7 +49,7 @@ public class Main {
 			
 			public void actionPerformed(ActionEvent e) {
 				String[] strings = input.getText().toUpperCase().split("\n");
-				Builder builder = new Builder(strings);
+				Builder builder = new Builder(strings, new PieceScorer());
 				builder.build();
 				output.setText(builder.result());
 			}

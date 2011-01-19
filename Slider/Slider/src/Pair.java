@@ -47,12 +47,43 @@ public class Pair implements Piece {
 		return part2;
 	}
 
-	public Piece get(int i) {
-		if (i < part1.height()) return part1.get(i);
-		return part2.get(i - part1.height());
+	public OffsetWord get(int row) {
+		if (row < part1.height()) return part1.get(row);
+		return new OffsetWord(part2.get(row - part1.height()), offset);
 	}
 
 	public int height() {
 		return part1.height() + part2.height();
+	}
+	
+	@Override
+	public String toString() {
+		return part1.toString() + "\n" + part2.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (! (obj instanceof Piece)) return false;
+		
+		Piece that = (Piece) obj;
+		
+		if (this.height() != that.height()) return false;
+		for (int i = 0; i < height(); i++) {
+			if (!this.get(i).equals(that.get(i)))
+				return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 0;
+		for (int i = 0; i < height(); i++)
+			result ^= get(i).hashCode();
+		return result;
+	}
+
+	public Piece reversed() {
+		return new PairReverser(this);
 	}
 }

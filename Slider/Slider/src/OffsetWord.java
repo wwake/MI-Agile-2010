@@ -37,7 +37,10 @@ public class OffsetWord implements Piece {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (! (obj instanceof OffsetWord)) return false;
+		
 		OffsetWord that = (OffsetWord) obj;
+		
 		return this.word.equals(that.word) && this.offset == that.offset;
 	}
 
@@ -76,11 +79,15 @@ public class OffsetWord implements Piece {
 		return String.valueOf(this.at(c));
 	}
 
-	public Piece get(int i) {
+	public OffsetWord get(int i) {
 		return this;
 	}
 
 	public int height() {
 		return 1;
+	}
+
+	public Piece reversed() {
+		return this; 
 	}
 }

@@ -25,6 +25,11 @@ public class _TestOffsetWord {
 		assertEquals(word1a.hashCode(), word1b.hashCode());
 		assertFalse(word1a.equals(word2));
 	}
+		
+	@Test
+	public void singleWordCantEqualNonOffsetWord() {
+		assertFalse(new OffsetWord("skip", 2).equals(new Object()));
+	}
 	
 	@Test public void wordCanShiftRight() {
 		OffsetWord word = new OffsetWord("CAT", 1);
@@ -85,5 +90,11 @@ public class _TestOffsetWord {
 	public void getGetsTheOnlyWord() {
 		OffsetWord baz = new OffsetWord("baz", 2);
 		assertEquals(baz, baz.get(0));
+	}
+	
+	@Test
+	public void wordReversedIsItself() {
+		OffsetWord word = new OffsetWord("blink", 3);
+		assertEquals(word, word.reversed());
 	}
 }

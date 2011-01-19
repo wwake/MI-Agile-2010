@@ -6,6 +6,7 @@ public interface Piece {
 	int width();
 	int maxIndex();
 	String column(int c);
-	Piece get(int i);
+	OffsetWord get(int i);
 	int height();
+	Piece reversed();
 }
