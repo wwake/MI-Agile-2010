@@ -56,7 +56,7 @@ public class Justifier {
 			{
 				this.addLine((TextLine)textBlock);
 			}
-			else if (textBlock.IsDocument())
+			else if (textBlock.isBlock())
 			{
 				addDocument((TextBlock)textBlock);
 			}
@@ -102,7 +102,7 @@ public class Justifier {
 		
 		for (TextSection textBlock : linesToAlign)
 		{
-			if (textBlock.IsDocument())
+			if (textBlock.isBlock())
 			{
 				TextBlock inputDoc = (TextBlock) textBlock;
 				if (inputDoc.isNameUserCreated())
@@ -131,7 +131,7 @@ public class Justifier {
 
 	void adjustResultSequencesBy(int offsetAdjustment)
 	{
-		for(TextSection block : result.blocks())
+		for(TextSection block : result.sections())
 		{
 			block.setOffset(block.offset() + offsetAdjustment);
 		}
@@ -167,7 +167,7 @@ public class Justifier {
 	
 	void joinTextBlocksFrom(TextBlock sourceDocument, int offsetAdjustment)
 	{
-		for (TextSection sourceBlock : sourceDocument.blocks())
+		for (TextSection sourceBlock : sourceDocument.sections())
 		{
 			sourceDocument.remove(sourceBlock);
 			TextLine line = (TextLine) sourceBlock;

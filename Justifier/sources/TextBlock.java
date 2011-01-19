@@ -7,17 +7,24 @@ public class TextBlock extends TextSection {
 
 	private TextLine.CreationType howCreated;
 	private Settings settings;
-	private Vector<TextSection> textBlocks;
+	private Vector<TextSection> textSections;
 	
 	public TextBlock() 
 	{
 		super();
 		settings = new Settings();
+		textSections = new Vector<TextSection>();
+		howCreated = TextLine.CreationType.AppCreated;
 	}
 	
 	public void setHowCreated(TextLine.CreationType creationMethod)
 	{
 		howCreated = creationMethod;
+	}
+	
+	public TextLine.CreationType creationType(){
+		
+		return howCreated;
 	}
 	
 	public Boolean isNameUserCreated()
@@ -32,41 +39,42 @@ public class TextBlock extends TextSection {
 	
 	public void add(TextLine text, int offset)
 	{
-		textBlocks.add(text);
+		textSections.add(text);
 		text.setOffset(offset);
 	}
 	
 	public void remove(TextSection text)
 	{
-		for (TextSection currentBlock : textBlocks)
+		for (TextSection currentBlock : textSections)
 		{
 			if (currentBlock.equals(text))
-				textBlocks.remove(currentBlock);
+				textSections.remove(currentBlock);
 		}
 	}
 	
-	public Vector<TextSection> blocks()
+	public Vector<TextSection> sections()
 	{
-		return textBlocks;
+		return textSections;
 	}
 	
-	public Boolean IsDocument()
+	//TODO: Change to isMultiLine and return result based on content (instead of type)
+	public Boolean isBlock()
 	{
 		return true;
 	}
 
 	@Override
 	int width() {
-		if (textBlocks.size() == 0)
+		if (textSections.size() == 0)
 			return 0;
 		
 		int minPosition = Integer.MAX_VALUE;
 		int maxPosition = Integer.MIN_VALUE;
-		for (TextSection currentBlock : textBlocks)
+		for (TextSection current : textSections)
 		{
-			minPosition = Math.min(minPosition, currentBlock.offset());
-			maxPosition = Math.max(maxPosition, currentBlock.offset() + currentBlock.width());
+			minPosition = Math.min(minPosition, current.offset());
+			maxPosition = Math.max(maxPosition, current.offset() + current.width());
 		}
-		return maxPosition - minPosition + 1;
+		return maxPosition - minPosition;
 	}
 }

@@ -34,7 +34,7 @@ public abstract class TextSection {
 		return false;
 	}
 	
-	public Boolean IsDocument()
+	public Boolean isBlock()
 	{
 		return false;
 	}
