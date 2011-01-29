@@ -63,7 +63,7 @@ public class Justifier {
 			}
 			else if (textBlock.isBlock())
 			{
-				addDocument((TextBlock)textBlock);
+				addBlock((TextBlock)textBlock);
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public class Justifier {
 		result.add(aLine, offset);		
 	}
 	
-	public void addDocument(TextBlock bunchOfLines)
+	public void addBlock(TextBlock bunchOfLines)
 	{
 		if (arrangement == Arrangement.AllLeft)
 			this.leftJustify(bunchOfLines);
@@ -142,40 +142,39 @@ public class Justifier {
 		}
 	}
 
-	void leftJustify(TextBlock sourceDocument)
+	void leftJustify(TextBlock sourceBlock)
 	{
-	    this.joinTextBlocksFrom(sourceDocument, 0);
+	    this.joinContentsOf(sourceBlock, 0);
 	}
 	
-	void rightJustify(TextBlock sourceDocument)
+	void rightJustify(TextBlock sourceBlock)
 	{
 		int currentResultLength = result.width();
-	 	int sourceLength = sourceDocument.width();
+	 	int sourceLength = sourceBlock.width();
 	
 		int sourceAdjustmentForFinalLength = 0;
 		if (currentResultLength < sourceLength)
 	    {
-		    adjustResultSequencesBy(sourceLength - currentResultLength);
+		    this.adjustResultSequencesBy(sourceLength - currentResultLength);
 	    }
 		else
 		{
 			sourceAdjustmentForFinalLength = currentResultLength - sourceLength;
 		}
-	    joinTextBlocksFrom(sourceDocument, sourceAdjustmentForFinalLength);
+	    joinContentsOf(sourceBlock, sourceAdjustmentForFinalLength);
 	}
 
-	void spread(TextBlock sourceDocument)
+	void spread(TextBlock sourceBlock)
 	{
-	    int originalLength = result.width();
-	    this.joinTextBlocksFrom(sourceDocument, originalLength);
+	    int currentWidth = result.width();
+	    this.joinContentsOf(sourceBlock, currentWidth);
 	}
 	
-	void joinTextBlocksFrom(TextBlock sourceDocument, int offsetAdjustment)
+	void joinContentsOf(TextBlock sourceBlock, int offsetAdjustment)
 	{
-		for (TextSection sourceBlock : sourceDocument.sections())
+		for (TextSection sourceItem : sourceBlock.sections())
 		{
-			sourceDocument.remove(sourceBlock);
-			TextLine line = (TextLine) sourceBlock;
+			TextLine line = (TextLine) sourceItem;
 			result.add(line, offsetAdjustment + line.offset());
 		}
 	}
