@@ -21,6 +21,11 @@ public class Justifier {
 		this.resetResultDocument();
 	}
 	
+	public void changeArrangementTo(Arrangement newJoinMethod)
+	{
+		arrangement = newJoinMethod;
+	}
+	
 	public void resetResultDocument()
 	{
 		result = new TextBlock();
@@ -32,14 +37,14 @@ public class Justifier {
 		return lines;
 	}
 		
-	public TextBlock document()
+	public TextBlock resultBlock()
 	{
 		return result;
 	}
 	
 	public void execute()
 	{
-	    this.joinAllFrom(this.selectedLines(), this.document().settings().nextName());
+	    this.joinAllFrom(this.selectedLines(), this.resultBlock().settings().nextName());
 	}
 
 	public void joinAllFrom(Vector<TextSection> textToAlign, String defaultName)
@@ -47,8 +52,8 @@ public class Justifier {
 		this.nameResultDocumentUsing(textToAlign, defaultName);
 	
 		// Remove the Selected lines from the document if they are already in there
-		for (TextSection currentBlock : textToAlign)
-			this.document().remove(currentBlock);
+		for (TextSection currentText : textToAlign)
+			this.resultBlock().remove(currentText);
 	
 		for (TextSection textBlock : textToAlign)
 		{

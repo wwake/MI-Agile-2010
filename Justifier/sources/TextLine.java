@@ -22,7 +22,13 @@ public class TextLine extends TextSection {
 	}
 
 	@Override
-	int width() {
+	public int width() {
 		return text.length();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return text;
 	}
 }

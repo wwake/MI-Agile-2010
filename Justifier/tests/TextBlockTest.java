@@ -20,6 +20,11 @@ public class TextBlockTest {
 	}
 
 	@Test
+	public void testAdd() {
+		fail("Not yet implemented");
+	}
+
+	@Test
 	public void testWidthIsZeroIfBlockIsEmpty() {
 		
 		assertEquals(0, new TextBlock().width());
@@ -51,24 +56,16 @@ public class TextBlockTest {
 	}
 
 	@Test
-	public void testSetHowCreatedSetsCorrectly() {
-
+	public void testIsNameUserCreatedIsTrueOnlyForUserEnteredCreationType() {
 		TextBlock block = new TextBlock();
 		block.setHowCreated(TextLine.CreationType.Imported);
-		assertEquals(TextLine.CreationType.Imported, block.creationType());
+		assertFalse(block.isNameUserCreated());
 		
 		block.setHowCreated(TextLine.CreationType.AppCreated);
-		assertEquals(TextLine.CreationType.AppCreated, block.creationType());
-	}
-
-	@Test
-	public void testIsNameUserCreated() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAdd() {
-		fail("Not yet implemented");
+		assertFalse(block.isNameUserCreated());
+		
+		block.setHowCreated(TextLine.CreationType.UserEntered);
+		assertTrue(block.isNameUserCreated());
 	}
 
 	@Test
