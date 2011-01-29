@@ -21,7 +21,28 @@ public class TextBlockTest {
 
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		TextBlock block = new TextBlock();
+		TextLine aLine = new TextLine("whatever");
+		block.add(aLine, 0);
+		assertEquals(1, block.sections().size());
+		assertEquals(
+				"line value should be the same", 
+				aLine.toString(), 
+				block.sections().firstElement().toString());
+//		assertNotSame("stored line should not be same object", aLine, block.sections().firstElement());
+
+		block.add(new TextLine("other"), 0);
+		assertEquals(2, block.sections().size());
+	}
+	
+	@Test
+	public void testAddUpdatesOffsetOnAddedLine() {
+		TextBlock block = new TextBlock();
+		TextLine aLine = new TextLine("whatever");
+		block.add(aLine, 33);
+		assertEquals(1, block.sections().size());
+		assertEquals(33, block.sections().firstElement().offset());
+//		assertEquals("original line offest should not have changed", 0, aLine.offset());
 	}
 
 	@Test
@@ -69,7 +90,24 @@ public class TextBlockTest {
 	}
 
 	@Test
-	public void testRemove() {
-		fail("Not yet implemented");
+	public void testRemoveDoesNothingIfGivenLineIsNotThere() {
+		TextBlock block = new TextBlock();
+		TextLine aLine = new TextLine("whatever");
+		TextLine notThere = new TextLine("some other line");
+		block.add(aLine, 0);
+		block.remove(notThere);
+		assertEquals(1, block.sections().size());
+	}
+
+	@Test
+	public void testRemoveDeletesLineFromCollection() {
+		TextBlock block = new TextBlock();
+		TextLine aLine = new TextLine("whatever");
+		TextLine anotherLine = new TextLine("some other line");
+		block.add(aLine, 0);
+		block.add(anotherLine, 5);
+		block.remove(aLine);
+		assertEquals(1, block.sections().size());
+		assertEquals(anotherLine, block.sections().firstElement());
 	}
 }

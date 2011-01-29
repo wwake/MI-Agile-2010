@@ -57,7 +57,7 @@ public class Justifier {
 	
 		for (TextSection textBlock : textToAlign)
 		{
-			if (textBlock.IsLine())
+			if (textBlock.isLine())
 			{
 				this.addLine((TextLine)textBlock);
 			}

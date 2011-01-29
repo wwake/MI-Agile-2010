@@ -29,7 +29,7 @@ public abstract class TextSection {
 		return name;
 	}
 
-	public Boolean IsLine()
+	public Boolean isLine()
 	{
 		return false;
 	}

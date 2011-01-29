@@ -16,7 +16,7 @@ public class TextLine extends TextSection {
 		text = theText;
 	}
 	
-	public Boolean IsLine()
+	public Boolean isLine()
 	{
 		return true;
 	}

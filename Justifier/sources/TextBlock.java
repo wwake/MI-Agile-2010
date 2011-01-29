@@ -46,7 +46,7 @@ public class TextBlock extends TextSection {
 	public void remove(TextSection text)
 	{
 		if (textSections.contains(text))
-			textSections.remove(textSections);
+			textSections.remove(text);
 	}
 	
 	public Vector<TextSection> sections()
