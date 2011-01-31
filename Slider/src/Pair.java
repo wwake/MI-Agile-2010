@@ -3,7 +3,6 @@ public class Pair extends Piece {
 
 	private Piece part1;
 	private Piece part2;
-	int offset;
 
 	public Pair(String string1, String string2, int blanksToLeftOfString2) {
 		this(new OffsetWord(string1, 0), new OffsetWord(string2, 0), blanksToLeftOfString2);
@@ -12,12 +11,10 @@ public class Pair extends Piece {
 	public Pair(Piece part1, Piece part2, int charsToLeft) {
 		this.part1 = part1;
 		this.part2 = part2;
-		offset = charsToLeft;
 		if (charsToLeft > 0)
 			this.part2 = new RightShifter(part2, charsToLeft);
 		else if (charsToLeft < 0)
 			this.part1 = new RightShifter(part1, -charsToLeft);
-		offset = 0;
 	}
 
 	public OffsetWord first() {
@@ -25,7 +22,7 @@ public class Pair extends Piece {
 	}
 
 	public OffsetWord last() {
-		return new OffsetWord(part2.last(), offset);
+		return part2.last();
 	}
 
 	public int width() {
@@ -33,11 +30,11 @@ public class Pair extends Piece {
 	}
 
 	public int maxIndex() {
-		return Math.max(part1.maxIndex(), offset + part2.maxIndex());
+		return Math.max(part1.maxIndex(), part2.maxIndex());
 	}
 
 	public String column(int c) {
-		return part1.column(c).concat(part2.column(c - offset));
+		return part1.column(c).concat(part2.column(c));
 	}
 
 	public Piece part1() {
@@ -50,7 +47,7 @@ public class Pair extends Piece {
 
 	public OffsetWord get(int row) {
 		if (row < part1.height()) return part1.get(row);
-		return new OffsetWord(part2.get(row - part1.height()), offset);
+		return part2.get(row - part1.height());
 	}
 
 	public int height() {
@@ -70,6 +67,6 @@ public class Pair extends Piece {
 	}
 	
 	public Piece flipped() {
-		return new PieceFlipper(this);
+		return new Flipper(this);
 	}
 }
