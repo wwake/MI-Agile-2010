@@ -8,7 +8,6 @@ public class RightShifterTest {
 	public void shiftsFirstWordRight() {
 		RightShifter shifter = new RightShifter(new OffsetWord("foo", 0), 2);
 		assertEquals("..foo", shifter.first().toString());
-		assertEquals(0, shifter.minIndex());
 	}
 	
 	@Test

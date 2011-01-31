@@ -11,32 +11,6 @@ public class PairTest {
 		assertEquals("fbo\n..over", pair.toString());
 	}
 	
-	@Test
-	public void whenOffsetIsPositive_MinIndexIs0() {
-		Pair pair = new Pair("fxo", "over", 2);
-		assertEquals(0, pair.minIndex());
-	}
-	
-	@Test 
-	public void MinIndexIsZeroEvenWhenOffsetIsNeg() {
-		Pair pair = new Pair("roo", "over", -3);
-		assertEquals(0, pair.minIndex());	
-	}
-	
-	@Test 
-	public void minIndexIsZeroEvenWhenObtainedFromFirstPart() {
-		Pair pair1 = new Pair("rno", "over", -2);
-		Pair pair2 = new Pair(pair1, new OffsetWord("other"), 3);
-		assertEquals(0, pair2.minIndex());		
-	}
-
-	@Test 
-	public void minIndexIsZeroWhenObtainedFromSecondPart() {
-		Pair pair1 = new Pair("rno", "over", 2);
-		Pair pair2 = new Pair(pair1, new OffsetWord("other"), -1);
-		assertEquals(0, pair2.minIndex());		
-	}
-	
 	@Test 
 	public void whenFirstTermIsLongest_WidthIsFirstWordLength() {
 		Pair pair = new Pair("verylong", "short", 1);

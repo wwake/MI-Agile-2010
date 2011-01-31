@@ -34,7 +34,7 @@ public class PieceScorer {
 	public int score(Piece piece) {
 		int result = 0;
 		
-		for (int i = piece.minIndex(); i <= piece.maxIndex(); i++) 
+		for (int i = 0; i <= piece.maxIndex(); i++) 
 			result += this.score(piece.column(i));
 
 		return result;

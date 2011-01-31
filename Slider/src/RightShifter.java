@@ -21,11 +21,6 @@ public class RightShifter extends Piece {
 	}
 
 	@Override
-	public int minIndex() {
-		return 0;
-	}
-
-	@Override
 	public int width() {
 		return piece.width();
 	}

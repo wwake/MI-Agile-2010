@@ -28,10 +28,6 @@ public class Pair extends Piece {
 		return new OffsetWord(part2.last(), offset);
 	}
 
-	public int minIndex() {
-		return Math.min(part1.minIndex(), offset + part2.minIndex());
-	}
-
 	public int width() {
 		return part1.width();
 	}

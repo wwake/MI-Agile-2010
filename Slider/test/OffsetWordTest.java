@@ -58,11 +58,6 @@ public class OffsetWordTest {
 	}
 	
 	@Test
-	public void minIndexIs0() {
-		assertEquals(0, new OffsetWord("foo").minIndex());
-	}
-	
-	@Test
 	public void widthIsWordWidth() {
 		assertEquals(3, new OffsetWord("bar").width());
 	}

@@ -2,13 +2,13 @@
 public abstract class Piece {
 	public abstract OffsetWord first();
 	public abstract OffsetWord last();
-	public abstract int minIndex();
 	public abstract int width();
 	public abstract int maxIndex();
 	public abstract String column(int c);
 	public abstract OffsetWord get(int i);
 	public abstract int height();
 	public abstract Piece flipped();
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (! (obj instanceof Piece)) return false;

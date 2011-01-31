@@ -18,10 +18,6 @@ public class PieceFlipper extends Piece {
 		return base.width();
 	}
 
-	public int minIndex() {
-		return base.minIndex();
-	}
-
 	public int maxIndex() {
 		return base.maxIndex();
 	}
