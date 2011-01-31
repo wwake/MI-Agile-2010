@@ -1,4 +1,4 @@
-public class OffsetWord implements Piece {
+public class OffsetWord extends Piece {
 	private final String word;
 	private final int offset;
 
@@ -87,7 +87,11 @@ public class OffsetWord implements Piece {
 		return 1;
 	}
 
-	public Piece reversed() {
+	public Piece flipped() {
 		return this; 
+	}
+
+	public int offset() {
+		return offset;
 	}
 }

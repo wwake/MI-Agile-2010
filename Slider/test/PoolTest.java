@@ -81,11 +81,28 @@ public class PoolTest {
 		Pair pair2 = new Pair("d", "g", 0);
 		Set<Piece> allCombos = poolCloser.allCombos(pair1, pair2);
 		assertTrue(allCombos.contains(new Pair(pair1, pair2, 0)));							// ac-dg
-		assertTrue(allCombos.contains(new Pair(pair1, pair2.reversed(), 0)));				// ac-gd
-		assertTrue(allCombos.contains(new Pair(pair1.reversed(), pair2, 0)));				// ca-dg
-		assertTrue(allCombos.contains(new Pair(pair1.reversed(), pair2.reversed(), 0)));	// ca-gd
+		assertTrue(allCombos.contains(new Pair(pair1, pair2.flipped(), 0)));				// ac-gd
+		assertTrue(allCombos.contains(new Pair(pair1.flipped(), pair2, 0)));				// ca-dg
+		assertTrue(allCombos.contains(new Pair(pair1.flipped(), pair2.flipped(), 0)));	// ca-gd
 	}
 	
+	@Test
+	public void allSlidePositions() {
+		Pool poolCloser = new Pool(fewerGapsIsBetterScorer);
+		Piece piece1 = new OffsetWord("sol", 0);
+		Piece piece2 = new OffsetWord("do", 0);
+
+		Set<Piece> allSlides = poolCloser.allSlidePositions(piece1, piece2);
+		
+		assertEquals(4, allSlides.size());
+		System.out.println(allSlides);
+		assertTrue(allSlides.contains(new Pair("sol", "do", 0)));
+		assertTrue(allSlides.contains(new Pair("sol", "do", 1)));
+		assertTrue(allSlides.contains(new Pair("sol", "do", 2)));
+		assertTrue(allSlides.contains(new Pair(new OffsetWord("sol", 1), new OffsetWord("do", 0), 0)));
+	}
+
+
 	@Test
 	public void bestInSet() {
 		Pool poolCloser = new Pool(fewerGapsIsBetterScorer);
@@ -94,4 +111,5 @@ public class PoolTest {
 		Set<Piece> allCombos = poolCloser.allCombos(pair1, pair2);
 		assertEquals(new Pair(pair1, pair2, 0), poolCloser.bestIn(allCombos));
 	}
+	
 }

@@ -8,7 +8,7 @@ public class PairTest {
 		Pair pair = new Pair("fbo", "over", 2);
 		assertEquals(new OffsetWord("fbo", 0), pair.first());
 		assertEquals(new OffsetWord("over", 2), pair.last());
-		assertEquals("fbo\nover", pair.toString());
+		assertEquals("fbo\n..over", pair.toString());
 	}
 	
 	@Test
@@ -18,23 +18,23 @@ public class PairTest {
 	}
 	
 	@Test 
-	public void whenOffsetIsNeg_MinIndexIsNeg() {
+	public void MinIndexIsZeroEvenWhenOffsetIsNeg() {
 		Pair pair = new Pair("roo", "over", -3);
-		assertEquals(-3, pair.minIndex());	
+		assertEquals(0, pair.minIndex());	
 	}
 	
 	@Test 
-	public void minIndexRecursesOnFirstPart() {
+	public void minIndexIsZeroEvenWhenObtainedFromFirstPart() {
 		Pair pair1 = new Pair("rno", "over", -2);
 		Pair pair2 = new Pair(pair1, new OffsetWord("other"), 3);
-		assertEquals(-2, pair2.minIndex());		
+		assertEquals(0, pair2.minIndex());		
 	}
 
 	@Test 
-	public void minIndexRecursesOnSecondPart() {
+	public void minIndexIsZeroWhenObtainedFromSecondPart() {
 		Pair pair1 = new Pair("rno", "over", 2);
 		Pair pair2 = new Pair(pair1, new OffsetWord("other"), -1);
-		assertEquals(-1, pair2.minIndex());		
+		assertEquals(0, pair2.minIndex());		
 	}
 	
 	@Test 
@@ -115,7 +115,7 @@ public class PairTest {
 	}
 
 	@Test
-	public void pairsCanBeReversed() {
+	public void pairsCanBeFlipped() {
 		Pair pair1 = new Pair(new Pair("fizz", "soda", 1), new Pair("bang", "gar", 3), 2);
 		
 		assertEquals(
@@ -123,6 +123,13 @@ public class PairTest {
 						new Pair(new OffsetWord("gar", 5), new OffsetWord("bang", 2), 0), 
 						new Pair(new OffsetWord("soda", 1), new OffsetWord("fizz", 0), 0), 
 						0), 
-				pair1.reversed());
+				pair1.flipped());
+	}
+	
+	@Test
+	public void canOffsetLeftOrRight() {
+		Pair pair = new Pair("tou", "can", -2);
+		assertEquals("..tou", pair.get(0).toString());
+		assertEquals("can", pair.get(1).toString());
 	}
 }

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class PairReverserTest {
 	Pair pair = new Pair("fish", "sticks", 3);
-	Piece reversed = pair.reversed();
+	Piece reversed = pair.flipped();
 
 	@Test
 	public void reversedPairResemblesOriginal() {
@@ -16,7 +16,7 @@ public class PairReverserTest {
 	
 	@Test
 	public void reversedPairIsSameAsOriginal() {
-		assertEquals(pair, reversed.reversed());
+		assertEquals(pair, reversed.flipped());
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class PairReverserTest {
 	@Test
 	public void toStringGetsReversedByWord() {
 		Pair original = new Pair(new Pair("ab", "cd", 1), new Pair("efef", "ghgh", 2), 1);
-		assertEquals("...ghgh\n.efef\n.cd\nab", original.reversed().toString());
+		assertEquals("...ghgh\n.efef\n.cd\nab", original.flipped().toString());
 	}
 	
 	@Test
@@ -48,8 +48,8 @@ public class PairReverserTest {
 								new Pair(new OffsetWord("cd", 1), new OffsetWord("ab"), 0), 
 								0), 
 						0);
-		assertEquals(original.reversed(), expected);
-		assertEquals(expected, original.reversed());
-		assertEquals(expected.hashCode(), original.reversed().hashCode());
+		assertEquals(original.flipped(), expected);
+		assertEquals(expected, original.flipped());
+		assertEquals(expected.hashCode(), original.flipped().hashCode());
 	}
 }

@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +27,7 @@ public class Main {
 
 		output = new JTextArea(20,15);
 		output.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	    output.setFont(new Font("Courier New", Font.PLAIN, 16));
 
 		go = makeButton();
 		

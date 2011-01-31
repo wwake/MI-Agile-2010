@@ -95,6 +95,6 @@ public class OffsetWordTest {
 	@Test
 	public void wordReversedIsItself() {
 		OffsetWord word = new OffsetWord("blink", 3);
-		assertEquals(word, word.reversed());
+		assertEquals(word, word.flipped());
 	}
 }

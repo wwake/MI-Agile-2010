@@ -1,18 +1,23 @@
 
-public class Pair implements Piece {
+public class Pair extends Piece {
 
 	private Piece part1;
 	private Piece part2;
 	int offset;
 
-	public Pair(String string1, String string2, int charsToLeft) {
-		this(new OffsetWord(string1, 0), new OffsetWord(string2, 0), charsToLeft);
+	public Pair(String string1, String string2, int blanksToLeftOfString2) {
+		this(new OffsetWord(string1, 0), new OffsetWord(string2, 0), blanksToLeftOfString2);
 	}
 
 	public Pair(Piece part1, Piece part2, int charsToLeft) {
 		this.part1 = part1;
 		this.part2 = part2;
 		offset = charsToLeft;
+		if (charsToLeft > 0)
+			this.part2 = new RightShifter(part2, charsToLeft);
+		else if (charsToLeft < 0)
+			this.part1 = new RightShifter(part1, -charsToLeft);
+		offset = 0;
 	}
 
 	public OffsetWord first() {
@@ -58,32 +63,17 @@ public class Pair implements Piece {
 	
 	@Override
 	public String toString() {
-		return part1.toString() + "\n" + part2.toString();
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (! (obj instanceof Piece)) return false;
+		StringBuffer result = new StringBuffer();
+		result.append(get(0));
 		
-		Piece that = (Piece) obj;
-		
-		if (this.height() != that.height()) return false;
-		for (int i = 0; i < height(); i++) {
-			if (!this.get(i).equals(that.get(i)))
-				return false;
+		for (int i = 1; i < height(); i++) {
+			result.append('\n');
+			result.append(get(i));
 		}
-		return true;
+		return result.toString();
 	}
 	
-	@Override
-	public int hashCode() {
-		int result = 0;
-		for (int i = 0; i < height(); i++)
-			result ^= get(i).hashCode();
-		return result;
-	}
-
-	public Piece reversed() {
-		return new PairReverser(this);
+	public Piece flipped() {
+		return new PieceFlipper(this);
 	}
 }

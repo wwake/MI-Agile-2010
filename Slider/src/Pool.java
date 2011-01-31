@@ -62,9 +62,9 @@ public class Pool {
 	public Set<Piece> allCombos(Pair pair1, Pair pair2) {
 		Set<Piece> result = new HashSet<Piece>();
 		result.add(new Pair(pair1, pair2, 0));
-		result.add(new Pair(pair1, pair2.reversed(), 0));
-		result.add(new Pair(pair1.reversed(), pair2, 0));
-		result.add(new Pair(pair1.reversed(), pair2.reversed(), 0));
+		result.add(new Pair(pair1, pair2.flipped(), 0));
+		result.add(new Pair(pair1.flipped(), pair2, 0));
+		result.add(new Pair(pair1.flipped(), pair2.flipped(), 0));
 		return result;
 	}
 
@@ -81,5 +81,28 @@ public class Pool {
 		}
 		
 		return bestResult;
+	}
+
+	public Set<Piece> allSlidePositions(Piece piece1, Piece piece2) {
+		Set<Piece> result = new HashSet<Piece>();
+	
+		OffsetWord lastFromPiece1 = piece1.last();
+		int offset1 = lastFromPiece1.offset();
+
+		OffsetWord firstFromPiece2 = piece2.first();
+		int offset2 = firstFromPiece2.offset();
+		
+		for (int i = 0; i < lastFromPiece1.width(); i++) {
+			Pair pair = new Pair(piece1, piece2, offset1 + i);
+			result.add(pair);
+		}
+		
+		for (int i = 1; i < firstFromPiece2.width(); i++) {
+			Pair pair = new Pair(piece1, piece2, offset2 - i);
+			result.add(pair);
+			System.out.println("adding2 = " + pair);
+		}
+
+		return result;
 	}
 }
