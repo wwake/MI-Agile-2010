@@ -29,12 +29,12 @@ public abstract class TextSection {
 		return name;
 	}
 
-	public Boolean IsLine()
+	public Boolean isLine()
 	{
 		return false;
 	}
 	
-	public Boolean IsDocument()
+	public Boolean isBlock()
 	{
 		return false;
 	}

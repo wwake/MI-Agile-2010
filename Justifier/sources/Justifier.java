@@ -21,6 +21,11 @@ public class Justifier {
 		this.resetResultDocument();
 	}
 	
+	public void changeArrangementTo(Arrangement newJoinMethod)
+	{
+		arrangement = newJoinMethod;
+	}
+	
 	public void resetResultDocument()
 	{
 		result = new TextBlock();
@@ -32,14 +37,14 @@ public class Justifier {
 		return lines;
 	}
 		
-	public TextBlock document()
+	public TextBlock resultBlock()
 	{
 		return result;
 	}
 	
 	public void execute()
 	{
-	    this.joinAllFrom(this.selectedLines(), this.document().settings().nextName());
+	    this.joinAllFrom(this.selectedLines(), this.resultBlock().settings().nextName());
 	}
 
 	public void joinAllFrom(Vector<TextSection> textToAlign, String defaultName)
@@ -47,18 +52,18 @@ public class Justifier {
 		this.nameResultDocumentUsing(textToAlign, defaultName);
 	
 		// Remove the Selected lines from the document if they are already in there
-		for (TextSection currentBlock : textToAlign)
-			this.document().remove(currentBlock);
+		for (TextSection currentText : textToAlign)
+			this.resultBlock().remove(currentText);
 	
 		for (TextSection textBlock : textToAlign)
 		{
-			if (textBlock.IsLine())
+			if (textBlock.isLine())
 			{
 				this.addLine((TextLine)textBlock);
 			}
-			else if (textBlock.IsDocument())
+			else if (textBlock.isBlock())
 			{
-				addDocument((TextBlock)textBlock);
+				addBlock((TextBlock)textBlock);
 			}
 		}
 	}
@@ -85,7 +90,7 @@ public class Justifier {
 		result.add(aLine, offset);		
 	}
 	
-	public void addDocument(TextBlock bunchOfLines)
+	public void addBlock(TextBlock bunchOfLines)
 	{
 		if (arrangement == Arrangement.AllLeft)
 			this.leftJustify(bunchOfLines);
@@ -102,7 +107,7 @@ public class Justifier {
 		
 		for (TextSection textBlock : linesToAlign)
 		{
-			if (textBlock.IsDocument())
+			if (textBlock.isBlock())
 			{
 				TextBlock inputDoc = (TextBlock) textBlock;
 				if (inputDoc.isNameUserCreated())
@@ -131,46 +136,45 @@ public class Justifier {
 
 	void adjustResultSequencesBy(int offsetAdjustment)
 	{
-		for(TextSection block : result.blocks())
+		for(TextSection block : result.sections())
 		{
 			block.setOffset(block.offset() + offsetAdjustment);
 		}
 	}
 
-	void leftJustify(TextBlock sourceDocument)
+	void leftJustify(TextBlock sourceBlock)
 	{
-	    this.joinTextBlocksFrom(sourceDocument, 0);
+	    this.joinContentsOf(sourceBlock, 0);
 	}
 	
-	void rightJustify(TextBlock sourceDocument)
+	void rightJustify(TextBlock sourceBlock)
 	{
 		int currentResultLength = result.width();
-	 	int sourceLength = sourceDocument.width();
+	 	int sourceLength = sourceBlock.width();
 	
 		int sourceAdjustmentForFinalLength = 0;
 		if (currentResultLength < sourceLength)
 	    {
-		    adjustResultSequencesBy(sourceLength - currentResultLength);
+		    this.adjustResultSequencesBy(sourceLength - currentResultLength);
 	    }
 		else
 		{
 			sourceAdjustmentForFinalLength = currentResultLength - sourceLength;
 		}
-	    joinTextBlocksFrom(sourceDocument, sourceAdjustmentForFinalLength);
+	    joinContentsOf(sourceBlock, sourceAdjustmentForFinalLength);
 	}
 
-	void spread(TextBlock sourceDocument)
+	void spread(TextBlock sourceBlock)
 	{
-	    int originalLength = result.width();
-	    this.joinTextBlocksFrom(sourceDocument, originalLength);
+	    int currentWidth = result.width();
+	    this.joinContentsOf(sourceBlock, currentWidth);
 	}
 	
-	void joinTextBlocksFrom(TextBlock sourceDocument, int offsetAdjustment)
+	void joinContentsOf(TextBlock sourceBlock, int offsetAdjustment)
 	{
-		for (TextSection sourceBlock : sourceDocument.blocks())
+		for (TextSection sourceItem : sourceBlock.sections())
 		{
-			sourceDocument.remove(sourceBlock);
-			TextLine line = (TextLine) sourceBlock;
+			TextLine line = (TextLine) sourceItem;
 			result.add(line, offsetAdjustment + line.offset());
 		}
 	}

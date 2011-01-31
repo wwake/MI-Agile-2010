@@ -16,13 +16,19 @@ public class TextLine extends TextSection {
 		text = theText;
 	}
 	
-	public Boolean IsLine()
+	public Boolean isLine()
 	{
 		return true;
 	}
 
 	@Override
-	int width() {
+	public int width() {
 		return text.length();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return text;
 	}
 }
