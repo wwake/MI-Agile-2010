@@ -92,7 +92,6 @@ public class PairTest {
 		assertEquals(new OffsetWord("z", 3), pair.get(1));
 	}
 	
-	
 	@Test
 	public void equalsAndHashCodeDependOnWordsAndOffsets() {
 		Pair pair1a = new Pair("foo", "bar", 3);

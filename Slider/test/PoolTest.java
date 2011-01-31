@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
@@ -92,10 +93,10 @@ public class PoolTest {
 		Piece piece1 = new OffsetWord("sol", 0);
 		Piece piece2 = new OffsetWord("do", 0);
 
-		Set<Piece> allSlides = poolCloser.allSlidePositions(piece1, piece2);
+		Set<Piece> allSlides = new HashSet<Piece>();
+		poolCloser.allSlidePositions(piece1, piece2, allSlides);
 		
 		assertEquals(4, allSlides.size());
-		System.out.println(allSlides);
 		assertTrue(allSlides.contains(new Pair("sol", "do", 0)));
 		assertTrue(allSlides.contains(new Pair("sol", "do", 1)));
 		assertTrue(allSlides.contains(new Pair("sol", "do", 2)));

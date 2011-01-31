@@ -83,9 +83,7 @@ public class Pool {
 		return bestResult;
 	}
 
-	public Set<Piece> allSlidePositions(Piece piece1, Piece piece2) {
-		Set<Piece> result = new HashSet<Piece>();
-	
+	public void allSlidePositions(Piece piece1, Piece piece2, Set<Piece> result) {
 		OffsetWord lastFromPiece1 = piece1.last();
 		int offset1 = lastFromPiece1.offset();
 
@@ -100,9 +98,6 @@ public class Pool {
 		for (int i = 1; i < firstFromPiece2.width(); i++) {
 			Pair pair = new Pair(piece1, piece2, offset2 - i);
 			result.add(pair);
-			System.out.println("adding2 = " + pair);
 		}
-
-		return result;
 	}
 }

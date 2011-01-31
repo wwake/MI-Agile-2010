@@ -1,6 +1,5 @@
 
 public class PieceFlipper extends Piece {
-
 	private final Piece base;
 
 	public PieceFlipper(Piece base) {

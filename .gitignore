@@ -2,4 +2,4 @@
 .metadata
 .plugins
 .class
-
+*.class
