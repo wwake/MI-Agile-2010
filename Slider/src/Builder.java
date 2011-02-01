@@ -15,7 +15,7 @@ public class Builder {
 
 	public void build() {
 		while (pool.size() > 1) {
-			Pair best = pool.best();
+			Pair best = (Pair) pool.best();
 			pool.remove(best.part1());
 			pool.remove(best.part2());
 			pool.add(best);

@@ -70,9 +70,14 @@ public class PoolTest {
 	@Test 
 	public void bestCombo_WhenAThenB() {
 		Pool poolCloser = new Pool(fewerGapsIsBetterScorer);
-		Pair pair1 = new Pair("a", "c", 0);
-		Pair pair2 = new Pair("d", "g", 0);
-		assertEquals(new Pair(pair1, pair2, 0), poolCloser.bestCombo(pair1, pair2));
+		Piece pair1 = new Pair("a", "c", 0);
+		Piece pair2 = new Pair("d", "g", 0);
+
+		Set<Piece> possibilities = new HashSet<Piece>();
+		poolCloser.addCombo(pair1, pair2, possibilities);
+		
+		assertEquals(1, possibilities.size());
+		assertEquals(new Pair(pair1, pair2, 0), possibilities.toArray()[0]);
 	}
 
 	@Test

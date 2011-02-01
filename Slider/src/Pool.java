@@ -16,26 +16,20 @@ public class Pool {
 		pieces.add(piece);
 	}
 
-	public Pair best() {
-		int bestScore = -1;
-		Pair bestResult = null;
+	public Piece best() {
+		Set<Piece> possibilities = new HashSet<Piece>();
 		
 		for (int i = 0; i < pieces.size(); i++) 
-			for (int j = i+1; j < pieces.size(); j++) {
-				Pair bestCombo = bestCombo(this.get(i), this.get(j));
-				if (scorer.score(bestCombo) > bestScore) {
-					bestScore = scorer.score(bestCombo);
-					bestResult = bestCombo;
-				}
-			}
+			for (int j = i+1; j < pieces.size(); j++) 
+				addCombo(this.get(i), this.get(j), possibilities);
 		
-		return bestResult;
+		return bestIn(possibilities);
 	}
 
-	public Pair bestCombo(Piece piece1, Piece piece2) {
-		return new Pair(piece1, piece2, 0);
+	public void addCombo(Piece piece1, Piece piece2, Set<Piece> possibilities) {
+		Pair pair = new Pair(piece1, piece2, 0);
+		possibilities.add(pair);
 	}
-
 
 	public int size() {
 		return pieces.size();
@@ -100,4 +94,5 @@ public class Pool {
 			result.add(pair);
 		}
 	}
+
 }
