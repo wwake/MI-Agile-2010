@@ -6,11 +6,11 @@ public class Flipper extends Piece {
 		this.base = base;
 	}
 
-	public OffsetWord first() {
+	public IndentedWord first() {
 		return base.last();
 	}
 
-	public OffsetWord last() {
+	public IndentedWord last() {
 		return base.first();
 	}
 
@@ -26,7 +26,7 @@ public class Flipper extends Piece {
 		return new StringBuffer(base.column(c)).reverse().toString();
 	}
 
-	public OffsetWord get(int row) {
+	public IndentedWord get(int row) {
 		return base.get(base.height() - 1 - row);
 	}
 
@@ -36,17 +36,5 @@ public class Flipper extends Piece {
 
 	public Piece flipped() {
 		return base;
-	}
-
-	@Override
-	public String toString() {
-		if (height() == 0) return "";
-		StringBuffer result = new StringBuffer();
-		result.append(get(0));
-		for (int i = 1; i < height(); i++) {
-			result.append('\n');
-			result.append(get(i));
-		}
-		return result.toString();
 	}
 }

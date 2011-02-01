@@ -1,11 +1,11 @@
 
 public abstract class Piece {
-	public abstract OffsetWord first();
-	public abstract OffsetWord last();
+	public abstract IndentedWord first();
+	public abstract IndentedWord last();
 	public abstract int width();
 	public abstract int maxIndex();
 	public abstract String column(int c);
-	public abstract OffsetWord get(int i);
+	public abstract IndentedWord get(int i);
 	public abstract int height();
 	public abstract Piece flipped();
 	
@@ -29,4 +29,17 @@ public abstract class Piece {
 			result ^= get(i).hashCode();
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		if (height() == 0) return "";
+		StringBuffer result = new StringBuffer();
+		result.append(get(0));
+		for (int i = 1; i < height(); i++) {
+			result.append('\n');
+			result.append(get(i));
+		}
+		return result.toString();
+	}
+
 }

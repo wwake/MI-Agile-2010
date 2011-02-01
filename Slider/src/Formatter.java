@@ -6,7 +6,7 @@ public class Formatter {
 	public String format(Cluster cluster) {
 		StringBuffer result = new StringBuffer();
 		
-		List<OffsetWord> words = bracketWords(new OffsetWord(""), cluster, new OffsetWord(""));
+		List<IndentedWord> words = bracketWords(new IndentedWord(""), cluster, new IndentedWord(""));
 		
 		for (int i = 1; i < words.size() - 1; i++)
 			formatWord(result, words.get(i - 1), words.get(i), words.get(i + 1));
@@ -14,8 +14,8 @@ public class Formatter {
 		return result.toString();
 	}
 
-	private void formatWord(StringBuffer result, OffsetWord prevWord, OffsetWord thisWord, OffsetWord nextWord) {
-		for (int j = 0; j < thisWord.length(); j++) 
+	private void formatWord(StringBuffer result, IndentedWord prevWord, IndentedWord thisWord, IndentedWord nextWord) {
+		for (int j = 0; j < thisWord.width(); j++) 
 			result.append(charFor(prevWord.at(j), thisWord.at(j), nextWord.at(j)));
 
 		result.append('\n');
@@ -27,10 +27,10 @@ public class Formatter {
 		return thisCh == prevCh || thisCh == nextCh ? '-' : thisCh;
 	}
 
-	private List<OffsetWord> bracketWords(OffsetWord before, Cluster cluster, OffsetWord after) {
-		List<OffsetWord> words = new ArrayList<OffsetWord>();
+	private List<IndentedWord> bracketWords(IndentedWord before, Cluster cluster, IndentedWord after) {
+		List<IndentedWord> words = new ArrayList<IndentedWord>();
 		words.add(before);
-		for (OffsetWord word : cluster)
+		for (IndentedWord word : cluster)
 			words.add(word);
 		words.add(after);
 		return words;

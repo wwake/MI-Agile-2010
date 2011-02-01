@@ -6,7 +6,7 @@ public class Builder {
 	public Builder(String[] strings, PieceScorer scorer) {
 		pool = new Pool(scorer);
 		for (String string : strings)
-			pool.add(new OffsetWord(string));
+			pool.add(new IndentedWord(string));
 	}
 
 	public String row(int row) {

@@ -5,7 +5,7 @@ public class Pair extends Piece {
 	private Piece part2;
 
 	public Pair(String string1, String string2, int blanksToLeftOfString2) {
-		this(new OffsetWord(string1, 0), new OffsetWord(string2, 0), blanksToLeftOfString2);
+		this(new IndentedWord(string1, 0), new IndentedWord(string2, 0), blanksToLeftOfString2);
 	}
 
 	public Pair(Piece part1, Piece part2, int charsToLeft) {
@@ -17,11 +17,11 @@ public class Pair extends Piece {
 			this.part1 = new RightShifter(part1, -charsToLeft);
 	}
 
-	public OffsetWord first() {
+	public IndentedWord first() {
 		return part1.first();
 	}
 
-	public OffsetWord last() {
+	public IndentedWord last() {
 		return part2.last();
 	}
 
@@ -45,25 +45,13 @@ public class Pair extends Piece {
 		return part2;
 	}
 
-	public OffsetWord get(int row) {
+	public IndentedWord get(int row) {
 		if (row < part1.height()) return part1.get(row);
 		return part2.get(row - part1.height());
 	}
 
 	public int height() {
 		return part1.height() + part2.height();
-	}
-	
-	@Override
-	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append(get(0));
-		
-		for (int i = 1; i < height(); i++) {
-			result.append('\n');
-			result.append(get(i));
-		}
-		return result.toString();
 	}
 	
 	public Piece flipped() {

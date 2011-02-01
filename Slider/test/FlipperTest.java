@@ -41,10 +41,10 @@ public class FlipperTest {
 		Pair original = new Pair(new Pair("ab", "cd", 1), new Pair("efef", "ghgh", 2), 1);
 		Pair expected = 
 				new Pair(
-						new OffsetWord("ghgh", 3), 
+						new IndentedWord("ghgh", 3), 
 						new Pair(
-								new OffsetWord("efef", 1), 
-								new Pair(new OffsetWord("cd", 1), new OffsetWord("ab"), 0), 
+								new IndentedWord("efef", 1), 
+								new Pair(new IndentedWord("cd", 1), new IndentedWord("ab"), 0), 
 								0), 
 						0);
 		assertEquals(original.flipped(), expected);

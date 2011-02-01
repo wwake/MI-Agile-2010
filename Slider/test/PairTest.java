@@ -6,8 +6,8 @@ public class PairTest {
 	@Test
 	public void pairRemembersItsContents(){
 		Pair pair = new Pair("fbo", "over", 2);
-		assertEquals(new OffsetWord("fbo", 0), pair.first());
-		assertEquals(new OffsetWord("over", 2), pair.last());
+		assertEquals(new IndentedWord("fbo", 0), pair.first());
+		assertEquals(new IndentedWord("over", 2), pair.last());
 		assertEquals("fbo\n..over", pair.toString());
 	}
 	
@@ -25,7 +25,7 @@ public class PairTest {
 	
 	@Test
 	public void whenWordHasOffset_MaxIndexAccountsForIt() {
-		Pair pair = new Pair(new OffsetWord("bunny", 0), new OffsetWord("dog", 3), 0);
+		Pair pair = new Pair(new IndentedWord("bunny", 0), new IndentedWord("dog", 3), 0);
 		assertEquals(5, pair.maxIndex());
 	}
 	
@@ -52,18 +52,18 @@ public class PairTest {
 	@Test
 	public void pairGetsPositionBeforeAndAfterBreak() {
 		Pair pair1 = new Pair("ba", "bo", 0);
-		Pair pair2 = new Pair(pair1, new OffsetWord("foo"), 0);
+		Pair pair2 = new Pair(pair1, new IndentedWord("foo"), 0);
 		
-		assertEquals(new OffsetWord("ba"), pair2.get(0));
-		assertEquals(new OffsetWord("bo"), pair2.get(1));
-		assertEquals(new OffsetWord("foo"), pair2.get(2));
+		assertEquals(new IndentedWord("ba"), pair2.get(0));
+		assertEquals(new IndentedWord("bo"), pair2.get(1));
+		assertEquals(new IndentedWord("foo"), pair2.get(2));
 	}
 	
 	@Test
 	public void getHandlesOffsets() {
 		Pair pair = new Pair("a", "z", 3);
-		assertEquals(new OffsetWord("a", 0), pair.get(0));
-		assertEquals(new OffsetWord("z", 3), pair.get(1));
+		assertEquals(new IndentedWord("a", 0), pair.get(0));
+		assertEquals(new IndentedWord("z", 3), pair.get(1));
 	}
 	
 	@Test
@@ -73,8 +73,8 @@ public class PairTest {
 		Pair pairBothA = new Pair(pair1a, pair2a, 1);
 		
 		Pair pair1b = new Pair("foo", "bar", 3);
-		Pair pair2b = new Pair(pair1b, new OffsetWord("gab", 1), 0);
-		Pair pairBothB = new Pair(pair2b, new OffsetWord("job", 3), 2);
+		Pair pair2b = new Pair(pair1b, new IndentedWord("gab", 1), 0);
+		Pair pairBothB = new Pair(pair2b, new IndentedWord("job", 3), 2);
 		
 		assertEquals(pairBothA, pairBothB);
 		assertEquals(pairBothA.hashCode(), pairBothB.hashCode());
@@ -93,8 +93,8 @@ public class PairTest {
 		
 		assertEquals(
 				new Pair(
-						new Pair(new OffsetWord("gar", 5), new OffsetWord("bang", 2), 0), 
-						new Pair(new OffsetWord("soda", 1), new OffsetWord("fizz", 0), 0), 
+						new Pair(new IndentedWord("gar", 5), new IndentedWord("bang", 2), 0), 
+						new Pair(new IndentedWord("soda", 1), new IndentedWord("fizz", 0), 0), 
 						0), 
 				pair1.flipped());
 	}

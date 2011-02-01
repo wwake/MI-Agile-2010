@@ -13,35 +13,35 @@ public class FormatterTest {
 
 	@Test
 	public void formatsOneWordCluster() {
-		cluster.add(new OffsetWord("word"));
+		cluster.add(new IndentedWord("word"));
 
 		assertEquals("word\n", formatter.format(cluster));
 	}
 
 	@Test
 	public void formatsTwoWords() {
-		cluster.add(new OffsetWord("foo"));
-		cluster.add(new OffsetWord("bar"));
+		cluster.add(new IndentedWord("foo"));
+		cluster.add(new IndentedWord("bar"));
 		assertEquals("foo\nbar\n", formatter.format(cluster));
 	}
 
 	@Test
 	public void formatsIndentedWord() {
-		cluster.add(new OffsetWord("foo", 2));
+		cluster.add(new IndentedWord("foo", 2));
 		assertEquals("..foo\n", formatter.format(cluster));
 	}
 
 	@Test
 	public void overlappingLettersPrintDash() {
-		cluster.add(new OffsetWord("foo"));
-		cluster.add(new OffsetWord("fob"));
+		cluster.add(new IndentedWord("foo"));
+		cluster.add(new IndentedWord("fob"));
 		assertEquals("--o\n" + "--b\n", formatter.format(cluster));
 	}
 
 	@Test
 	public void overlappingLettersPrintDashTakingOffsetsIntoAccount() {
-		cluster.add(new OffsetWord("face", 0));
-		cluster.add(new OffsetWord("ace", 1));
+		cluster.add(new IndentedWord("face", 0));
+		cluster.add(new IndentedWord("ace", 1));
 		assertEquals("f---\n" + ".---\n", formatter.format(cluster));
 	}
 }

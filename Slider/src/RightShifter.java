@@ -1,39 +1,38 @@
 import java.util.Arrays;
 
 public class RightShifter extends Piece {
-
-	private final Piece piece;
+	private final Piece base;
 	private final int amountToShiftRight;
 
 	public RightShifter(Piece piece, int amountToShiftRight) {
-		this.piece = piece;
+		this.base = piece;
 		this.amountToShiftRight = amountToShiftRight;
 	}
 
 	@Override
-	public OffsetWord first() {
-		return new OffsetWord(piece.first(), amountToShiftRight);
+	public IndentedWord first() {
+		return new IndentedWord(base.first(), amountToShiftRight);
 	}
 
 	@Override
-	public OffsetWord last() {
-		return new OffsetWord(piece.last(), amountToShiftRight);
+	public IndentedWord last() {
+		return new IndentedWord(base.last(), amountToShiftRight);
 	}
 
 	@Override
 	public int width() {
-		return piece.width();
+		return base.width();
 	}
 
 	@Override
 	public int maxIndex() {
-		return amountToShiftRight + piece.maxIndex();
+		return amountToShiftRight + base.maxIndex();
 	}
 
 	@Override
 	public String column(int c) {
-		if (c < amountToShiftRight) return repeat('.', piece.height());
-		return piece.column(c - amountToShiftRight);
+		if (c < amountToShiftRight) return repeat('.', base.height());
+		return base.column(c - amountToShiftRight);
 	}
 
 	private String repeat(char ch, int count) {
@@ -43,17 +42,17 @@ public class RightShifter extends Piece {
 	}
 
 	@Override
-	public OffsetWord get(int i) {
-		return new OffsetWord(piece.get(i), amountToShiftRight);
+	public IndentedWord get(int i) {
+		return new IndentedWord(base.get(i), amountToShiftRight);
 	}
 
 	@Override
 	public int height() {
-		return piece.height();
+		return base.height();
 	}
 
 	@Override
 	public Piece flipped() {
-		return new RightShifter(piece.flipped(), amountToShiftRight);
+		return new RightShifter(base.flipped(), amountToShiftRight);
 	}
 }

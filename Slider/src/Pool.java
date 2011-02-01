@@ -84,11 +84,11 @@ public class Pool {
 	}
 
 	public void allSlidePositions(Piece piece1, Piece piece2, Set<Piece> result) {
-		OffsetWord lastFromPiece1 = piece1.last();
-		int offset1 = lastFromPiece1.offset();
+		IndentedWord lastFromPiece1 = piece1.last();
+		int offset1 = lastFromPiece1.indent();
 
-		OffsetWord firstFromPiece2 = piece2.first();
-		int offset2 = firstFromPiece2.offset();
+		IndentedWord firstFromPiece2 = piece2.first();
+		int offset2 = firstFromPiece2.indent();
 		
 		for (int i = 0; i < lastFromPiece1.width(); i++) {
 			Pair pair = new Pair(piece1, piece2, offset1 + i);

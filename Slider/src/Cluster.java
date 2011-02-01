@@ -3,30 +3,30 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Cluster implements Iterable<OffsetWord> {
-	List<OffsetWord> cluster = new ArrayList<OffsetWord>();
+public class Cluster implements Iterable<IndentedWord> {
+	List<IndentedWord> cluster = new ArrayList<IndentedWord>();
 
 	public int size() {
 		return cluster.size();
 	}
 
-	public void add(OffsetWord word) {
+	public void add(IndentedWord word) {
 		cluster.add(word);
 	}
 
-	public OffsetWord get(int index) {
+	public IndentedWord get(int index) {
 		return cluster.get(index);
 	}
 
-	public Iterator<OffsetWord> iterator() {
+	public Iterator<IndentedWord> iterator() {
 		return cluster.iterator();
 	}
 
-	public OffsetWord last() {
+	public IndentedWord last() {
 		return cluster.get(cluster.size() - 1);
 	}
 
-	public OffsetWord first() {
+	public IndentedWord first() {
 		return cluster.get(0);
 	}
 
@@ -38,9 +38,9 @@ public class Cluster implements Iterable<OffsetWord> {
 	}
 
 	public void shiftRight(int distance) {
-		List<OffsetWord> newCluster = new ArrayList<OffsetWord>();
+		List<IndentedWord> newCluster = new ArrayList<IndentedWord>();
 
-		for (OffsetWord word : cluster) 
+		for (IndentedWord word : cluster) 
 			newCluster.add(word.shiftRight(distance));
 
 		cluster = newCluster;

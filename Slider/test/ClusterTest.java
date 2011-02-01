@@ -5,8 +5,8 @@ import org.junit.Test;
 
 public class ClusterTest {
 	Cluster cluster = new Cluster();
-	OffsetWord foo = new OffsetWord("FOO");
-	OffsetWord bar = new OffsetWord("BAR");
+	IndentedWord foo = new IndentedWord("FOO");
+	IndentedWord bar = new IndentedWord("BAR");
 
 	@Test
 	public void clusterStartsEmpty() {

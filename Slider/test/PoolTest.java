@@ -30,18 +30,18 @@ public class PoolTest {
 	
 	private Pool poolWider;
 	
-	private OffsetWord word1;
-	private OffsetWord word2;
-	private OffsetWord word3;
-	private OffsetWord word4;
+	private IndentedWord word1;
+	private IndentedWord word2;
+	private IndentedWord word3;
+	private IndentedWord word4;
 
 	@Before
 	public void setUp() {
 		poolWider = new Pool(widerIsBetterScorer);
-		word1 = new OffsetWord("w");
-		word2 = new OffsetWord("wo");
-		word3 = new OffsetWord("wor");
-		word4 = new OffsetWord("word");
+		word1 = new IndentedWord("w");
+		word2 = new IndentedWord("wo");
+		word3 = new IndentedWord("wor");
+		word4 = new IndentedWord("word");
 
 		poolWider.add(word2);
 		poolWider.add(word4);
@@ -90,8 +90,8 @@ public class PoolTest {
 	@Test
 	public void allSlidePositions() {
 		Pool poolCloser = new Pool(fewerGapsIsBetterScorer);
-		Piece piece1 = new OffsetWord("sol", 0);
-		Piece piece2 = new OffsetWord("do", 0);
+		Piece piece1 = new IndentedWord("sol", 0);
+		Piece piece2 = new IndentedWord("do", 0);
 
 		Set<Piece> allSlides = new HashSet<Piece>();
 		poolCloser.allSlidePositions(piece1, piece2, allSlides);
@@ -100,7 +100,7 @@ public class PoolTest {
 		assertTrue(allSlides.contains(new Pair("sol", "do", 0)));
 		assertTrue(allSlides.contains(new Pair("sol", "do", 1)));
 		assertTrue(allSlides.contains(new Pair("sol", "do", 2)));
-		assertTrue(allSlides.contains(new Pair(new OffsetWord("sol", 1), new OffsetWord("do", 0), 0)));
+		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol", 1), new IndentedWord("do", 0), 0)));
 	}
 
 
