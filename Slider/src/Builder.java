@@ -1,10 +1,14 @@
+import java.util.Set;
+
 
 public class Builder {
 
 	private Pool pool;
+	private final PieceScorer scorer;
 
 	public Builder(String[] strings, PieceScorer scorer) {
-		pool = new Pool(scorer);
+		this.scorer = scorer;
+		pool = new Pool();
 		for (String string : strings)
 			pool.add(new IndentedWord(string));
 	}
@@ -15,7 +19,9 @@ public class Builder {
 
 	public void build() {
 		while (pool.size() > 1) {
-			Pair best = (Pair) pool.best();
+			Set<Piece> possibilities = pool.best();
+			Pair best = (Pair) scorer.bestIn(possibilities);
+
 			pool.remove(best.part1());
 			pool.remove(best.part2());
 			pool.add(best);

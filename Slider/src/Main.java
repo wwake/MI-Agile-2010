@@ -55,7 +55,6 @@ public class Main {
 				builder.build();
 				output.setText(builder.result());
 			}
-			
 		};
 		
 		button.addActionListener(listener);

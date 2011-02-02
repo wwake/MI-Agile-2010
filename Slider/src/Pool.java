@@ -4,29 +4,23 @@ import java.util.List;
 import java.util.Set;
 
 public class Pool {
-	private final PieceScorer scorer;
-
 	List<Piece> pieces = new ArrayList<Piece>();
 	
-	public Pool(PieceScorer scorer) {
-		this.scorer = scorer;
-	}
-
 	public void add(Piece piece) {
 		pieces.add(piece);
 	}
 
-	public Piece best() {
+	public Set<Piece> best() {
 		Set<Piece> possibilities = new HashSet<Piece>();
 		
 		for (int i = 0; i < pieces.size(); i++) 
 			for (int j = i+1; j < pieces.size(); j++) 
-				addCombo(this.get(i), this.get(j), possibilities);
+				addCombo(possibilities, this.get(i), this.get(j));
 		
-		return bestIn(possibilities);
+		return possibilities;
 	}
 
-	public void addCombo(Piece piece1, Piece piece2, Set<Piece> possibilities) {
+	public void addCombo(Set<Piece> possibilities, Piece piece1, Piece piece2) {
 		Pair pair = new Pair(piece1, piece2, 0);
 		possibilities.add(pair);
 	}
@@ -60,21 +54,6 @@ public class Pool {
 		result.add(new Pair(pair1.flipped(), pair2, 0));
 		result.add(new Pair(pair1.flipped(), pair2.flipped(), 0));
 		return result;
-	}
-
-	public Piece bestIn(Set<Piece> pieces) {
-		int bestScore = -1;
-		Piece bestResult = null;
-		
-		for (Piece piece : pieces) {
-			int score = scorer.score(piece);
-			if (score > bestScore) {
-				bestResult = piece;
-				bestScore = score;
-			}
-		}
-		
-		return bestResult;
 	}
 
 	public void allSlidePositions(Piece piece1, Piece piece2, Set<Piece> result) {

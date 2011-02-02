@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class PieceScorer {
 
 	public int score(String string) {
@@ -38,5 +40,20 @@ public class PieceScorer {
 			result += this.score(piece.column(i));
 
 		return result;
+	}
+
+	public Piece bestIn(Set<Piece> pieces) {
+		int bestScore = -1;
+		Piece bestResult = null;
+		
+		for (Piece piece : pieces) {
+			int score = score(piece);
+			if (score > bestScore) {
+				bestResult = piece;
+				bestScore = score;
+			}
+		}
+		
+		return bestResult;
 	}
 }
