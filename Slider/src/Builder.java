@@ -19,7 +19,7 @@ public class Builder {
 
 	public void build() {
 		while (pool.size() > 1) {
-			Set<Piece> possibilities = pool.best();
+			Set<Piece> possibilities = pool.candidates();
 			Pair best = (Pair) scorer.bestIn(possibilities);
 
 			pool.remove(best.part1());

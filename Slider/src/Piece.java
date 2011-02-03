@@ -22,12 +22,14 @@ public abstract class Piece {
 		}
 		return true;
 	}
+	
 	@Override
 	public int hashCode() {
-		int result = 0;
-		for (int i = 0; i < height(); i++)
-			result ^= get(i).hashCode();
-		return result;
+		return toString().hashCode();
+//		int result = 0;
+//		for (int i = 0; i < height(); i++)
+//			result ^= get(i).hashCode();
+//		return result;
 	}
 	
 	@Override

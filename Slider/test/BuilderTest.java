@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class BuilderTest {
 	}
 
 	@Test
-	public void foo() {
+	public void foo() {  //TODO
 		String[] strings = new String[] {"wo", "wor", "w", "word"};
 		Builder builder = new Builder(strings, new PieceScorer());
 		builder.build();
@@ -44,7 +45,10 @@ public class BuilderTest {
 		Pool poolCloser = new Pool();
 		Pair pair1 = new Pair("a", "c", 0);
 		Pair pair2 = new Pair("d", "g", 0);
-		Set<Piece> allCombos = poolCloser.allCombos(pair1, pair2);
-		assertEquals(new Pair(pair1, pair2, 0), fewerGapsIsBetterScorer.bestIn(allCombos));
+		
+		
+		Set<Piece> candidates = new HashSet<Piece>();
+		poolCloser.allCombos(candidates, pair1, pair2);
+		assertEquals(new Pair(pair1, pair2, 0), fewerGapsIsBetterScorer.bestIn(candidates));
 	}
 }

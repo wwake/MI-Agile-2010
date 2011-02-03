@@ -38,8 +38,17 @@ public class PoolTest {
 
 	@Test 
 	public void bestMatches() {
-		Set<Piece> possibilities = poolWider.best();
-		assertEquals(6, possibilities.size());
+		Pool pool = new Pool();
+		pool.add(new Pair("a", "b", 0));
+		pool.add(new Pair("c", "d", 0));
+		pool.add(new Pair("e", "f", 0));
+		
+		Set<Piece> candidates = pool.candidates();
+
+		int numberOfPossiblePairs = 3;
+		int waysToArrangeAPair = 4;
+		
+		assertEquals(numberOfPossiblePairs * waysToArrangeAPair, candidates.size());
 	}
 	
 	@Test
@@ -47,29 +56,19 @@ public class PoolTest {
 		assertEquals("wo\nword\nwor\nw\n", poolWider.toString());
 	}
 	
-	@Test 
-	public void bestCombo_WhenAThenB() {
-		Pool poolCloser = new Pool();
-		Piece pair1 = new Pair("a", "c", 0);
-		Piece pair2 = new Pair("d", "g", 0);
-
-		Set<Piece> possibilities = new HashSet<Piece>();
-		poolCloser.addCombo(possibilities, pair1, pair2);
-		
-		assertEquals(1, possibilities.size());
-		assertEquals(new Pair(pair1, pair2, 0), possibilities.toArray()[0]);
-	}
-
 	@Test
 	public void allCombosContains4BaseCombinations() {
 		Pool poolCloser = new Pool();
 		Pair pair1 = new Pair("a", "c", 0);
 		Pair pair2 = new Pair("d", "g", 0);
-		Set<Piece> allCombos = poolCloser.allCombos(pair1, pair2);
-		assertTrue(allCombos.contains(new Pair(pair1, pair2, 0)));							// ac-dg
-		assertTrue(allCombos.contains(new Pair(pair1, pair2.flipped(), 0)));				// ac-gd
-		assertTrue(allCombos.contains(new Pair(pair1.flipped(), pair2, 0)));				// ca-dg
-		assertTrue(allCombos.contains(new Pair(pair1.flipped(), pair2.flipped(), 0)));		// ca-gd
+		
+		Set<Piece> candidates = new HashSet<Piece>();
+		poolCloser.allCombos(candidates, pair1, pair2);
+		
+		assertTrue(candidates.contains(new Pair(pair1, pair2, 0)));							// ac-dg
+		assertTrue(candidates.contains(new Pair(pair1, pair2.flipped(), 0)));				// ac-gd
+		assertTrue(candidates.contains(new Pair(pair1.flipped(), pair2, 0)));				// ca-dg
+		assertTrue(candidates.contains(new Pair(pair1.flipped(), pair2.flipped(), 0)));		// ca-gd
 	}
 	
 	@Test
