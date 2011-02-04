@@ -134,7 +134,7 @@ public class Justifier {
 		}
 	}
 
-	void adjustResultSequencesBy(int offsetAdjustment)
+	protected void adjustResultSequencesBy(int offsetAdjustment)
 	{
 		for(TextSection block : result.sections())
 		{
@@ -142,12 +142,12 @@ public class Justifier {
 		}
 	}
 
-	void leftJustify(TextBlock sourceBlock)
+	protected void leftJustify(TextBlock sourceBlock)
 	{
 	    this.joinContentsOf(sourceBlock, 0);
 	}
 	
-	void rightJustify(TextBlock sourceBlock)
+	protected void rightJustify(TextBlock sourceBlock)
 	{
 		int currentResultLength = result.width();
 	 	int sourceLength = sourceBlock.width();
@@ -164,13 +164,13 @@ public class Justifier {
 	    joinContentsOf(sourceBlock, sourceAdjustmentForFinalLength);
 	}
 
-	void spread(TextBlock sourceBlock)
+	protected void spread(TextBlock sourceBlock)
 	{
 	    int currentWidth = result.width();
 	    this.joinContentsOf(sourceBlock, currentWidth);
 	}
 	
-	void joinContentsOf(TextBlock sourceBlock, int offsetAdjustment)
+	protected void joinContentsOf(TextBlock sourceBlock, int offsetAdjustment)
 	{
 		for (TextSection sourceItem : sourceBlock.sections())
 		{
