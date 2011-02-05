@@ -17,16 +17,16 @@ public class Justifier {
 	public Justifier(Vector<TextSection> theLines, Arrangement howToJoin)
 	{
 		lines = theLines;
-		arrangement = howToJoin;
-		this.resetResultDocument();
+		this.changeArrangementTo(howToJoin);
 	}
 	
 	public void changeArrangementTo(Arrangement newJoinMethod)
 	{
 		arrangement = newJoinMethod;
+		this.resetResult();
 	}
 	
-	public void resetResultDocument()
+	public void resetResult()
 	{
 		result = new TextBlock();
 		result.setHowCreated(TextLine.CreationType.AppCreated);
@@ -49,9 +49,9 @@ public class Justifier {
 
 	public void joinAllFrom(Vector<TextSection> textToAlign, String defaultName)
 	{
-		this.nameResultDocumentUsing(textToAlign, defaultName);
+		this.nameResultUsing(textToAlign, defaultName);
 	
-		// Remove the Selected lines from the document if they are already in there
+		// Remove the Selected lines from the result if they are already in there
 		for (TextSection currentText : textToAlign)
 			this.resultBlock().remove(currentText);
 	
@@ -90,33 +90,33 @@ public class Justifier {
 		result.add(aLine, offset);		
 	}
 	
-	public void addBlock(TextBlock bunchOfLines)
+	public void addBlock(TextBlock aBlock)
 	{
 		if (arrangement == Arrangement.AllLeft)
-			this.leftJustify(bunchOfLines);
+			this.leftJustify(aBlock);
 		else if (arrangement == Arrangement.AllRight)
-			this.rightJustify(bunchOfLines);
+			this.rightJustify(aBlock);
 		else if (arrangement == Arrangement.EndToEnd)
-			this.spread(bunchOfLines);		
+			this.append(aBlock);		
 	}
 	
-	public void nameResultDocumentUsing(Vector<TextSection> linesToAlign, String defaultName)
+	public void nameResultUsing(Vector<TextSection> stuffToAlign, String defaultName)
 	{
 		Vector<String> userGeneratedNames = new Vector<String>();
 		Vector<String> appGeneratedNames = new Vector<String>();
 		
-		for (TextSection textBlock : linesToAlign)
+		for (TextSection currentSection : stuffToAlign)
 		{
-			if (textBlock.isBlock())
+			if (currentSection.isBlock())
 			{
-				TextBlock inputDoc = (TextBlock) textBlock;
-				if (inputDoc.isNameUserCreated())
+				TextBlock block = (TextBlock) currentSection;
+				if (block.isNameUserCreated())
 				{
-					userGeneratedNames.add(inputDoc.getName());
+					userGeneratedNames.add(block.getName());
 				}
 				else
 				{
-					appGeneratedNames.add(inputDoc.getName());
+					appGeneratedNames.add(block.getName());
 				}
 			}
 		}
@@ -164,7 +164,7 @@ public class Justifier {
 	    joinContentsOf(sourceBlock, sourceAdjustmentForFinalLength);
 	}
 
-	protected void spread(TextBlock sourceBlock)
+	protected void append(TextBlock sourceBlock)
 	{
 	    int currentWidth = result.width();
 	    this.joinContentsOf(sourceBlock, currentWidth);

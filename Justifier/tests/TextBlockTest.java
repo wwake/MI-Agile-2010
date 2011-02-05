@@ -18,6 +18,31 @@ public class TextBlockTest {
 		assertEquals("Default creations type to Application", TextLine.CreationType.AppCreated, block.creationType());
 		assertNotNull("Should create default settings", block.settings());
 	}
+	
+	@Test
+	public void testIsEmptyIsTrueIfItContainsNoLines()
+	{
+		assertTrue(new TextBlock().isEmpty());
+	}
+	
+	@Test
+	public void testIsEmptyIsFalseIfItContainsAnyLines()
+	{
+		TextBlock block = new TextBlock();
+		block.add(new TextLine(""), 0); // there doesn't need to be anything in the line
+		assertFalse(block.isEmpty());
+	}
+	
+	@Test
+	public void testOffsetIsAlwaysZeroCannotBeChanged()
+	{
+		TextBlock block = new TextBlock();
+		assertEquals("Test setup: should be initialized to zero", 0, block.offset());
+		TextLine aLine = new TextLine("whatever");
+		block.add(aLine, 0);
+		block.setOffset(25);
+		assertEquals(0, block.offset());
+	}
 
 	@Test
 	public void testAdd() {
@@ -69,6 +94,28 @@ public class TextBlockTest {
 		block.add(line, 0);
 		block.add(lineOffsetRight, 100);
 		assertEquals(103, block.width());
+	}
+	
+	@Test
+	public void testWidthAccountsForNegativeOffsets()
+	{
+		TextLine line = new TextLine("1");
+		TextLine lineOffsetNegative = new TextLine("789");
+		TextBlock block = new TextBlock();
+		block.add(line, 0);
+		block.add(lineOffsetNegative, -3);
+		assertEquals(4, block.width());
+	}
+	
+	@Test
+	public void testWidthStartsAtZeroIfAllContainedLinesHavePositiveOffsets()
+	{
+		TextLine line1 = new TextLine("1");
+		TextLine line2 = new TextLine("789");
+		TextBlock block = new TextBlock();
+		block.add(line1, 5);
+		block.add(line2, 4);
+		assertEquals(7, block.width());
 	}
 
 	@Test

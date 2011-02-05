@@ -1,10 +1,32 @@
 
 public class Settings {
 
-	//TODO: Make this a singleton to mimic real app
+	private static Settings TheSettings;
+	
+	public static Settings getInstance()
+	{
+		if (TheSettings == null)
+		{
+			TheSettings = new Settings();
+		}
+		return TheSettings;
+	}
+	
+	protected static void resetInstance()
+	{
+		TheSettings = null;
+	}
+	
+	private int lastUsedNumber;
+
+	protected Settings()
+	{
+		lastUsedNumber = 0;
+	}
 	
 	public String nextName()
 	{
-		return "";
+		++lastUsedNumber;
+		return "block-" + lastUsedNumber;
 	}
 }

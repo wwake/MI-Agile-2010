@@ -16,12 +16,12 @@ public class Runner {
 		justifier.execute();
 		showOutput(justifier.resultBlock());
 		
-		justifier.resetResultDocument();
+		justifier.resetResult();
 		justifier.changeArrangementTo(Justifier.Arrangement.AllLeft);
 		justifier.execute();
 		showOutput(justifier.resultBlock());
 		
-		justifier.resetResultDocument();
+		justifier.resetResult();
 		justifier.changeArrangementTo(Justifier.Arrangement.EndToEnd);
 		justifier.execute();
 		showOutput(justifier.resultBlock());
