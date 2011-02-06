@@ -1,0 +1,9 @@
+git status          # status
+
+git commit -a        # Copies changed file to local repository
+git push             # Commits local repository to main repository
+
+git fetch            # Pulls main repository changes to local
+git merge origin/master   # merges changes
+
+
