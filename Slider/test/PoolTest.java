@@ -109,7 +109,6 @@ public class PoolTest {
 		
 		poolWider.allCombos(candidates , piece1, piece2);
 		
-		System.out.println(candidates);
-		assertEquals(9*4 + 5*4, candidates.size());
+		assertEquals(9 + 7 + 7 + 5, candidates.size());
 	}
 }

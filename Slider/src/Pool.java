@@ -25,10 +25,6 @@ public class Pool {
 	}
 
 	public void allCombos(Set<Piece> candidates, Piece piece1, Piece piece2) {
-//		candidates.add(new Pair(piece1, piece2, 0));
-//		candidates.add(new Pair(piece1, piece2.flipped(), 0));
-//		candidates.add(new Pair(piece1.flipped(), piece2, 0));
-//		candidates.add(new Pair(piece1.flipped(), piece2.flipped(), 0));
 		this.allSlidePositions(candidates, piece1, piece2);
 		this.allSlidePositions(candidates, piece1, piece2.flipped());
 		this.allSlidePositions(candidates, piece1.flipped(), piece2);
