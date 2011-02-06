@@ -105,4 +105,12 @@ public class PairTest {
 		assertEquals("..tou", pair.get(0).toString());
 		assertEquals("can", pair.get(1).toString());
 	}
+	
+	@Test
+	public void contains() {
+		Pair pair = new Pair(new Pair("foo", "bar", 1), new Pair("if", "flat", 1), 2);
+		assertTrue(pair.contains("bar"));
+		assertTrue(pair.contains("flat"));
+		assertFalse(pair.contains("oo"));
+	}
 }

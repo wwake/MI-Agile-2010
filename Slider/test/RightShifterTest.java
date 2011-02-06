@@ -40,4 +40,12 @@ public class RightShifterTest {
 						0),
 				shifter.flipped());
 	}
+	
+	@Test
+	public void contains() {
+		IndentedWord word = new IndentedWord("trash", 3);
+		RightShifter shifter = new RightShifter(word, 2);
+		assertTrue(shifter.contains("trash"));
+		assertFalse(shifter.contains("truck"));
+	}
 }

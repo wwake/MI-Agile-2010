@@ -78,7 +78,7 @@ public class PoolTest {
 		Piece piece2 = new IndentedWord("do", 0);
 
 		Set<Piece> allSlides = new HashSet<Piece>();
-		poolCloser.allSlidePositions(piece1, piece2, allSlides);
+		poolCloser.allSlidePositions(allSlides, piece1, piece2);
 		
 		assertEquals(4, allSlides.size());
 		assertTrue(allSlides.contains(new Pair("sol", "do", 0)));
@@ -86,4 +86,30 @@ public class PoolTest {
 		assertTrue(allSlides.contains(new Pair("sol", "do", 2)));
 		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol", 1), new IndentedWord("do", 0), 0)));
 	}	
+	
+	@Test
+	public void removeString() {
+		Pool pool = new Pool();
+		Pair pair1 = new Pair("foo", "bar", 3);
+		Pair pair2 = new Pair(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
+		pool.add(pair1);
+		pool.add(pair2);
+		
+		pool.remove("baz");
+		
+		assertEquals("foo\n...bar\n", pool.toString());
+	}
+	
+	@Test
+	public void addAllSlidePositions() {
+		Set<Piece> candidates = new HashSet<Piece>();
+		
+		Piece piece1 = new Pair("fish", "wishes", 0);
+		Piece piece2 = new Pair("iffy", "of", 0);
+		
+		poolWider.allCombos(candidates , piece1, piece2);
+		
+		System.out.println(candidates);
+		assertEquals(9*4 + 5*4, candidates.size());
+	}
 }

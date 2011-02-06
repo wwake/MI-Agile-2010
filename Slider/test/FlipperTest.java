@@ -51,4 +51,12 @@ public class FlipperTest {
 		assertEquals(expected, original.flipped());
 		assertEquals(expected.hashCode(), original.flipped().hashCode());
 	}
+	
+	@Test
+	public void contains() {
+		Pair pair = new Pair("foo", "gef", 2);
+		Flipper flipper = new Flipper(pair);
+		assertTrue(flipper.contains("foo"));
+		assertFalse(flipper.contains("fo"));
+	}
 }

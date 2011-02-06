@@ -25,13 +25,17 @@ public class Pool {
 	}
 
 	public void allCombos(Set<Piece> candidates, Piece piece1, Piece piece2) {
-		candidates.add(new Pair(piece1, piece2, 0));
-		candidates.add(new Pair(piece1, piece2.flipped(), 0));
-		candidates.add(new Pair(piece1.flipped(), piece2, 0));
-		candidates.add(new Pair(piece1.flipped(), piece2.flipped(), 0));
+//		candidates.add(new Pair(piece1, piece2, 0));
+//		candidates.add(new Pair(piece1, piece2.flipped(), 0));
+//		candidates.add(new Pair(piece1.flipped(), piece2, 0));
+//		candidates.add(new Pair(piece1.flipped(), piece2.flipped(), 0));
+		this.allSlidePositions(candidates, piece1, piece2);
+		this.allSlidePositions(candidates, piece1, piece2.flipped());
+		this.allSlidePositions(candidates, piece1.flipped(), piece2);
+		this.allSlidePositions(candidates, piece1.flipped(), piece2.flipped());
 	}
 
-	public void allSlidePositions(Piece piece1, Piece piece2, Set<Piece> result) {
+	public void allSlidePositions(Set<Piece> result, Piece piece1, Piece piece2) {
 		IndentedWord lastFromPiece1 = piece1.last();
 		int offset1 = lastFromPiece1.indent();
 
@@ -62,12 +66,21 @@ public class Pool {
 		StringBuffer result = new StringBuffer();
 		for (Object obj : array) {
 			result.append(obj.toString());
-			result.append('\n');
+			result.append("\n");
 		}
 		return result.toString();
 	}
 
 	public void remove(Piece piece) {
 		pieces.remove(piece);
+	}
+
+	public void remove(String string) {
+		for (Piece piece : pieces) {
+			if (piece.contains(string)) {
+				remove(piece);
+				return;
+			}
+		}
 	}
 }

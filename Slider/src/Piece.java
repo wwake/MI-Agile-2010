@@ -43,5 +43,5 @@ public abstract class Piece {
 		}
 		return result.toString();
 	}
-
+	public abstract boolean contains(String string);
 }

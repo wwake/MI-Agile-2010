@@ -55,4 +55,9 @@ public class RightShifter extends Piece {
 	public Piece flipped() {
 		return new RightShifter(base.flipped(), amountToShiftRight);
 	}
+
+	@Override
+	public boolean contains(String string) {
+		return base.contains(string);
+	}
 }

@@ -21,9 +21,8 @@ public class Builder {
 		while (pool.size() > 1) {
 			Set<Piece> possibilities = pool.candidates();
 			Pair best = (Pair) scorer.bestIn(possibilities);
-
-			pool.remove(best.part1());
-			pool.remove(best.part2());
+			pool.remove(best.part1().get(0).word());
+			pool.remove(best.part2().get(0).word());
 			pool.add(best);
 		}
 		// run through pool

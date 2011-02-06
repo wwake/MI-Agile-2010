@@ -90,4 +90,10 @@ public class IndentedWord extends Piece {
 	public Piece flipped() {
 		return this; 
 	}
+	
+	@Override
+	public boolean contains(String string) {
+		return word.equals(string);
+	}
+
 }

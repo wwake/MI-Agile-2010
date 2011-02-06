@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +21,9 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Slider Puzzle Maker - Copyright 2010, Bill Wake, All Rights Reserved");
 
-		JPanel panel = new JPanel(new BorderLayout()); 
+		JPanel panel = new JPanel(); 
+		BoxLayout layout = new BoxLayout(panel, BoxLayout.X_AXIS);
+		panel.setLayout(layout);
 		
 		input = new JTextArea(20, 15);
 		input.setBorder(BorderFactory.createLineBorder(Color.red, 3));
@@ -34,9 +37,9 @@ public class Main {
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		buttonPanel.add(go);
 		
-		panel.add(input, BorderLayout.WEST);
-		panel.add(buttonPanel, BorderLayout.CENTER);
-		panel.add(output, BorderLayout.EAST);
+		panel.add(input); 
+		panel.add(buttonPanel);
+		panel.add(output); 
 		
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 

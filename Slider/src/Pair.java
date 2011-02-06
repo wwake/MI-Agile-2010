@@ -57,4 +57,10 @@ public class Pair extends Piece {
 	public Piece flipped() {
 		return new Flipper(this);
 	}
+	
+	@Override
+	public boolean contains(String string) {
+		return part1.contains(string) || part2.contains(string);
+	}
+
 }

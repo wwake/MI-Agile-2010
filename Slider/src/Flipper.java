@@ -37,4 +37,10 @@ public class Flipper extends Piece {
 	public Piece flipped() {
 		return base;
 	}
+	
+	@Override
+	public boolean contains(String string) {
+		return base.contains(string);
+	}
+
 }
