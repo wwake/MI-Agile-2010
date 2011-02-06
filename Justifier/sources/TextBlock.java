@@ -12,9 +12,15 @@ public class TextBlock extends TextSection {
 	public TextBlock() 
 	{
 		super();
-		settings = new Settings();
+		settings = Settings.getInstance();
 		textSections = new Vector<TextSection>();
 		howCreated = TextLine.CreationType.AppCreated;
+	}
+	
+	@Override
+	public void setOffset(int newOffset)
+	{
+		// do nothing;
 	}
 	
 	public void setHowCreated(TextLine.CreationType creationMethod)
@@ -37,6 +43,11 @@ public class TextBlock extends TextSection {
 		return settings;
 	}
 	
+	public Boolean isEmpty()
+	{
+		return this.sections().isEmpty();
+	}
+	
 	public void add(TextLine text, int offset)
 	{
 		textSections.add(text);
@@ -54,7 +65,7 @@ public class TextBlock extends TextSection {
 		return textSections;
 	}
 	
-	//TODO: Change to isMultiLine and return result based on content (instead of type)
+	//TODO: Change to isMultiLine in clean version and return result based on content (instead of type)
 	public Boolean isBlock()
 	{
 		return true;
@@ -65,7 +76,7 @@ public class TextBlock extends TextSection {
 		if (textSections.size() == 0)
 			return 0;
 		
-		int minPosition = Integer.MAX_VALUE;
+		int minPosition = 0;
 		int maxPosition = Integer.MIN_VALUE;
 		for (TextSection current : textSections)
 		{
