@@ -5,7 +5,7 @@ public class Pair extends Piece {
 	private Piece part2;
 
 	public Pair(String string1, String string2, int blanksToLeftOfString2) {
-		this(new IndentedWord(string1, 0), new IndentedWord(string2, 0), blanksToLeftOfString2);
+		this(new IndentedWord(string1), new IndentedWord(string2), blanksToLeftOfString2);
 	}
 
 	public Pair(Piece part1, Piece part2, int charsToLeft) {
@@ -26,11 +26,7 @@ public class Pair extends Piece {
 	}
 
 	public int width() {
-		return part1.width();
-	}
-
-	public int maxIndex() {
-		return Math.max(part1.maxIndex(), part2.maxIndex());
+		return Math.max(part1.width(), part2.width());
 	}
 
 	public String column(int c) {

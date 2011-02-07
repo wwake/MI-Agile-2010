@@ -74,8 +74,8 @@ public class PoolTest {
 	@Test
 	public void allSlidePositions() {
 		Pool poolCloser = new Pool();
-		Piece piece1 = new IndentedWord("sol", 0);
-		Piece piece2 = new IndentedWord("do", 0);
+		Piece piece1 = new IndentedWord("sol");
+		Piece piece2 = new IndentedWord("do");
 
 		Set<Piece> allSlides = new HashSet<Piece>();
 		poolCloser.allSlidePositions(allSlides, piece1, piece2);

@@ -10,7 +10,7 @@ public class IndentedWord extends Piece {
 		this.word = word;
 		this.indent = offset;
 	}
-	
+
 	public IndentedWord(IndentedWord word, int moreIndent) {
 		this.word = word.word;
 		this.indent = word.indent + moreIndent;
@@ -19,14 +19,16 @@ public class IndentedWord extends Piece {
 	public String word() {
 		return word;
 	}
-	
+
 	public int indent() {
 		return indent;
 	}
 
 	public char at(int i) {
-		if (i < indent) return '.';
-		if (i < indent + word.length()) return word.charAt(i - indent);
+		if (i < indent)
+			return '.';
+		if (i < indent + word.length())
+			return word.charAt(i - indent);
 		return '.';
 	}
 
@@ -41,10 +43,11 @@ public class IndentedWord extends Piece {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (! (obj instanceof IndentedWord)) return false;
-		
+		if (!(obj instanceof IndentedWord))
+			return false;
+
 		IndentedWord that = (IndentedWord) obj;
-		
+
 		return this.word.equals(that.word) && this.indent == that.indent;
 	}
 
@@ -54,8 +57,9 @@ public class IndentedWord extends Piece {
 	}
 
 	public IndentedWord shiftRight(int distance) {
-		if (indent + distance < 0)							//TODO Do we care?
-			throw new UnsupportedOperationException("Can't shift OffsetWord left of offset 0");  
+		if (indent + distance < 0) // TODO Do we care?
+			throw new UnsupportedOperationException(
+					"Can only shift right (non-negative distance)");
 		return new IndentedWord(word, indent + distance);
 	}
 
@@ -69,10 +73,6 @@ public class IndentedWord extends Piece {
 
 	public int width() {
 		return indent + word.length();
-	}
-	
-	public int maxIndex() {
-		return indent + word.length() - 1;
 	}
 
 	public String column(int c) {
@@ -88,12 +88,11 @@ public class IndentedWord extends Piece {
 	}
 
 	public Piece flipped() {
-		return this; 
+		return this;
 	}
-	
+
 	@Override
 	public boolean contains(String string) {
 		return word.equals(string);
 	}
-
 }

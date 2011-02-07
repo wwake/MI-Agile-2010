@@ -21,12 +21,7 @@ public class RightShifter extends Piece {
 
 	@Override
 	public int width() {
-		return base.width();
-	}
-
-	@Override
-	public int maxIndex() {
-		return amountToShiftRight + base.maxIndex();
+		return amountToShiftRight + base.width();
 	}
 
 	@Override

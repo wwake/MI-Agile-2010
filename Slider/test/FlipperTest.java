@@ -9,7 +9,6 @@ public class FlipperTest {
 	@Test
 	public void reversedPairResemblesOriginal() {
 		assertEquals(pair.width(), reversed.width());
-		assertEquals(pair.maxIndex(), reversed.maxIndex());
 		assertEquals(pair.height(), reversed.height());
 	}
 	

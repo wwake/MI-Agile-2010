@@ -18,23 +18,11 @@ public class PairTest {
 	}
 	
 	@Test
-	public void whenOffsetIs0_MaxIndexIsMaxWordLength() {
-		Pair pair = new Pair("fox", "rabbit", 0);
-		assertEquals(5, pair.maxIndex());
+	public void whenPairHasOffset_WidthAccountsForIt() {
+		Pair pair = new Pair(new IndentedWord("bunny"), new IndentedWord("dog", 1), 3);
+		assertEquals(7, pair.width());
 	}
-	
-	@Test
-	public void whenWordHasOffset_MaxIndexAccountsForIt() {
-		Pair pair = new Pair(new IndentedWord("bunny", 0), new IndentedWord("dog", 3), 0);
-		assertEquals(5, pair.maxIndex());
-	}
-	
-	@Test
-	public void whenPairHasOffset_MaxIndexAccountsForIt() {
-		Pair pair = new Pair("beetle", "fox", 4);
-		assertEquals(6, pair.maxIndex());
-	}
-	
+		
 	@Test
 	public void pairGetsColumn() {
 		Pair pair = new Pair("of", "op", 0);

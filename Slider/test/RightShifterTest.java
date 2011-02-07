@@ -6,7 +6,7 @@ import org.junit.Test;
 public class RightShifterTest {
 	@Test
 	public void shiftsFirstWordRight() {
-		RightShifter shifter = new RightShifter(new IndentedWord("foo", 0), 2);
+		RightShifter shifter = new RightShifter(new IndentedWord("foo"), 2);
 		assertEquals("..foo", shifter.first().toString());
 	}
 	
@@ -15,8 +15,7 @@ public class RightShifterTest {
 		Pair pair = new Pair("foo", "bard", 0);
 		RightShifter shifter = new RightShifter(pair, 1);
 		assertEquals(".bard", shifter.last().toString());	
-		assertEquals(pair.width(), shifter.width());
-		assertEquals(4, shifter.maxIndex());
+		assertEquals(5, shifter.width());
 		assertEquals(".foo", shifter.get(0).toString());
 	}
 	

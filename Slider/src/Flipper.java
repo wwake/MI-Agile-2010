@@ -18,10 +18,6 @@ public class Flipper extends Piece {
 		return base.width();
 	}
 
-	public int maxIndex() {
-		return base.maxIndex();
-	}
-
 	public String column(int c) {
 		return new StringBuffer(base.column(c)).reverse().toString();
 	}

@@ -8,6 +8,7 @@ public class IndentedWordTest {
 	@Test
 	public void wordKnowsCharacters() {
 		IndentedWord word = new IndentedWord("fob", 1);
+		assertEquals(1, word.indent());
 		assertEquals("fob", word.word());
 		assertEquals(4, word.width());
 		assertEquals('.', word.at(0));

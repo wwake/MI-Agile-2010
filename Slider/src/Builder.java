@@ -1,8 +1,6 @@
 import java.util.Set;
 
-
 public class Builder {
-
 	private Pool pool;
 	private final PieceScorer scorer;
 
@@ -25,14 +23,9 @@ public class Builder {
 			pool.remove(best.part2().get(0).word());
 			pool.add(best);
 		}
-		// run through pool
-		// pick best 2
-		// remove individuals, replace with combo
-		// repeat until 1 item left
 	}
 	
 	public String result() {
 		return pool.toString();
 	}
-
 }
