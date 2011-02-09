@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public abstract class Piece {
 	public abstract IndentedWord first();
@@ -7,7 +8,8 @@ public abstract class Piece {
 	public abstract IndentedWord get(int i);
 	public abstract int height();
 	public abstract Piece flipped();
-	
+	public abstract boolean contains(String string);
+		
 	@Override
 	public boolean equals(Object obj) {
 		if (! (obj instanceof Piece)) return false;
@@ -39,5 +41,9 @@ public abstract class Piece {
 		return result.toString();
 	}
 	
-	public abstract boolean contains(String string);
+	protected String repeat(char ch, int count) {
+		char[] chars = new char[count];
+		Arrays.fill(chars, ch);
+		return String.valueOf(chars);
+	}
 }

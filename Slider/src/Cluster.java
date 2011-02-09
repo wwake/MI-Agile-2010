@@ -41,7 +41,7 @@ public class Cluster implements Iterable<IndentedWord> {
 		List<IndentedWord> newCluster = new ArrayList<IndentedWord>();
 
 		for (IndentedWord word : cluster) 
-			newCluster.add(word.shiftRight(distance));
+			newCluster.add(new IndentedWord(word, distance));
 
 		cluster = newCluster;
 	}

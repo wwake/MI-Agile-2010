@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -34,7 +34,7 @@ public class PieceScorerTest {
 	
 	@Test
 	public void scoreOfPiece_IsSumOfColumns() {
-		Piece piece = new Pair("ABC", "BDA", 1);
+		Piece piece = new Pair(new IndentedWord("ABC"), new IndentedWord("BDA", 1));
 		assertEquals(1 + 4 + 2 + 1, scorer.score(piece));
 	}
 }

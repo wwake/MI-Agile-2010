@@ -1,20 +1,10 @@
-
 public class Pair extends Piece {
-
 	private Piece part1;
 	private Piece part2;
 
-	public Pair(String string1, String string2, int blanksToLeftOfString2) {
-		this(new IndentedWord(string1), new IndentedWord(string2), blanksToLeftOfString2);
-	}
-
-	public Pair(Piece part1, Piece part2, int charsToLeft) {
+	public Pair(Piece part1, Piece part2) {
 		this.part1 = part1;
 		this.part2 = part2;
-		if (charsToLeft > 0)
-			this.part2 = new RightShifter(part2, charsToLeft);
-		else if (charsToLeft < 0)
-			this.part1 = new RightShifter(part1, -charsToLeft);
 	}
 
 	public IndentedWord first() {
@@ -42,21 +32,21 @@ public class Pair extends Piece {
 	}
 
 	public IndentedWord get(int row) {
-		if (row < part1.height()) return part1.get(row);
+		if (row < part1.height())
+			return part1.get(row);
 		return part2.get(row - part1.height());
 	}
 
 	public int height() {
 		return part1.height() + part2.height();
 	}
-	
+
 	public Piece flipped() {
 		return new Flipper(this);
 	}
-	
+
 	@Override
 	public boolean contains(String string) {
 		return part1.contains(string) || part2.contains(string);
 	}
-
 }

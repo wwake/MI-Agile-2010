@@ -1,4 +1,6 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -12,7 +14,7 @@ public class RightShifterTest {
 	
 	@Test
 	public void shiftsLastWordRight() {
-		Pair pair = new Pair("foo", "bard", 0);
+		Pair pair = new Pair(new IndentedWord("foo"), new IndentedWord("bard"));
 		RightShifter shifter = new RightShifter(pair, 1);
 		assertEquals(".bard", shifter.last().toString());	
 		assertEquals(5, shifter.width());
@@ -21,7 +23,7 @@ public class RightShifterTest {
 	
 	@Test
 	public void shiftedTextHasRightColumnsAndHeight() {
-		Pair pair = new Pair("wish", "fishes", 0);
+		Pair pair = new Pair(new IndentedWord("wish"), new IndentedWord("fishes"));
 		RightShifter shifter = new RightShifter(pair, 3);
 		assertEquals("..", shifter.column(0));
 		assertEquals("wf", shifter.column(3));
@@ -30,13 +32,12 @@ public class RightShifterTest {
 	
 	@Test
 	public void flippedShiftedTextIsShiftOfFlip() {
-		Pair pair = new Pair("wish", "fishes", 0);
+		Pair pair = new Pair(new IndentedWord("wish"), new IndentedWord("fishes"));
 		RightShifter shifter = new RightShifter(pair, 3);
 		assertEquals(
 				new Pair(
 						new IndentedWord("fishes", 3),
-						new IndentedWord("wish", 3),
-						0),
+						new IndentedWord("wish", 3)),
 				shifter.flipped());
 	}
 	

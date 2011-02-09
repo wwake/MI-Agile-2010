@@ -5,18 +5,18 @@ import java.util.Set;
 
 public class Pool {
 	List<Piece> pieces = new ArrayList<Piece>();
-	
+
 	public void add(Piece piece) {
 		pieces.add(piece);
 	}
 
 	public Set<Piece> candidates() {
 		Set<Piece> candidates = new HashSet<Piece>();
-		
-		for (int i = 0; i < pieces.size(); i++) 
-			for (int j = i+1; j < pieces.size(); j++) 
+
+		for (int i = 0; i < pieces.size(); i++)
+			for (int j = i + 1; j < pieces.size(); j++)
 				addCombo(candidates, this.get(i), this.get(j));
-		
+
 		return candidates;
 	}
 
@@ -37,14 +37,15 @@ public class Pool {
 
 		IndentedWord firstFromPiece2 = piece2.first();
 		int offset2 = firstFromPiece2.indent();
-		
+
 		for (int i = 0; i < lastFromPiece1.width(); i++) {
-			Pair pair = new Pair(piece1, piece2, offset1 + i);
+			Pair pair = new Pair(piece1, new RightShifter(piece2, offset1 + i));
 			result.add(pair);
 		}
-		
+
 		for (int i = 1; i < firstFromPiece2.width(); i++) {
-			Pair pair = new Pair(piece1, piece2, offset2 - i);
+			int offset = offset2 - i;
+			Pair pair = offset > 0 ? new Pair(piece1, new RightShifter(piece2, offset)) : new Pair(new RightShifter(piece1, -offset), piece2);
 			result.add(pair);
 		}
 	}
@@ -56,8 +57,8 @@ public class Pool {
 	public Piece get(int i) {
 		return pieces.get(i);
 	}
-	
-	public String toString() {		
+
+	public String toString() {
 		Object[] array = pieces.toArray();
 		StringBuffer result = new StringBuffer();
 		for (Object obj : array) {

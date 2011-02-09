@@ -34,21 +34,6 @@ public class IndentedWordTest {
 		assertFalse(new IndentedWord("skip", 2).equals(new Object()));
 	}
 	
-	@Test public void wordCanShiftRight() {
-		IndentedWord word = new IndentedWord("CAT", 1);
-		assertEquals(new IndentedWord("CAT", 4), word.shiftRight(3));
-	}
-	
-	@Test public void negativeShiftIsOKIfOffsetStaysAtLeast0() {
-		assertEquals(new IndentedWord("CAT", 1), new IndentedWord("CAT", 3).shiftRight(-2));
-		assertEquals(new IndentedWord("CAT"), new IndentedWord("CAT", 3).shiftRight(-3));
-	}
-	
-	@Test(expected=UnsupportedOperationException.class)
-	public void negativeShiftThrowsExceptionIfOffsetGoesBelow0() {
-		new IndentedWord("CAT", 1).shiftRight(-2);
-	}
-	
 	@Test 
 	public void buildWordFromWordAddsOffset() {
 		assertEquals(new IndentedWord("CAT", 5), new IndentedWord(new IndentedWord("CAT", 2), 3));

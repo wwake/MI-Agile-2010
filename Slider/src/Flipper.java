@@ -1,4 +1,3 @@
-
 public class Flipper extends Piece {
 	private final Piece base;
 
@@ -38,5 +37,4 @@ public class Flipper extends Piece {
 	public boolean contains(String string) {
 		return base.contains(string);
 	}
-
 }

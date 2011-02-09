@@ -16,6 +16,10 @@ public class IndentedWord extends Piece {
 		this.indent = word.indent + moreIndent;
 	}
 
+	public IndentedWord shiftRight(int distance) {
+		return new IndentedWord(this, distance);
+	}
+
 	public String word() {
 		return word;
 	}
@@ -34,11 +38,7 @@ public class IndentedWord extends Piece {
 
 	@Override
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		for (int i = 0; i < indent; i++)
-			result.append('.');
-		result.append(word);
-		return result.toString();
+		return repeat('.', indent) + word;
 	}
 
 	@Override
@@ -54,13 +54,6 @@ public class IndentedWord extends Piece {
 	@Override
 	public int hashCode() {
 		return word.hashCode() ^ indent;
-	}
-
-	public IndentedWord shiftRight(int distance) {
-		if (indent + distance < 0) // TODO Do we care?
-			throw new UnsupportedOperationException(
-					"Can only shift right (non-negative distance)");
-		return new IndentedWord(word, indent + distance);
 	}
 
 	public IndentedWord first() {

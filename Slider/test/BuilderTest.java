@@ -1,4 +1,5 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,12 +13,13 @@ public class BuilderTest {
 			Piece previous = piece.first();
 			for (int i = 1; i < piece.height(); i++) {
 				Piece current = piece.get(i);
-				sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0) - current.toString().charAt(0));
+				sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
+						- current.toString().charAt(0));
 				previous = current;
 			}
 			return 10000 - sumOfFirstLetterGaps;
 		}
-	};	
+	};
 
 	PieceScorer scorer = new PieceScorer() {
 		public int score(Piece piece) {
@@ -25,30 +27,30 @@ public class BuilderTest {
 			return pair.part1().width() + pair.part2().width();
 		}
 	};
-	
-	@Test public void poolWithOneItemIsResult() {
-		Builder builder = new Builder(new String[]{"only"}, new PieceScorer());
+
+	@Test
+	public void poolWithOneItemIsResult() {
+		Builder builder = new Builder(new String[] { "only" }, new PieceScorer());
 		builder.build();
 		assertEquals("only\n", builder.result());
 	}
 
 	@Test
-	public void foo() {  //TODO
-		String[] strings = new String[] {"wo", "wor", "w", "word"};
+	public void foo() { // TODO
+		String[] strings = new String[] { "wo", "wor", "w", "word" };
 		Builder builder = new Builder(strings, new PieceScorer());
 		builder.build();
 		assertTrue(builder.row(0).startsWith("b") || builder.row(0).startsWith("f"));
 	}
-	
+
 	@Test
 	public void bestInSet() {
 		Pool poolCloser = new Pool();
-		Pair pair1 = new Pair("a", "c", 0);
-		Pair pair2 = new Pair("d", "g", 0);
-		
-		
+		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
+		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
+
 		Set<Piece> candidates = new HashSet<Piece>();
 		poolCloser.allCombos(candidates, pair1, pair2);
-		assertEquals(new Pair(pair1, pair2, 0), fewerGapsIsBetterScorer.bestIn(candidates));
+		assertEquals(new Pair(pair1, pair2), fewerGapsIsBetterScorer.bestIn(candidates));
 	}
 }
