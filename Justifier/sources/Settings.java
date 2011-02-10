@@ -1,6 +1,8 @@
 
 public class Settings {
 
+	public static String DefaultNamePrefix = "block-";
+	
 	private static Settings TheSettings;
 	
 	public static Settings getInstance()
@@ -27,6 +29,6 @@ public class Settings {
 	public String nextName()
 	{
 		++lastUsedNumber;
-		return "block-" + lastUsedNumber;
+		return Settings.DefaultNamePrefix + lastUsedNumber;
 	}
 }
