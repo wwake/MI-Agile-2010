@@ -136,9 +136,9 @@ public class Justifier {
 
 	protected void adjustResultSequencesBy(int offsetAdjustment)
 	{
-		for(TextSection block : result.sections())
+		for(TextSection resultLine : result.sections())
 		{
-			block.setOffset(block.offset() + offsetAdjustment);
+			resultLine.setOffset(resultLine.offset() + offsetAdjustment);
 		}
 	}
 

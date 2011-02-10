@@ -6,4 +6,6 @@ git push             # Commits local repository to main repository
 git fetch            # Pulls main repository changes to local
 git merge origin/master   # merges changes
 
-
+git stash 	    # Puts any diffs from working set in a safe place (like a revert, but saves changes to local area)
+git stash clear	    # Clears anything that was stashed away 
+git stash pop	    # Brings the top stash in the stack back to your working set
