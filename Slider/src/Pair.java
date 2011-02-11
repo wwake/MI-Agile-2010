@@ -1,8 +1,8 @@
-public class Pair extends Piece {
-	private Piece part1;
-	private Piece part2;
+public class Pair extends Cluster {
+	private Cluster part1;
+	private Cluster part2;
 
-	public Pair(Piece part1, Piece part2) {
+	public Pair(Cluster part1, Cluster part2) {
 		this.part1 = part1;
 		this.part2 = part2;
 	}
@@ -23,11 +23,11 @@ public class Pair extends Piece {
 		return part1.column(c).concat(part2.column(c));
 	}
 
-	public Piece part1() {
+	public Cluster part1() {
 		return part1;
 	}
 
-	public Piece part2() {
+	public Cluster part2() {
 		return part2;
 	}
 
@@ -41,7 +41,7 @@ public class Pair extends Piece {
 		return part1.height() + part2.height();
 	}
 
-	public Piece flipped() {
+	public Cluster flipped() {
 		return new Flipper(this);
 	}
 

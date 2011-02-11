@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class PoolTest {
 	private Pool poolWider;
 	
@@ -44,7 +43,7 @@ public class PoolTest {
 		pool.add(new Pair(new IndentedWord("c"), new IndentedWord("d")));
 		pool.add(new Pair(new IndentedWord("e"), new IndentedWord("f")));
 		
-		Set<Piece> candidates = pool.candidates();
+		Set<Cluster> candidates = pool.candidates();
 
 		int numberOfPossiblePairs = 3;
 		int waysToArrangeAPair = 4;
@@ -63,7 +62,7 @@ public class PoolTest {
 		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
 		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
 		
-		Set<Piece> candidates = new HashSet<Piece>();
+		Set<Cluster> candidates = new HashSet<Cluster>();
 		poolCloser.allCombos(candidates, pair1, pair2);
 		
 		assertTrue(candidates.contains(new Pair(pair1, pair2)));							// ac-dg
@@ -75,11 +74,11 @@ public class PoolTest {
 	@Test
 	public void allSlidePositions() {
 		Pool poolCloser = new Pool();
-		Piece piece1 = new IndentedWord("sol");
-		Piece piece2 = new IndentedWord("do");
+		Cluster cluster1 = new IndentedWord("sol");
+		Cluster cluster2 = new IndentedWord("do");
 
-		Set<Piece> allSlides = new HashSet<Piece>();
-		poolCloser.allSlidePositions(allSlides, piece1, piece2);
+		Set<Cluster> allSlides = new HashSet<Cluster>();
+		poolCloser.allSlidePositions(allSlides, cluster1, cluster2);
 		
 		assertEquals(4, allSlides.size());
 		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do"))));
@@ -103,12 +102,12 @@ public class PoolTest {
 	
 	@Test
 	public void addAllSlidePositions() {
-		Set<Piece> candidates = new HashSet<Piece>();
+		Set<Cluster> candidates = new HashSet<Cluster>();
 		
-		Piece piece1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
-		Piece piece2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
+		Cluster cluster1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
+		Cluster cluster2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
 		
-		poolWider.allCombos(candidates , piece1, piece2);
+		poolWider.allCombos(candidates, cluster1, cluster2);
 		
 		assertEquals(9 + 7 + 7 + 5, candidates.size());
 	}

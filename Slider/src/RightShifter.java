@@ -1,10 +1,10 @@
 
-public class RightShifter extends Piece {
-	private final Piece base;
+public class RightShifter extends Cluster {
+	private final Cluster base;
 	private final int amountToShiftRight;
 
-	public RightShifter(Piece piece, int amountToShiftRight) {
-		this.base = piece;
+	public RightShifter(Cluster cluster, int amountToShiftRight) {
+		this.base = cluster;
 		this.amountToShiftRight = amountToShiftRight;
 	}
 
@@ -40,7 +40,7 @@ public class RightShifter extends Piece {
 	}
 
 	@Override
-	public Piece flipped() {
+	public Cluster flipped() {
 		return new RightShifter(base.flipped(), amountToShiftRight);
 	}
 

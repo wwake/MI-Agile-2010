@@ -1,48 +1,49 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Arrays;
 
-public class Cluster implements Iterable<IndentedWord> {
-	List<IndentedWord> cluster = new ArrayList<IndentedWord>();
-
-	public int size() {
-		return cluster.size();
+public abstract class Cluster {
+	public abstract IndentedWord first();
+	public abstract IndentedWord last();
+	public abstract int width();
+	public abstract String column(int c);
+	public abstract IndentedWord get(int i);
+	public abstract int height();
+	public abstract Cluster flipped();
+	public abstract boolean contains(String string);
+		
+	@Override
+	public boolean equals(Object obj) {
+		if (! (obj instanceof Cluster)) return false;
+		
+		Cluster that = (Cluster) obj;
+		
+		if (this.height() != that.height()) return false;
+		for (int i = 0; i < height(); i++) {
+			if (!this.get(i).equals(that.get(i)))
+				return false;
+		}
+		return true;
 	}
-
-	public void add(IndentedWord word) {
-		cluster.add(word);
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
 	}
-
-	public IndentedWord get(int index) {
-		return cluster.get(index);
+	
+	@Override
+	public String toString() {
+		if (height() == 0) return "";
+		StringBuffer result = new StringBuffer();
+		result.append(get(0));
+		for (int i = 1; i < height(); i++) {
+			result.append('\n');
+			result.append(get(i));
+		}
+		return result.toString();
 	}
-
-	public Iterator<IndentedWord> iterator() {
-		return cluster.iterator();
-	}
-
-	public IndentedWord last() {
-		return cluster.get(cluster.size() - 1);
-	}
-
-	public IndentedWord first() {
-		return cluster.get(0);
-	}
-
-	public Cluster flip() {
-		Cluster result = new Cluster();
-		result.cluster.addAll(this.cluster);
-		Collections.reverse(result.cluster);
-		return result;
-	}
-
-	public void shiftRight(int distance) {
-		List<IndentedWord> newCluster = new ArrayList<IndentedWord>();
-
-		for (IndentedWord word : cluster) 
-			newCluster.add(new IndentedWord(word, distance));
-
-		cluster = newCluster;
+	
+	protected String repeat(char ch, int count) {
+		char[] chars = new char[count];
+		Arrays.fill(chars, ch);
+		return String.valueOf(chars);
 	}
 }

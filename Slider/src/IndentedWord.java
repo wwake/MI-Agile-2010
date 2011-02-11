@@ -1,4 +1,4 @@
-public class IndentedWord extends Piece {
+public class IndentedWord extends Cluster {
 	private final String word;
 	private final int indent;
 
@@ -80,7 +80,7 @@ public class IndentedWord extends Piece {
 		return 1;
 	}
 
-	public Piece flipped() {
+	public Cluster flipped() {
 		return this;
 	}
 

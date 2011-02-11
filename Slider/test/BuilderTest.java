@@ -7,12 +7,12 @@ import java.util.Set;
 import org.junit.Test;
 
 public class BuilderTest {
-	PieceScorer fewerGapsIsBetterScorer = new PieceScorer() {
-		public int score(Piece piece) {
+	Scorer fewerGapsIsBetterScorer = new Scorer() {
+		public int score(Cluster cluster) {
 			int sumOfFirstLetterGaps = 0;
-			Piece previous = piece.first();
-			for (int i = 1; i < piece.height(); i++) {
-				Piece current = piece.get(i);
+			Cluster previous = cluster.first();
+			for (int i = 1; i < cluster.height(); i++) {
+				Cluster current = cluster.get(i);
 				sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
 						- current.toString().charAt(0));
 				previous = current;
@@ -21,16 +21,16 @@ public class BuilderTest {
 		}
 	};
 
-	PieceScorer scorer = new PieceScorer() {
-		public int score(Piece piece) {
-			Pair pair = (Pair) piece;
+	Scorer scorer = new Scorer() {
+		public int score(Cluster cluster) {
+			Pair pair = (Pair) cluster;
 			return pair.part1().width() + pair.part2().width();
 		}
 	};
 
 	@Test
 	public void poolWithOneItemIsResult() {
-		Builder builder = new Builder(new String[] { "only" }, new PieceScorer());
+		Builder builder = new Builder(new String[] { "only" }, new Scorer());
 		builder.build();
 		assertEquals("only\n", builder.result());
 	}
@@ -38,7 +38,7 @@ public class BuilderTest {
 	@Test
 	public void foo() { // TODO
 		String[] strings = new String[] { "wo", "wor", "w", "word" };
-		Builder builder = new Builder(strings, new PieceScorer());
+		Builder builder = new Builder(strings, new Scorer());
 		builder.build();
 		assertTrue(builder.row(0).startsWith("b") || builder.row(0).startsWith("f"));
 	}
@@ -49,7 +49,7 @@ public class BuilderTest {
 		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
 		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
 
-		Set<Piece> candidates = new HashSet<Piece>();
+		Set<Cluster> candidates = new HashSet<Cluster>();
 		poolCloser.allCombos(candidates, pair1, pair2);
 		assertEquals(new Pair(pair1, pair2), fewerGapsIsBetterScorer.bestIn(candidates));
 	}

@@ -54,7 +54,7 @@ public class Main {
 			
 			public void actionPerformed(ActionEvent e) {
 				String[] strings = input.getText().toUpperCase().split("\n");
-				Builder builder = new Builder(strings, new PieceScorer());
+				Builder builder = new Builder(strings, new Scorer());
 				builder.build();
 				output.setText(builder.result());
 			}

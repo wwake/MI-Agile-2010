@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class FormatterTest {
-	Cluster cluster = new Cluster();
+	OldCluster cluster = new OldCluster();
 	Formatter formatter = new Formatter();
 
 	@Test

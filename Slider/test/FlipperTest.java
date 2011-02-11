@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class FlipperTest {
 	Pair pair = new Pair(new IndentedWord("fish"), new IndentedWord("sticks", 3));
-	Piece reversed = pair.flipped();
+	Cluster reversed = pair.flipped();
 
 	@Test
 	public void reversedPairResemblesOriginal() {

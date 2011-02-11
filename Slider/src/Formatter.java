@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Formatter {
 
-	public String format(Cluster cluster) {
+	public String format(OldCluster cluster) {
 		StringBuffer result = new StringBuffer();
 		
 		List<IndentedWord> words = bracketWords(new IndentedWord(""), cluster, new IndentedWord(""));
@@ -27,7 +27,7 @@ public class Formatter {
 		return thisCh == prevCh || thisCh == nextCh ? '-' : thisCh;
 	}
 
-	private List<IndentedWord> bracketWords(IndentedWord before, Cluster cluster, IndentedWord after) {
+	private List<IndentedWord> bracketWords(IndentedWord before, OldCluster cluster, IndentedWord after) {
 		List<IndentedWord> words = new ArrayList<IndentedWord>();
 		words.add(before);
 		for (IndentedWord word : cluster)

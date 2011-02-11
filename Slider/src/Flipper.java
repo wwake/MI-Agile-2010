@@ -1,7 +1,7 @@
-public class Flipper extends Piece {
-	private final Piece base;
+public class Flipper extends Cluster {
+	private final Cluster base;
 
-	public Flipper(Piece base) {
+	public Flipper(Cluster base) {
 		this.base = base;
 	}
 
@@ -29,7 +29,7 @@ public class Flipper extends Piece {
 		return base.height();
 	}
 
-	public Piece flipped() {
+	public Cluster flipped() {
 		return base;
 	}
 	

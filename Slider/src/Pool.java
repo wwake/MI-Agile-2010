@@ -4,62 +4,62 @@ import java.util.List;
 import java.util.Set;
 
 public class Pool {
-	List<Piece> pieces = new ArrayList<Piece>();
+	List<Cluster> clusters = new ArrayList<Cluster>();
 
-	public void add(Piece piece) {
-		pieces.add(piece);
+	public void add(Cluster cluster) {
+		clusters.add(cluster);
 	}
 
-	public Set<Piece> candidates() {
-		Set<Piece> candidates = new HashSet<Piece>();
+	public Set<Cluster> candidates() {
+		Set<Cluster> candidates = new HashSet<Cluster>();
 
-		for (int i = 0; i < pieces.size(); i++)
-			for (int j = i + 1; j < pieces.size(); j++)
+		for (int i = 0; i < clusters.size(); i++)
+			for (int j = i + 1; j < clusters.size(); j++)
 				addCombo(candidates, this.get(i), this.get(j));
 
 		return candidates;
 	}
 
-	public void addCombo(Set<Piece> candidates, Piece piece1, Piece piece2) {
-		allCombos(candidates, piece1, piece2);
+	public void addCombo(Set<Cluster> candidates, Cluster cluster1, Cluster cluster2) {
+		allCombos(candidates, cluster1, cluster2);
 	}
 
-	public void allCombos(Set<Piece> candidates, Piece piece1, Piece piece2) {
-		this.allSlidePositions(candidates, piece1, piece2);
-		this.allSlidePositions(candidates, piece1, piece2.flipped());
-		this.allSlidePositions(candidates, piece1.flipped(), piece2);
-		this.allSlidePositions(candidates, piece1.flipped(), piece2.flipped());
+	public void allCombos(Set<Cluster> candidates, Cluster cluster1, Cluster cluster2) {
+		this.allSlidePositions(candidates, cluster1, cluster2);
+		this.allSlidePositions(candidates, cluster1, cluster2.flipped());
+		this.allSlidePositions(candidates, cluster1.flipped(), cluster2);
+		this.allSlidePositions(candidates, cluster1.flipped(), cluster2.flipped());
 	}
 
-	public void allSlidePositions(Set<Piece> result, Piece piece1, Piece piece2) {
-		IndentedWord lastFromPiece1 = piece1.last();
-		int offset1 = lastFromPiece1.indent();
+	public void allSlidePositions(Set<Cluster> result, Cluster cluster1, Cluster cluster2) {
+		IndentedWord lastFromCluster1 = cluster1.last();
+		int offset1 = lastFromCluster1.indent();
 
-		IndentedWord firstFromPiece2 = piece2.first();
-		int offset2 = firstFromPiece2.indent();
+		IndentedWord firstFromCluster2 = cluster2.first();
+		int offset2 = firstFromCluster2.indent();
 
-		for (int i = 0; i < lastFromPiece1.width(); i++) {
-			Pair pair = new Pair(piece1, new RightShifter(piece2, offset1 + i));
+		for (int i = 0; i < lastFromCluster1.width(); i++) {
+			Pair pair = new Pair(cluster1, new RightShifter(cluster2, offset1 + i));
 			result.add(pair);
 		}
 
-		for (int i = 1; i < firstFromPiece2.width(); i++) {
+		for (int i = 1; i < firstFromCluster2.width(); i++) {
 			int offset = offset2 - i;
-			Pair pair = offset > 0 ? new Pair(piece1, new RightShifter(piece2, offset)) : new Pair(new RightShifter(piece1, -offset), piece2);
+			Pair pair = offset > 0 ? new Pair(cluster1, new RightShifter(cluster2, offset)) : new Pair(new RightShifter(cluster1, -offset), cluster2);
 			result.add(pair);
 		}
 	}
 
 	public int size() {
-		return pieces.size();
+		return clusters.size();
 	}
 
-	public Piece get(int i) {
-		return pieces.get(i);
+	public Cluster get(int i) {
+		return clusters.get(i);
 	}
 
 	public String toString() {
-		Object[] array = pieces.toArray();
+		Object[] array = clusters.toArray();
 		StringBuffer result = new StringBuffer();
 		for (Object obj : array) {
 			result.append(obj.toString());
@@ -68,14 +68,14 @@ public class Pool {
 		return result.toString();
 	}
 
-	public void remove(Piece piece) {
-		pieces.remove(piece);
+	public void remove(Cluster cluster) {
+		clusters.remove(cluster);
 	}
 
 	public void remove(String string) {
-		for (Piece piece : pieces) {
-			if (piece.contains(string)) {
-				remove(piece);
+		for (Cluster cluster : clusters) {
+			if (cluster.contains(string)) {
+				remove(cluster);
 				return;
 			}
 		}
