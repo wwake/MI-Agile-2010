@@ -18,9 +18,9 @@ public class Builder {
 	public void build() {
 		while (pool.size() > 1) {
 			Set<Cluster> possibilities = pool.candidates();
-			Pair best = (Pair) scorer.bestIn(possibilities);
-			pool.remove(best.part1().get(0).word());
-			pool.remove(best.part2().get(0).word());
+			Cluster best = scorer.bestIn(possibilities);
+			pool.remove(best.first().word());
+			pool.remove(best.last().word());
 			pool.add(best);
 		}
 	}

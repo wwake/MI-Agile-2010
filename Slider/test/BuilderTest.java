@@ -50,7 +50,7 @@ public class BuilderTest {
 		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
 
 		Set<Cluster> candidates = new HashSet<Cluster>();
-		poolCloser.allCombos(candidates, pair1, pair2);
+		poolCloser.addAllCombos(candidates, pair1, pair2);
 		assertEquals(new Pair(pair1, pair2), fewerGapsIsBetterScorer.bestIn(candidates));
 	}
 }

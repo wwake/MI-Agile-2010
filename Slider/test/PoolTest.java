@@ -63,7 +63,7 @@ public class PoolTest {
 		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
 		
 		Set<Cluster> candidates = new HashSet<Cluster>();
-		poolCloser.allCombos(candidates, pair1, pair2);
+		poolCloser.addAllCombos(candidates, pair1, pair2);
 		
 		assertTrue(candidates.contains(new Pair(pair1, pair2)));							// ac-dg
 		assertTrue(candidates.contains(new Pair(pair1, pair2.flipped())));					// ac-gd
@@ -107,7 +107,7 @@ public class PoolTest {
 		Cluster cluster1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
 		Cluster cluster2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
 		
-		poolWider.allCombos(candidates, cluster1, cluster2);
+		poolWider.addAllCombos(candidates, cluster1, cluster2);
 		
 		assertEquals(9 + 7 + 7 + 5, candidates.size());
 	}
