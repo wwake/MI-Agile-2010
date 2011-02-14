@@ -81,7 +81,8 @@ public class PairTest {
 	public void pairsCanBeFlipped() {
 		Pair pair1 = new Pair(
 				new Pair(new IndentedWord("fizz"), new IndentedWord("soda", 1)), 
-				new RightShifter(new Pair(new IndentedWord("bang"), new IndentedWord("gar", 3)), 2));
+				new Pair(new IndentedWord("bang"), new IndentedWord("gar", 3)), 
+				2);
 		
 		assertEquals(
 				new Pair(
@@ -94,7 +95,9 @@ public class PairTest {
 	public void contains() {
 		Pair pair = new Pair(
 				new Pair(new IndentedWord("foo"), new IndentedWord("bar", 1)), 
-				new RightShifter(new Pair(new IndentedWord("if"), new IndentedWord("flat", 1)), 2));
+				new Pair(new IndentedWord("if"), new IndentedWord("flat", 1)), 
+				2);
+		
 		assertTrue(pair.contains("bar"));
 		assertTrue(pair.contains("flat"));
 		assertFalse(pair.contains("oo"));

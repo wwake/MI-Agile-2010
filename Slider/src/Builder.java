@@ -1,4 +1,3 @@
-import java.util.Set;
 
 public class Builder {
 	private Pool pool;
@@ -11,21 +10,14 @@ public class Builder {
 			pool.add(new IndentedWord(string));
 	}
 
-	public String row(int row) {
-		return "bobb";
-	}
-
-	public void build() {
+	public String build() {
 		while (pool.size() > 1) {
-			Set<Cluster> possibilities = pool.candidates();
+			Pool possibilities = pool.candidates();			
 			Cluster best = scorer.bestIn(possibilities);
 			pool.remove(best.first().word());
 			pool.remove(best.last().word());
 			pool.add(best);
 		}
-	}
-	
-	public String result() {
-		return pool.toString();
+		return pool.any().toString();
 	}
 }

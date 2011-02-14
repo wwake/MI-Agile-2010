@@ -6,6 +6,16 @@ public class Pair extends Cluster {
 		this.part1 = part1;
 		this.part2 = part2;
 	}
+	
+	public Pair(Cluster part1, Cluster part2, int distanceToShiftPart2) {
+		if (distanceToShiftPart2 < 0) 
+			part1 = new RightShifter(part1, -distanceToShiftPart2);
+		else if (distanceToShiftPart2 > 0)
+			part2 = new RightShifter(part2, distanceToShiftPart2);
+		
+		this.part1 = part1;
+		this.part2 = part2;
+	}
 
 	public IndentedWord first() {
 		return part1.first();

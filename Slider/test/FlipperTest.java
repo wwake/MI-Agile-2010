@@ -35,9 +35,8 @@ public class FlipperTest {
 	public void toStringGetsReversedByWord() {
 		Pair original = new Pair(
 				new Pair(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
-				new RightShifter(
-						new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)),
-						1));
+				new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)),
+				1);
 		assertEquals("...ghgh\n.efef\n.cd\nab", original.flipped().toString());
 	}
 
@@ -45,7 +44,8 @@ public class FlipperTest {
 	public void equalsForEqualThings() {
 		Pair original = new Pair(
 				new Pair(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
-				new RightShifter(new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)), 1));
+				new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)), 
+				1);
 		Pair expected = new Pair(
 				new IndentedWord("ghgh", 3), 
 				new Pair(

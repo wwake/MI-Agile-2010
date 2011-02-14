@@ -2,7 +2,7 @@ import java.util.Set;
 
 public class Scorer {
 
-	public int score(String string) {
+	public int scoreColumn(String string) {
 		if (string.length() == 0) return 0;
 
 		int result = 0;
@@ -37,12 +37,27 @@ public class Scorer {
 		int result = 0;
 		
 		for (int i = 0; i < cluster.width(); i++) 
-			result += this.score(cluster.column(i));
+			result += this.scoreColumn(cluster.column(i));
 
 		return result;
 	}
 
 	public Cluster bestIn(Set<Cluster> clusters) {
+		int bestScore = -1;
+		Cluster bestResult = null;
+		
+		for (Cluster cluster : clusters) {
+			int score = score(cluster);
+			if (score > bestScore) {
+				bestResult = cluster;
+				bestScore = score;
+			}
+		}
+		
+		return bestResult;
+	}
+
+	public Cluster bestIn(Pool clusters) {
 		int bestScore = -1;
 		Cluster bestResult = null;
 		
