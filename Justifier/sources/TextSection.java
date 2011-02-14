@@ -9,7 +9,7 @@ public abstract class TextSection {
 		offset = 0;
 	}
 	
-	abstract int width();	
+	public abstract int width();	
 	
 	public void setOffset(int newOffset)
 	{

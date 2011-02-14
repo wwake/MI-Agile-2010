@@ -65,14 +65,13 @@ public class TextBlock extends TextSection {
 		return textSections;
 	}
 	
-	//TODO: Change to isMultiLine in clean version and return result based on content (instead of type)
 	public Boolean isBlock()
 	{
 		return true;
 	}
 
 	@Override
-	int width() {
+	public int width() {
 		if (textSections.size() == 0)
 			return 0;
 		

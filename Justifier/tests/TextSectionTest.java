@@ -44,7 +44,7 @@ public class TextSectionTest {
 	public class FakeSection extends TextSection
 	{
 		@Override
-		int width() {
+		public int width() {
 			return 20;
 		}
 		

@@ -1,6 +1,11 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Vector;
 
 import org.junit.Test;
+
 
 
 public class TextBlockTest {
@@ -9,9 +14,11 @@ public class TextBlockTest {
 	public void testConstructorInitializesValues() {
 		
 		TextBlock block = new TextBlock();
-		assertTrue("Should initialize an empty sections list", block.sections().isEmpty());
-		assertEquals("Default creations type to Application", TextLine.CreationType.AppCreated, block.creationType());
-		assertNotNull("Should create default settings", block.settings());
+		assertTrue("Should initialize an empty sections list", block.isEmpty());
+		assertEquals(
+				"Default creations type to Application", 
+				TextBlock.CreationType.AppCreated, 
+				block.creationType());
 	}
 	
 	@Test
@@ -27,17 +34,6 @@ public class TextBlockTest {
 		block.add(new TextLine(""), 0); // there doesn't need to be anything in the line
 		assertFalse(block.isEmpty());
 	}
-	
-	@Test
-	public void testOffsetIsAlwaysZeroCannotBeChanged()
-	{
-		TextBlock block = new TextBlock();
-		assertEquals("Test setup: should be initialized to zero", 0, block.offset());
-		TextLine aLine = new TextLine("whatever");
-		block.add(aLine, 0);
-		block.setOffset(25);
-		assertEquals(0, block.offset());
-	}
 
 	@Test
 	public void testAdd() {
@@ -45,11 +41,11 @@ public class TextBlockTest {
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 0);
 		assertEquals(1, block.sections().size());
+		Vector<TextSection> sectionList = new Vector<TextSection>(block.sections());
 		assertEquals(
 				"line value should be the same", 
 				aLine.toString(), 
-				block.sections().firstElement().toString());
-//		assertNotSame("stored line should not be same object", aLine, block.sections().firstElement());
+				sectionList.firstElement().toString());
 
 		block.add(new TextLine("other"), 0);
 		assertEquals(2, block.sections().size());
@@ -61,7 +57,9 @@ public class TextBlockTest {
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 33);
 		assertEquals(1, block.sections().size());
-		assertEquals(33, block.sections().firstElement().offset());
+
+		//TODO: add offsetOf() method to block
+//		assertEquals(33, sectionList.firstElement().offset());
 //		assertEquals("original line offest should not have changed", 0, aLine.offset());
 	}
 
@@ -114,20 +112,15 @@ public class TextBlockTest {
 	}
 
 	@Test
-	public void testIsBlockIsAlwaysTrue() {
-		assertTrue(new TextBlock().isBlock());
-	}
-
-	@Test
 	public void testIsNameUserCreatedIsTrueOnlyForUserEnteredCreationType() {
 		TextBlock block = new TextBlock();
-		block.setHowCreated(TextLine.CreationType.Imported);
+		block.setHowCreated(TextBlock.CreationType.Imported);
 		assertFalse(block.isNameUserCreated());
 		
-		block.setHowCreated(TextLine.CreationType.AppCreated);
+		block.setHowCreated(TextBlock.CreationType.AppCreated);
 		assertFalse(block.isNameUserCreated());
 		
-		block.setHowCreated(TextLine.CreationType.UserEntered);
+		block.setHowCreated(TextBlock.CreationType.UserEntered);
 		assertTrue(block.isNameUserCreated());
 	}
 
@@ -150,6 +143,7 @@ public class TextBlockTest {
 		block.add(anotherLine, 5);
 		block.remove(aLine);
 		assertEquals(1, block.sections().size());
-		assertEquals(anotherLine, block.sections().firstElement());
+		Vector<TextSection> sectionList = new Vector<TextSection>(block.sections());
+		assertEquals(anotherLine, sectionList.firstElement());
 	}
 }

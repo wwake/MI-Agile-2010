@@ -1,22 +1,11 @@
 
-public class TextLine extends TextSection {
+public class TextLine implements TextSection {
 
-	public static enum CreationType {
-		AppCreated,
-		UserEntered,
-		Imported
-	}
-	
 	private String text;
 	
 	public TextLine(String theText)
 	{
 		text = theText;
-	}
-	
-	public Boolean isLine()
-	{
-		return true;
 	}
 
 	@Override
