@@ -91,3 +91,11 @@ public class IndentedWord extends Cluster {
 		return word.equals(string);
 	}
 }
+
+/*
+- Great example of why I don't like method parameters named the same as instance vars:
+  from construtor taking an IndentedWord->  this.word = word.word;
+  OK, which which is which?  :-)   
+- Why the "finals" on the instance vars?  Just curious.
+- Other than that, another really good class.
+*/
