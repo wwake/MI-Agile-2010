@@ -28,10 +28,21 @@ public class IndentedWordTest {
 		assertEquals(word1a.hashCode(), word1b.hashCode());
 		assertFalse(word1a.equals(word2));
 	}
-		
+	
 	@Test
-	public void singleWordCantEqualNonOffsetWord() {
-		assertFalse(new IndentedWord("skip", 2).equals(new Object()));
+	public void singleWordCanEqualOtherCluster() {
+		IndentedWord word = new IndentedWord("word", 3);
+		Flipper flippedWord = new Flipper(word);
+		
+		assertEquals(word, flippedWord);
+	}
+	
+	@Test
+	public void singleWordCantEqualClusterWithManyWords() {
+		IndentedWord word = new IndentedWord("another");
+		Pair pair = new Pair(new IndentedWord("another"), new IndentedWord("can"), 2);
+		
+		assertFalse(word.equals(pair));
 	}
 	
 	@Test 

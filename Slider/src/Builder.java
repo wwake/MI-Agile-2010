@@ -1,23 +1,24 @@
 
 public class Builder {
-	private Pool pool;
+	private Pool clusters;
 	private final Scorer scorer;
 
 	public Builder(String[] strings, Scorer scorer) {
 		this.scorer = scorer;
-		pool = new Pool();
+		clusters = new Pool();
 		for (String string : strings)
-			pool.add(new IndentedWord(string));
+			clusters.add(new IndentedWord(string));
 	}
 
 	public String build() {
-		while (pool.size() > 1) {
-			Pool possibilities = pool.candidates();			
+		while (clusters.size() > 1) {
+			Pool possibilities = clusters.candidates();			
 			Cluster best = scorer.bestIn(possibilities);
-			pool.remove(best.first().word());
-			pool.remove(best.last().word());
-			pool.add(best);
+			clusters.remove(best.first().word());
+			clusters.remove(best.last().word());
+			clusters.add(best);
 		}
-		return pool.any().toString();
+		
+		return clusters.any().toString();
 	}
 }

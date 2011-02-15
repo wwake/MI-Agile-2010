@@ -1,4 +1,6 @@
 public class IndentedWord extends Cluster {
+	public final static char UNOCCUPIED = '.';
+	
 	private final String word;
 	private final int indent;
 
@@ -30,25 +32,25 @@ public class IndentedWord extends Cluster {
 
 	public char at(int i) {
 		if (i < indent)
-			return '.';
+			return UNOCCUPIED;
 		if (i < indent + word.length())
 			return word.charAt(i - indent);
-		return '.';
+		return UNOCCUPIED;
 	}
 
 	@Override
 	public String toString() {
-		return repeat('.', indent) + word;
+		return repeat(UNOCCUPIED, indent) + word;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof IndentedWord))
-			return false;
-
-		IndentedWord that = (IndentedWord) obj;
-
-		return this.word.equals(that.word) && this.indent == that.indent;
+		Cluster that = (Cluster) obj;
+		
+		if (that.height() != 1) return false;
+		
+		IndentedWord thatWord = that.get(0);
+		return this.word.equals(thatWord.word) && this.indent == thatWord.indent;
 	}
 
 	@Override

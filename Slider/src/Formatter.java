@@ -22,7 +22,7 @@ public class Formatter {
 }
 
 	private char charFor(char prevCh, char thisCh, char nextCh) {
-		if (thisCh == '.') return '.';
+		if (thisCh == IndentedWord.UNOCCUPIED) return '.';
 		
 		return thisCh == prevCh || thisCh == nextCh ? '-' : thisCh;
 	}
