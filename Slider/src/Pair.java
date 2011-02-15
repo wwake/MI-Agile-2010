@@ -60,3 +60,8 @@ public class Pair extends Cluster {
 		return part1.contains(string) || part2.contains(string);
 	}
 }
+/*
+- This is a really good class.
+- I really like the implicit recursion in the overridden methods.  Very clean and simple.
+- Repeat of previous note that I do not like method parameters with same name as instance vars.
+*/

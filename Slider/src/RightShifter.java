@@ -49,3 +49,13 @@ public class RightShifter extends Cluster {
 		return base.contains(string);
 	}
 }
+
+/*
+- Again with "base" as a variable name.  Confusing (for someone doing C# for so long).
+- Did you think about a common superclass like IndentedCluster that both this and IndentedWord 
+  would inherit from (actually, I kinda like that name better for this class even if there isn't
+  a common base.  Same as Flipper where this feels more like a noun than a verb)?  I didn't spend 
+  a lot of time thinking about it, but it feels at first glance there's a lot of shared behavior 
+  (and duplicated logic).  
+- <personal preference> really don't like "return" on same line as "if" in column() method
+*/

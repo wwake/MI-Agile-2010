@@ -21,3 +21,10 @@ public class Builder {
 		return pool.any().toString();
 	}
 }
+/*
+- Like the Scorer being passed in.  Nice touch.
+- Did you think about a Pool having a method like solveWith(Scorer) that encapsulated the loop
+  from the build() method above?  Pool seems to be referenced a lot in that method and if it was
+  on Pool, then those would all become "this".  The Pool could be renamed to Puzzle.  I like this 
+  tiny class, though, so I'm torn a bit on this.
+*/
