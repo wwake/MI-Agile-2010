@@ -5,7 +5,7 @@ public abstract class Cluster {
 	public abstract IndentedWord last();
 	public abstract int width();
 	public abstract String column(int c);
-	public abstract IndentedWord get(int i);
+	public abstract IndentedWord wordAt(int i);
 	public abstract int height();
 	public abstract Cluster flipped();
 	public abstract boolean contains(String string);
@@ -18,7 +18,7 @@ public abstract class Cluster {
 		
 		if (this.height() != that.height()) return false;
 		for (int i = 0; i < height(); i++) {
-			if (!this.get(i).equals(that.get(i)))
+			if (!this.wordAt(i).equals(that.wordAt(i)))
 				return false;
 		}
 		return true;
@@ -33,10 +33,10 @@ public abstract class Cluster {
 	public String toString() {
 		if (height() == 0) return "";
 		StringBuffer result = new StringBuffer();
-		result.append(get(0));
+		result.append(wordAt(0));
 		for (int i = 1; i < height(); i++) {
 			result.append('\n');
-			result.append(get(i));
+			result.append(wordAt(i));
 		}
 		return result.toString();
 	}

@@ -41,10 +41,10 @@ public class Pair extends Cluster {
 		return part2;
 	}
 
-	public IndentedWord get(int row) {
+	public IndentedWord wordAt(int row) {
 		if (row < part1.height())
-			return part1.get(row);
-		return part2.get(row - part1.height());
+			return part1.wordAt(row);
+		return part2.wordAt(row - part1.height());
 	}
 
 	public int height() {

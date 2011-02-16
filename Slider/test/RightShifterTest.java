@@ -17,7 +17,7 @@ public class RightShifterTest {
 		RightShifter shifter = new RightShifter(pair, 1);
 		assertEquals(".bard", shifter.last().toString());	
 		assertEquals(5, shifter.width());
-		assertEquals(".foo", shifter.get(0).toString());
+		assertEquals(".foo", shifter.wordAt(0).toString());
 	}
 	
 	@Test

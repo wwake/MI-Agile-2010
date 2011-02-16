@@ -30,8 +30,8 @@ public class RightShifter extends Cluster {
 	}
 
 	@Override
-	public IndentedWord get(int i) {
-		return new IndentedWord(base.get(i), amountToShiftRight);
+	public IndentedWord wordAt(int i) {
+		return new IndentedWord(base.wordAt(i), amountToShiftRight);
 	}
 
 	@Override

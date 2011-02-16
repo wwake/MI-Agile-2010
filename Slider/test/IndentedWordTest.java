@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class IndentedWordTest {
 	@Test
-	public void wordKnowsCharacters() {
+	public void wordKnowsItsContents() {
 		IndentedWord word = new IndentedWord("fob", 1);
 		assertEquals(1, word.indent());
 		assertEquals("fob", word.word());
@@ -83,7 +83,7 @@ public class IndentedWordTest {
 	@Test
 	public void getGetsTheOnlyWord() {
 		IndentedWord baz = new IndentedWord("baz", 2);
-		assertEquals(baz, baz.get(0));
+		assertEquals(baz, baz.wordAt(0));
 	}
 	
 	@Test

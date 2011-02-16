@@ -44,7 +44,7 @@ public class ScorerTest {
 				int sumOfFirstLetterGaps = 0;
 				Cluster previous = cluster.first();
 				for (int i = 1; i < cluster.height(); i++) {
-					Cluster current = cluster.get(i);
+					Cluster current = cluster.wordAt(i);
 					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
 							- current.toString().charAt(0));
 					previous = current;

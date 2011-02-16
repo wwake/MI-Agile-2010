@@ -23,6 +23,6 @@ public class RunHiderTest {
 	public void uniqueCharactersPassThrough() {
 		IndentedWord word = new IndentedWord("FAN", 1);
 		RunHider hider = new RunHider(word);
-		assertEquals(word, hider.get(0));
+		assertEquals(word, hider.wordAt(0));
 	}
 }
