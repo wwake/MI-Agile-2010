@@ -44,16 +44,16 @@ public class PairTest {
 		Pair pair1 = new Pair(new IndentedWord("ba"), new IndentedWord("bo"));
 		Pair pair2 = new Pair(pair1, new IndentedWord("foo"));
 		
-		assertEquals(new IndentedWord("ba"), pair2.get(0));
-		assertEquals(new IndentedWord("bo"), pair2.get(1));
-		assertEquals(new IndentedWord("foo"), pair2.get(2));
+		assertEquals(new IndentedWord("ba"), pair2.wordAt(0));
+		assertEquals(new IndentedWord("bo"), pair2.wordAt(1));
+		assertEquals(new IndentedWord("foo"), pair2.wordAt(2));
 	}
 	
 	@Test
 	public void getHandlesOffsets() {
 		Pair pair = new Pair(new IndentedWord("a"), new IndentedWord("z", 3));
-		assertEquals(new IndentedWord("a", 0), pair.get(0));
-		assertEquals(new IndentedWord("z", 3), pair.get(1));
+		assertEquals(new IndentedWord("a", 0), pair.wordAt(0));
+		assertEquals(new IndentedWord("z", 3), pair.wordAt(1));
 	}
 	
 	@Test

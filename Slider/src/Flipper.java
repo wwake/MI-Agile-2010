@@ -21,8 +21,8 @@ public class Flipper extends Cluster {
 		return new StringBuffer(base.column(c)).reverse().toString();
 	}
 
-	public IndentedWord get(int row) {
-		return base.get(base.height() - 1 - row);
+	public IndentedWord wordAt(int row) {
+		return base.wordAt(base.height() - 1 - row);
 	}
 
 	public int height() {
@@ -45,6 +45,5 @@ public class Flipper extends Cluster {
 - Maybe a better name for the class would be InvertedCluster?  Flipper sounds like an action to me
   where it feels more like a thing from its behavior.
 - (personal preference) never pass parameter with same name as variable.
-- "get()" is too generic for my taste; maybe rowAt(index) or wordAt(rowIndex)
 - if you decide to change the class name then maybe change flipped() to inverted()
 */

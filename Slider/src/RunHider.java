@@ -28,8 +28,8 @@ public class RunHider extends Cluster {
 	}
 
 	@Override
-	public IndentedWord get(int i) {
-		IndentedWord word = base.get(i);
+	public IndentedWord wordAt(int i) {
+		IndentedWord word = base.wordAt(i);
 		return word;
 	}
 

@@ -49,7 +49,7 @@ public class IndentedWord extends Cluster {
 		
 		if (that.height() != 1) return false;
 		
-		IndentedWord thatWord = that.get(0);
+		IndentedWord thatWord = that.wordAt(0);
 		return this.word.equals(thatWord.word) && this.indent == thatWord.indent;
 	}
 
@@ -74,7 +74,7 @@ public class IndentedWord extends Cluster {
 		return String.valueOf(this.at(c));
 	}
 
-	public IndentedWord get(int i) {
+	public IndentedWord wordAt(int i) {
 		return this;
 	}
 
