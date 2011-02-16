@@ -7,38 +7,47 @@ import java.util.Set;
 public class TextBlock implements TextSection {
 
 	//TODO: Move out to application level object?
-	public static enum CreationType {
-		AppCreated,
-		UserEntered,
-		Imported
+	public static enum NameSource {
+		APPLICATION,
+		USER,
+		IMPORTED
 	}
 	
 	//TODO: Look at creating a PositionedItem class that implements TextSection and Offsettable
 	//		Then we can just use an array instead of the map...
-	private CreationType howCreated;
+	
+	//TODO: Change name to a SectionName and move up to base class
+	private NameSource howCreated;
+	private String name;
 	private LinkedHashMap<TextSection, Integer> textSections;
 	
 	public TextBlock() 
 	{
 		super();
 		textSections = new LinkedHashMap<TextSection, Integer>();
-		howCreated = CreationType.AppCreated;
+		howCreated = NameSource.APPLICATION;
+		name = "";
 	}
 	
-	//TODO: Move all these 'howCreated' things out to application level object
+	//TODO: Move all these 'howCreated' things out to BlockName object
 	public Boolean isNameUserCreated()
 	{
-		return howCreated == CreationType.UserEntered;
+		return howCreated == NameSource.USER;
 	}
 	
-	public void setHowCreated(CreationType creationMethod)
+	public void setHowCreated(NameSource creationMethod)
 	{
 		howCreated = creationMethod;
 	}
 	
-	public CreationType creationType(){
+	public NameSource creationType(){
 		
 		return howCreated;
+	}
+	
+	public String name()
+	{
+		return name;
 	}
 	
 	public Boolean isEmpty()
