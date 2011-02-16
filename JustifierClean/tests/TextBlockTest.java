@@ -17,8 +17,9 @@ public class TextBlockTest {
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
 		assertEquals(
 				"Default creations type to Application", 
-				TextBlock.CreationType.AppCreated, 
+				TextBlock.NameSource.APPLICATION, 
 				block.creationType());
+		assertEquals("name should be empty by default", "", block.name());
 	}
 	
 	@Test
@@ -114,13 +115,13 @@ public class TextBlockTest {
 	@Test
 	public void testIsNameUserCreatedIsTrueOnlyForUserEnteredCreationType() {
 		TextBlock block = new TextBlock();
-		block.setHowCreated(TextBlock.CreationType.Imported);
+		block.setHowCreated(TextBlock.NameSource.IMPORTED);
 		assertFalse(block.isNameUserCreated());
 		
-		block.setHowCreated(TextBlock.CreationType.AppCreated);
+		block.setHowCreated(TextBlock.NameSource.APPLICATION);
 		assertFalse(block.isNameUserCreated());
 		
-		block.setHowCreated(TextBlock.CreationType.UserEntered);
+		block.setHowCreated(TextBlock.NameSource.USER);
 		assertTrue(block.isNameUserCreated());
 	}
 
