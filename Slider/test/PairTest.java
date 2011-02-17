@@ -60,7 +60,7 @@ public class PairTest {
 	public void equalsAndHashCodeDependOnWordsAndOffsets() {
 		Pair pair1a = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
 		Pair pair2a = new Pair(new IndentedWord("gab"), new IndentedWord("job", 4));
-		Pair pairBothA = new Pair(pair1a, new RightShifter(pair2a, 1));
+		Pair pairBothA = new Pair(pair1a, new RightShiftingCluster(pair2a, 1));
 		
 		Pair pair1b = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
 		Pair pair2b = new Pair(pair1b, new IndentedWord("gab", 1));
@@ -88,7 +88,7 @@ public class PairTest {
 				new Pair(
 						new Pair(new IndentedWord("gar", 5), new IndentedWord("bang", 2)), 
 						new Pair(new IndentedWord("soda", 1), new IndentedWord("fizz"))), 
-				pair1.flipped());
+				pair1.inverted());
 	}
 	
 	@Test

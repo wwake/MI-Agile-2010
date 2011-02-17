@@ -52,9 +52,9 @@ public class Pool implements Iterable<Cluster> {
 
 	public void addAllCombos(Cluster cluster1, Cluster cluster2) {
 		this.allSlidePositions(cluster1, cluster2);
-		this.allSlidePositions(cluster1, cluster2.flipped());
-		this.allSlidePositions(cluster1.flipped(), cluster2);
-		this.allSlidePositions(cluster1.flipped(), cluster2.flipped());
+		this.allSlidePositions(cluster1, cluster2.inverted());
+		this.allSlidePositions(cluster1.inverted(), cluster2);
+		this.allSlidePositions(cluster1.inverted(), cluster2.inverted());
 	}
 
 	public void allSlidePositions(Cluster cluster1, Cluster cluster2) {

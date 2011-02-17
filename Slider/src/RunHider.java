@@ -39,8 +39,8 @@ public class RunHider extends Cluster {
 	}
 
 	@Override
-	public Cluster flipped() {
-		return base.flipped();
+	public Cluster inverted() {
+		return base.inverted();
 	}
 
 	@Override

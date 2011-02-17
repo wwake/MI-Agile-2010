@@ -16,7 +16,7 @@ public class RunHiderTest {
 		assertEquals(2, hider.height());
 		assertEquals(5, hider.width());
 		assertTrue(hider.contains("bar"));
-		assertEquals(new Pair(new IndentedWord("bar", 2), new IndentedWord("foo"), 0), hider.flipped());
+		assertEquals(new Pair(new IndentedWord("bar", 2), new IndentedWord("foo"), 0), hider.inverted());
 	}
 	
 	@Test

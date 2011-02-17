@@ -57,9 +57,9 @@ public class PoolTest {
 		pool.addAllCombos(pair1, pair2);
 		
 		assertTrue(pool.contains(new Pair(pair1, pair2)));							// ac-dg
-		assertTrue(pool.contains(new Pair(pair1, pair2.flipped())));				// ac-gd
-		assertTrue(pool.contains(new Pair(pair1.flipped(), pair2)));				// ca-dg
-		assertTrue(pool.contains(new Pair(pair1.flipped(), pair2.flipped())));		// ca-gd
+		assertTrue(pool.contains(new Pair(pair1, pair2.inverted())));				// ac-gd
+		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2)));				// ca-dg
+		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2.inverted())));		// ca-gd
 	}
 	
 	@Test

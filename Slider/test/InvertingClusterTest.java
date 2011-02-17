@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class FlipperTest {
+public class InvertingClusterTest {
 	Pair pair = new Pair(new IndentedWord("fish"), new IndentedWord("sticks", 3));
-	Cluster reversed = pair.flipped();
+	Cluster reversed = pair.inverted();
 
 	@Test
 	public void reversedPairResemblesOriginal() {
@@ -16,7 +16,7 @@ public class FlipperTest {
 
 	@Test
 	public void reversedPairIsSameAsOriginal() {
-		assertEquals(pair, reversed.flipped());
+		assertEquals(pair, reversed.inverted());
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class FlipperTest {
 				new Pair(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
 				new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)),
 				1);
-		assertEquals("...ghgh\n.efef\n.cd\nab", original.flipped().toString());
+		assertEquals("...ghgh\n.efef\n.cd\nab", original.inverted().toString());
 	}
 
 	@Test
@@ -51,15 +51,15 @@ public class FlipperTest {
 				new Pair(
 						new IndentedWord("efef", 1),
 						new Pair(new IndentedWord("cd", 1), new IndentedWord("ab"))));
-		assertEquals(original.flipped(), expected);
-		assertEquals(expected, original.flipped());
-		assertEquals(expected.hashCode(), original.flipped().hashCode());
+		assertEquals(original.inverted(), expected);
+		assertEquals(expected, original.inverted());
+		assertEquals(expected.hashCode(), original.inverted().hashCode());
 	}
 
 	@Test
 	public void contains() {
 		Pair pair = new Pair(new IndentedWord("foo"), new IndentedWord("gef", 2));
-		Flipper flipper = new Flipper(pair);
+		InvertingCluster flipper = new InvertingCluster(pair);
 		assertTrue(flipper.contains("foo"));
 		assertFalse(flipper.contains("fo"));
 	}

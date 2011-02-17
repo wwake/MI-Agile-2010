@@ -1,67 +1,61 @@
 public class Pair extends Cluster {
-	private Cluster part1;
-	private Cluster part2;
+	private Cluster top;
+	private Cluster bottom;
 
-	public Pair(Cluster part1, Cluster part2) {
-		this.part1 = part1;
-		this.part2 = part2;
+	public Pair(Cluster theTop, Cluster theBottom) {
+		this.top = theTop;
+		this.bottom = theBottom;
 	}
 	
-	public Pair(Cluster part1, Cluster part2, int distanceToShiftPart2) {
-		if (distanceToShiftPart2 < 0) 
-			part1 = new RightShifter(part1, -distanceToShiftPart2);
-		else if (distanceToShiftPart2 > 0)
-			part2 = new RightShifter(part2, distanceToShiftPart2);
+	public Pair(Cluster theTop, Cluster theBottom, int distanceToRightShiftBottom) {
+		if (distanceToRightShiftBottom < 0) 
+			theTop = new RightShiftingCluster(theTop, -distanceToRightShiftBottom);
+		else if (distanceToRightShiftBottom > 0)
+			theBottom = new RightShiftingCluster(theBottom, distanceToRightShiftBottom);
 		
-		this.part1 = part1;
-		this.part2 = part2;
+		this.top = theTop;
+		this.bottom = theBottom;
 	}
 
+	@Override
 	public IndentedWord first() {
-		return part1.first();
+		return top.first();
 	}
 
+	@Override
 	public IndentedWord last() {
-		return part2.last();
+		return bottom.last();
 	}
 
+	@Override
 	public int width() {
-		return Math.max(part1.width(), part2.width());
+		return Math.max(top.width(), bottom.width());
 	}
 
+	@Override
 	public String column(int c) {
-		return part1.column(c).concat(part2.column(c));
+		return top.column(c).concat(bottom.column(c));
 	}
 
-	public Cluster part1() {
-		return part1;
-	}
-
-	public Cluster part2() {
-		return part2;
-	}
-
+	@Override
 	public IndentedWord wordAt(int row) {
-		if (row < part1.height())
-			return part1.wordAt(row);
-		return part2.wordAt(row - part1.height());
+		if (row < top.height())
+			return top.wordAt(row);
+		return bottom.wordAt(row - top.height());
 	}
 
+	@Override
 	public int height() {
-		return part1.height() + part2.height();
+		return top.height() + bottom.height();
 	}
 
-	public Cluster flipped() {
-		return new Flipper(this);
+	@Override
+	public Cluster inverted() {
+		return new InvertingCluster(this);
 	}
 
 	@Override
 	public boolean contains(String string) {
-		return part1.contains(string) || part2.contains(string);
+		return top.contains(string) || bottom.contains(string);
 	}
 }
-/*
-- This is a really good class.
-- I really like the implicit recursion in the overridden methods.  Very clean and simple.
-- Repeat of previous note that I do not like method parameters with same name as instance vars.
-*/

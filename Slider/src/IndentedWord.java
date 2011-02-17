@@ -4,18 +4,18 @@ public class IndentedWord extends Cluster {
 	private final String word;
 	private final int indent;
 
-	public IndentedWord(String word) {
-		this(word, 0);
+	public IndentedWord(String aWord) {
+		this(aWord, 0);
 	}
 
-	public IndentedWord(String word, int offset) {
-		this.word = word;
-		this.indent = offset;
+	public IndentedWord(String aWord, int anOffset) {
+		this.word = aWord;
+		this.indent = anOffset;
 	}
 
-	public IndentedWord(IndentedWord word, int moreIndent) {
-		this.word = word.word;
-		this.indent = word.indent + moreIndent;
+	public IndentedWord(IndentedWord aWord, int moreIndent) {
+		this.word = aWord.word;
+		this.indent = aWord.indent + moreIndent;
 	}
 
 	public IndentedWord shiftRight(int distance) {
@@ -40,7 +40,7 @@ public class IndentedWord extends Cluster {
 
 	@Override
 	public String toString() {
-		return repeat(UNOCCUPIED, indent) + word;
+		return StringUtil.repeat(UNOCCUPIED, indent) + word;
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class IndentedWord extends Cluster {
 		return 1;
 	}
 
-	public Cluster flipped() {
+	public Cluster inverted() {
 		return this;
 	}
 
@@ -91,11 +91,3 @@ public class IndentedWord extends Cluster {
 		return word.equals(string);
 	}
 }
-
-/*
-- Great example of why I don't like method parameters named the same as instance vars:
-  from construtor taking an IndentedWord->  this.word = word.word;
-  OK, which which is which?  :-)   
-- Why the "finals" on the instance vars?  Just curious.
-- Other than that, another really good class.
-*/
