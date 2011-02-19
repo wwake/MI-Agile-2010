@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.Vector;
-
 public class TextBlockTest {
 
 	@Test
@@ -45,11 +43,10 @@ public class TextBlockTest {
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 0);
 		assertEquals(1, block.sections().size());
-		Vector<TextSection> sectionList = new Vector<TextSection>(block.sections());
 		assertEquals(
 				"line value should be the same", 
 				aLine.toString(), 
-				sectionList.firstElement().toString());
+				block.sections().firstElement().line().toString());
 
 		block.add(new TextLine("other"), 0);
 		assertEquals(2, block.sections().size());
@@ -61,10 +58,7 @@ public class TextBlockTest {
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 33);
 		assertEquals(1, block.sections().size());
-
-		//TODO: add offsetOf() method to block
-//		assertEquals(33, sectionList.firstElement().offset());
-//		assertEquals("original line offest should not have changed", 0, aLine.offset());
+		assertEquals(33, block.sections().firstElement().offset());
 	}
 
 	@Test
@@ -113,28 +107,5 @@ public class TextBlockTest {
 		block.add(line1, 5);
 		block.add(line2, 4);
 		assertEquals(7, block.width());
-	}
-
-	@Test
-	public void testRemoveDoesNothingIfGivenLineIsNotThere() {
-		TextBlock block = new TextBlock();
-		TextLine aLine = new TextLine("whatever");
-		TextLine notThere = new TextLine("some other line");
-		block.add(aLine, 0);
-		block.remove(notThere);
-		assertEquals(1, block.sections().size());
-	}
-
-	@Test
-	public void testRemoveDeletesLineFromCollection() {
-		TextBlock block = new TextBlock();
-		TextLine aLine = new TextLine("whatever");
-		TextLine anotherLine = new TextLine("some other line");
-		block.add(aLine, 0);
-		block.add(anotherLine, 5);
-		block.remove(aLine);
-		assertEquals(1, block.sections().size());
-		Vector<TextSection> sectionList = new Vector<TextSection>(block.sections());
-		assertEquals(anotherLine, sectionList.firstElement());
 	}
 }
