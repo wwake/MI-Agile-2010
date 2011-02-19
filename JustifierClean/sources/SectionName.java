@@ -1,11 +1,44 @@
 
+
 public class SectionName {
 
+	private static int lastUsedNumber = 0;
+	public static String DefaultNamePrefix = "block-";
+	
+	private static enum NameSource {
+		APPLICATION,
+		USER,
+		IMPORTED
+	}
+	
+	public static SectionName defaultSystemName()
+	{
+		return new SectionName(SectionName.nextName(), NameSource.APPLICATION);
+	}
+
+	public static SectionName importedNameFrom(String importName)
+	{
+		String newName = (importName.isEmpty()) ? SectionName.nextName() : importName;
+		return new SectionName(newName, NameSource.IMPORTED);
+	}
+	
+	public static SectionName userSuppliedNameFrom(String fromUser)
+	{
+		return new SectionName(fromUser, NameSource.USER);
+	}
+
+	private static String nextName()
+	{
+		++lastUsedNumber;
+		return SectionName.DefaultNamePrefix + lastUsedNumber;
+	}
+	
+	
 	private String name;
-	private Settings.NameSource type;
+	private NameSource type;
 	
 	
-	public SectionName(String nameValue, Settings.NameSource howCreated)
+	private SectionName(String nameValue, NameSource howCreated)
 	{
 		name = nameValue;
 		type = howCreated;
@@ -13,12 +46,17 @@ public class SectionName {
 	
 	public Boolean isFromUser()
 	{
-		return type == Settings.NameSource.USER;
+		return type == NameSource.USER;
 	}
 	
 	public Boolean isFromImport()
 	{
-		return type == Settings.NameSource.IMPORTED;
+		return type == NameSource.IMPORTED;
+	}
+	
+	public Boolean isApplicationGenerated()
+	{
+		return ! this.isFromImport() && ! this.isFromUser();
 	}
 	
 	@Override

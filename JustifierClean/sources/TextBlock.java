@@ -16,36 +16,21 @@ public class TextBlock implements TextSection {
 	//TODO: Look at creating a PositionedItem class that implements TextSection and Offsettable
 	//		Then we can just use an array instead of the map...
 	
-	//TODO: Change name to a SectionName and move up to base class
-	private NameSource howCreated;
-	private String name;
+	private SectionName name;
 	private LinkedHashMap<TextSection, Integer> textSections;
 	
 	public TextBlock() 
 	{
-		super();
+		this(SectionName.defaultSystemName());
+	}
+	
+	public TextBlock(SectionName blockName)
+	{
 		textSections = new LinkedHashMap<TextSection, Integer>();
-		howCreated = NameSource.APPLICATION;
-		name = "";
+		name = blockName;
 	}
 	
-	//TODO: Move all these 'howCreated' things out to BlockName object
-	public Boolean isNameUserCreated()
-	{
-		return howCreated == NameSource.USER;
-	}
-	
-	public void setHowCreated(NameSource creationMethod)
-	{
-		howCreated = creationMethod;
-	}
-	
-	public NameSource creationType(){
-		
-		return howCreated;
-	}
-	
-	public String name()
+	public SectionName name()
 	{
 		return name;
 	}

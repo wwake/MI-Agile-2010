@@ -1,25 +1,28 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Vector;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
 
-
+import java.util.Vector;
 
 public class TextBlockTest {
 
 	@Test
-	public void testConstructorInitializesValues() {
+	public void testDefaultConstructorInitializesValues() {
 		
 		TextBlock block = new TextBlock();
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
-		assertEquals(
-				"Default creations type to Application", 
-				TextBlock.NameSource.APPLICATION, 
-				block.creationType());
-		assertEquals("name should be empty by default", "", block.name());
+		assertTrue(
+				"name should be default system name", 
+				block.name().toString().startsWith(SectionName.DefaultNamePrefix));
+		assertTrue("name should be app generated", block.name().isApplicationGenerated());
+	}
+	
+	@Test
+	public void testConstructorWithNameSetsGivenName() {
+		
+		SectionName blockName = SectionName.importedNameFrom("import");
+		TextBlock block = new TextBlock(blockName);
+		assertTrue("Should initialize an empty sections list", block.isEmpty());
+		assertSame(blockName, block.name());
 	}
 	
 	@Test
@@ -110,19 +113,6 @@ public class TextBlockTest {
 		block.add(line1, 5);
 		block.add(line2, 4);
 		assertEquals(7, block.width());
-	}
-
-	@Test
-	public void testIsNameUserCreatedIsTrueOnlyForUserEnteredCreationType() {
-		TextBlock block = new TextBlock();
-		block.setHowCreated(TextBlock.NameSource.IMPORTED);
-		assertFalse(block.isNameUserCreated());
-		
-		block.setHowCreated(TextBlock.NameSource.APPLICATION);
-		assertFalse(block.isNameUserCreated());
-		
-		block.setHowCreated(TextBlock.NameSource.USER);
-		assertTrue(block.isNameUserCreated());
 	}
 
 	@Test
