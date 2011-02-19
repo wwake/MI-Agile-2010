@@ -24,7 +24,7 @@ public class TextBlock implements TextSection {
 	
 	public Boolean isEmpty()
 	{
-		return this.sections().isEmpty();
+		return this.entries().isEmpty();
 	}
 	
 	public void add(TextLine text, int offset)
@@ -33,7 +33,7 @@ public class TextBlock implements TextSection {
 		textSections.add(entry);
 	}
 	
-	public Vector<BlockEntry> sections()
+	public Vector<BlockEntry> entries()
 	{
 		return textSections;
 	}
@@ -41,12 +41,12 @@ public class TextBlock implements TextSection {
 	@Override
 	public int width() 
 	{
-		if (textSections.size() == 0)
+		if (this.isEmpty())
 			return 0;
 		
 		int minPosition = 0;  // if any offset goes negative use the neg as minimum, otherwise 0
 		int maxPosition = Integer.MIN_VALUE;
-		for(BlockEntry entry : textSections)
+		for(BlockEntry entry : this.entries())
 		{
 			minPosition = Math.min(minPosition, entry.offset());
 			maxPosition = Math.max(maxPosition, entry.width());

@@ -16,7 +16,7 @@ public abstract class Justifier {
 	
 	public TextBlock newResult()
 	{
-		result = new BlockBuilder().newBlockNamedFrom(lines);
+		this.resetResultBlock();
 		for (TextSection text : lines)
 		{
 			if (text.getClass() == TextLine.class)
@@ -32,8 +32,16 @@ public abstract class Justifier {
 		return result;
 	}
 	
+	private void resetResultBlock()
+	{
+		result = new BlockBuilder().newBlockNamedFrom(lines);
+	}
+	
 	protected TextBlock resultBlock()
 	{
+		if (result == null)
+			this.resetResultBlock();
+		
 		return result;
 	}
 }

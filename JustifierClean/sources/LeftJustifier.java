@@ -16,7 +16,7 @@ public class LeftJustifier extends Justifier {
 	@Override
 	public void addLinesFrom(TextBlock aBlock) {
 		
-		for (BlockEntry entry : aBlock.sections())
+		for (BlockEntry entry : aBlock.entries())
 		{
 			this.resultBlock().add(entry.line(), 0);
 		}

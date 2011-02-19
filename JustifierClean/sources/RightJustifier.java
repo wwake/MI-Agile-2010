@@ -24,7 +24,7 @@ public class RightJustifier extends Justifier {
 	@Override
 	public void addLinesFrom(TextBlock aBlock) {
 		
-		for (BlockEntry entry : aBlock.sections())
+		for (BlockEntry entry : aBlock.entries())
 		{
 			if (this.resultBlock().width() >= aBlock.width())
 			{
@@ -46,7 +46,7 @@ public class RightJustifier extends Justifier {
 
 	private void addLongerLine(TextLine line, int initialOffset, int amountToGrowResult)
 	{
-		for(BlockEntry resultEntry : this.resultBlock().sections())
+		for(BlockEntry resultEntry : this.resultBlock().entries())
 		{
 			resultEntry.changeOffset(resultEntry.offset() + amountToGrowResult);
 		}

@@ -42,14 +42,14 @@ public class TextBlockTest {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 0);
-		assertEquals(1, block.sections().size());
+		assertEquals(1, block.entries().size());
 		assertEquals(
 				"line value should be the same", 
 				aLine.toString(), 
-				block.sections().firstElement().line().toString());
+				block.entries().firstElement().line().toString());
 
 		block.add(new TextLine("other"), 0);
-		assertEquals(2, block.sections().size());
+		assertEquals(2, block.entries().size());
 	}
 	
 	@Test
@@ -57,8 +57,8 @@ public class TextBlockTest {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 33);
-		assertEquals(1, block.sections().size());
-		assertEquals(33, block.sections().firstElement().offset());
+		assertEquals(1, block.entries().size());
+		assertEquals(33, block.entries().firstElement().offset());
 	}
 
 	@Test

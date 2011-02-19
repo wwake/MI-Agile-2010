@@ -17,7 +17,7 @@ public class EndToEndJustifier extends Justifier {
 	public void addLinesFrom(TextBlock aBlock) {
 		
 		int currentWidth = this.resultBlock().width();
-		for (BlockEntry entry : aBlock.sections())
+		for (BlockEntry entry : aBlock.entries())
 		{
 			this.resultBlock().add(entry.line(), entry.offset() + currentWidth);
 		}
