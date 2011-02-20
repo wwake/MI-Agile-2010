@@ -23,3 +23,7 @@ public class LeftJustifier extends Justifier {
 	}
 
 }
+
+/* Got extra blank lines that should probably just be deleted.
+Not consistently formatted with the other files. 
+*/

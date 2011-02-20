@@ -1,4 +1,6 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -101,3 +103,12 @@ public class SectionNameTest {
 		assertFalse("App generated name should not be from user", appName.isFromUser());
 	}
 }
+
+/* 
+In testDefaultNamePrefixHasntChanged(), just declaring that field final would make it convey that without a test.
+
+These tests show why I don't like the separate query methods: they don't scale well. (Suppose there were 5 possibilities...)
+Looks like Smalltalk transliterated to Java:)   (Teasing slightly. Java just can't take advantage of names in the 
+sense Smalltalk can.) (Of course, any enum makes me wonder if there's a missing class too.)
+
+*/

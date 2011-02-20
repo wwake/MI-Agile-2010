@@ -54,3 +54,12 @@ public class TextBlock implements TextSection {
 		return maxPosition - minPosition;
 	}
 }
+
+/* I think you want lowercase "boolean" rather than "Boolean" on isEmpty().
+ * 
+ * This width() stuff is a bit confusing. Maybe the word "entry" isn't helping. 
+ * (I still don't understand BlockEntry vs. TextBlock vs anything else.)
+ * 
+ * I'm not clear on why you're setting minPosition=0 rather than say Integer.MAX_VALUE.
+ * (Could you have a text block with an positive offset?)
+ */

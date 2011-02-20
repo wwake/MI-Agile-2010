@@ -53,3 +53,10 @@ public class RightJustifier extends Justifier {
 		this.resultBlock().add(line, initialOffset);
 	}
 }
+
+/* This implementation totally surprised me. I thought it would be "run through everything to find max width, 
+ * run through it again to slide things to the right." With this approach, won't you be readjusting 
+ * lines multiple times?
+ * 
+ * Seems like the if & else clauses are similar enough there might be a way to fold them together.
+ */ 

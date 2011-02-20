@@ -36,3 +36,8 @@ public class BlockEntry implements TextSection {
 		return line;
 	}
 }
+
+/*
+Seems like it should be "setOffset" rather than "changeOffset" (Java convention). I'm not super-stickler about that though -
+line() & offset() don't bother me as much. 
+*/

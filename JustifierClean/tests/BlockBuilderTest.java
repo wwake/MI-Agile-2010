@@ -1,4 +1,6 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Vector;
 
@@ -88,3 +90,9 @@ public class BlockBuilderTest {
 		assertEquals("User Block", newBlock.name().toString());
 	}
 }
+
+/* I'd say to pull out common @Before stuff. 
+ * You're using "theLines" in one test.
+ * 2d test looks like it could be split into two distinct tests.
+ * I'm surprised most of the tests seem to be about names. I thought BlockBuilder would be building blocks. Is it a NameBuilder?
+ */

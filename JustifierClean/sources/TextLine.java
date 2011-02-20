@@ -19,3 +19,4 @@ public class TextLine implements TextSection {
 		return text;
 	}
 }
+/* Too simple to argue with:) */

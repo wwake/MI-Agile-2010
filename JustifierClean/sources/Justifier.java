@@ -45,3 +45,8 @@ public abstract class Justifier {
 		return result;
 	}
 }
+
+/** 
+ * I'm surprised to see the add vs. addLinesFrom stuff and the class checks.
+ * Not sure why you need the mechanism around null checks etc. - really need two result returns? 
+ **/

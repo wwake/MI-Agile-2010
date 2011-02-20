@@ -1,4 +1,8 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class TextBlockTest {
@@ -109,3 +113,7 @@ public class TextBlockTest {
 		assertEquals(7, block.width());
 	}
 }
+
+/* Not consistent about blank lines. I'd say the latter tests look better - no blank after "{". 
+ * Using Junit 4 (@Test), it's customary not to start test names with "test". 
+ * */

@@ -1,4 +1,7 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Vector;
 
@@ -71,3 +74,8 @@ public class JustifierTest {
 		return data;
 	}
 }
+
+/* I wouldn't bother with that first assertNotNull - doesn't move the action forward, and if it's null, the next line 
+will fail.
+I wonder if this can all be simplified by unifying the interfaces.
+*/

@@ -24,3 +24,8 @@ public class EndToEndJustifier extends Justifier {
 	}
 
 }
+
+/* I think I get this one. 
+ * You've got a little chaining there with this.resultBlock().add(...). Makes me wonder if you could have a 
+ * version of this.add() that takes care of digging through the resultBlock. 
+ * */
