@@ -9,32 +9,29 @@ import org.junit.Test;
 public class BlockBuilderTest {
 
 	@Test
-	public void testDefaultSystemBlockHasApplicationGeneratedName()
-	{
+	public void defaultSystemBlockHasApplicationGeneratedName() {
 		BlockBuilder builder = new BlockBuilder();
 		TextBlock block = builder.defaultSystemBlock();
 		assertTrue(block.name().isApplicationGenerated());
 	}
 
 	@Test
-	public void testDeriveBestNameFromReturnsDefaultSystemNameIfListContainsNoBlocks() 
-	{
-		Vector<TextSection> theLines = new Vector<TextSection>();
+	public void deriveBestNameFromReturnsDefaultSystemNameIfListContainsNoBlocks()  {
+		Vector<TextSection> data = new Vector<TextSection>();
 		BlockBuilder builder = new BlockBuilder();
-		SectionName bestName = builder.deriveBestNameFrom(theLines);
+		SectionName bestName = builder.deriveBestNameFrom(data);
 		assertTrue(bestName.toString().startsWith(SectionName.DefaultNamePrefix));
 		assertTrue(bestName.isApplicationGenerated());
 		
 		TextLine aLine = new TextLine("lkjfdhkdhfsdlkjah");
-		theLines.add(aLine);
-		bestName = builder.deriveBestNameFrom(theLines);
+		data.add(aLine);
+		bestName = builder.deriveBestNameFrom(data);
 		assertTrue(bestName.toString().startsWith(SectionName.DefaultNamePrefix));
 		assertTrue(bestName.isApplicationGenerated());
 	}
 	
 	@Test
-	public void testDeriveBestNameFromReturnsNameFromFirstBlockWithUserGeneratedName()
-	{
+	public void deriveBestNameFromReturnsNameFromFirstBlockWithUserGeneratedName() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		TextBlock block = new TextBlock(SectionName.importedNameFrom("Imported Block"));
 		data.add(block);
@@ -49,8 +46,7 @@ public class BlockBuilderTest {
 	}
 	
 	@Test
-	public void testDeriveBestNameFromReturnsNameFromFirstBlockWithImportedNameIfNoUserGeneratedBlocks()
-	{
+	public void deriveBestNameFromReturnsNameFromFirstBlockWithImportedNameIfNoUserGeneratedBlocks() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		TextBlock block = new TextBlock(SectionName.defaultSystemName());
 		data.add(block);
@@ -65,8 +61,7 @@ public class BlockBuilderTest {
 	}
 	
 	@Test
-	public void testDeriveBestNameFromReturnsNewSystemNameIfOnlyAppGeneratedBlocksInTheList()
-	{
+	public void deriveBestNameFromReturnsNewSystemNameIfOnlyAppGeneratedBlocksInTheList() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		SectionName existingBlockName = SectionName.defaultSystemName();
 		TextBlock block = new TextBlock(existingBlockName);
@@ -78,8 +73,7 @@ public class BlockBuilderTest {
 	}
 	
 	@Test
-	public void testNewBlockNamedFromUsesDerivedName()
-	{
+	public void newBlockNamedFromUsesDerivedName() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		TextBlock block = new TextBlock(SectionName.importedNameFrom("Imported Block"));
 		data.add(block);
@@ -91,8 +85,6 @@ public class BlockBuilderTest {
 	}
 }
 
-/* I'd say to pull out common @Before stuff. 
- * You're using "theLines" in one test.
- * 2d test looks like it could be split into two distinct tests.
+/* 
  * I'm surprised most of the tests seem to be about names. I thought BlockBuilder would be building blocks. Is it a NameBuilder?
  */

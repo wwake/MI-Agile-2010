@@ -1,7 +1,4 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Vector;
 
@@ -27,16 +24,13 @@ public class JustifierTest {
 	}
 	
 	@Test
-	public void testResultBlockShouldNeverBeNull()
-	{
+	public void workingBlockShouldBeInitializedEmpty() {
 		CallTrackingJustifier justifier = new CallTrackingJustifier(this.testData());
-		assertNotNull(justifier.resultBlock());
-		assertTrue("ResultBlock should be empty by default", justifier.resultBlock().isEmpty());
+		assertTrue("ResultBlock should be empty by default", justifier.workingBlock().isEmpty());
 	}
 	
 	@Test
-	public void testNewResultCreatesNewBlockEveryTime() {
-		
+	public void newResultCreatesNewBlockEveryTime() {
 		Justifier justifier = new CallTrackingJustifier(new Vector<TextSection>());
 		TextBlock block1 = justifier.newResult();
 		TextBlock block2 = justifier.newResult();
@@ -44,23 +38,20 @@ public class JustifierTest {
 	}
 
 	@Test
-	public void testNewResultCallsAddForEveryTopLevelLineInInputList()
-	{
+	public void newResultCallsAddForEveryTopLevelLineInInputList() {
 		CallTrackingJustifier justifier = new CallTrackingJustifier(this.testData());
 		justifier.newResult();
 		assertEquals(3, justifier.addCalledCount);
 	}
 
 	@Test
-	public void testNewResultCallsAddLinesFromForEveryBlockInInputList()
-	{
+	public void newResultCallsAddLinesFromForEveryBlockInInputList() {
 		CallTrackingJustifier justifier = new CallTrackingJustifier(this.testData());
 		justifier.newResult();
 		assertEquals(2, justifier.addLinesFromCalledCount);
 	}
 	
-	private Vector<TextSection> testData()
-	{
+	private Vector<TextSection> testData() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		data.add(new TextLine("123"));
 		TextBlock textBlock = new TextBlock();
@@ -75,7 +66,6 @@ public class JustifierTest {
 	}
 }
 
-/* I wouldn't bother with that first assertNotNull - doesn't move the action forward, and if it's null, the next line 
-will fail.
-I wonder if this can all be simplified by unifying the interfaces.
+/* 
+   I wonder if this can all be simplified by unifying the interfaces.
 */

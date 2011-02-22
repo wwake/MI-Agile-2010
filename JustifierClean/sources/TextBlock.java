@@ -6,41 +6,34 @@ public class TextBlock implements TextSection {
 	private SectionName name;
 	private Vector<BlockEntry> textSections;
 	
-	public TextBlock() 
-	{
+	public TextBlock()  {
 		this(SectionName.defaultSystemName());
 	}
 	
-	public TextBlock(SectionName blockName)
-	{
+	public TextBlock(SectionName blockName) {
 		textSections = new Vector<BlockEntry>();
 		name = blockName;
 	}
 	
-	public SectionName name()
-	{
+	public SectionName name() {
 		return name;
 	}
 	
-	public Boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return this.entries().isEmpty();
 	}
 	
-	public void add(TextLine text, int offset)
-	{
+	public void add(TextLine text, int offset) {
 		BlockEntry entry = new BlockEntry(text, offset);
 		textSections.add(entry);
 	}
 	
-	public Vector<BlockEntry> entries()
-	{
+	public Vector<BlockEntry> entries() {
 		return textSections;
 	}
 
 	@Override
-	public int width() 
-	{
+	public int width()  {
 		if (this.isEmpty())
 			return 0;
 		
@@ -55,7 +48,7 @@ public class TextBlock implements TextSection {
 	}
 }
 
-/* I think you want lowercase "boolean" rather than "Boolean" on isEmpty().
+/* 
  * 
  * This width() stuff is a bit confusing. Maybe the word "entry" isn't helping. 
  * (I still don't understand BlockEntry vs. TextBlock vs anything else.)

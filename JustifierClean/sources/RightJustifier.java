@@ -9,48 +9,44 @@ public class RightJustifier extends Justifier {
 
 	@Override
 	public void add(TextLine aLine) {
-		
-		if (this.resultBlock().width() >= aLine.width())
+		if (this.workingBlock().width() >= aLine.width())
 		{
-			this.addShorterLine(aLine, this.resultBlock().width() - aLine.width());
+			this.addShorterLine(aLine, this.workingBlock().width() - aLine.width());
 		}
 		else
 		{
-			int offsetIncrease = aLine.width() - this.resultBlock().width();
+			int offsetIncrease = aLine.width() - this.workingBlock().width();
 			this.addLongerLine(aLine, 0, offsetIncrease);
 		}
 	}
 
 	@Override
 	public void addLinesFrom(TextBlock aBlock) {
-		
 		for (BlockEntry entry : aBlock.entries())
 		{
-			if (this.resultBlock().width() >= aBlock.width())
+			if (this.workingBlock().width() >= aBlock.width())
 			{
 				int currentOffset = entry.offset();
-				this.addShorterLine(entry.line(), currentOffset + (this.resultBlock().width() - aBlock.width()));
+				this.addShorterLine(entry.line(), currentOffset + (this.workingBlock().width() - aBlock.width()));
 			}
 			else
 			{
-				int offsetIncrease = aBlock.width() - this.resultBlock().width();
+				int offsetIncrease = aBlock.width() - this.workingBlock().width();
 				this.addLongerLine(entry.line(), entry.offset(), offsetIncrease);
 			}
 		}
 	}
 	
-	private void addShorterLine(TextLine line, int lengthDifference)
-	{
-		this.resultBlock().add(line, lengthDifference);
+	private void addShorterLine(TextLine line, int lengthDifference) {
+		this.workingBlock().add(line, lengthDifference);
 	}
 
-	private void addLongerLine(TextLine line, int initialOffset, int amountToGrowResult)
-	{
-		for(BlockEntry resultEntry : this.resultBlock().entries())
+	private void addLongerLine(TextLine line, int initialOffset, int amountToGrowResult) {
+		for(BlockEntry resultEntry : this.workingBlock().entries())
 		{
 			resultEntry.changeOffset(resultEntry.offset() + amountToGrowResult);
 		}
-		this.resultBlock().add(line, initialOffset);
+		this.workingBlock().add(line, initialOffset);
 	}
 }
 

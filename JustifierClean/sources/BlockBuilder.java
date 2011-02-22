@@ -3,18 +3,11 @@ import java.util.Vector;
 
 public class BlockBuilder {
 
-	
-	public BlockBuilder()
-	{
-	}
-	
-	public TextBlock defaultSystemBlock()
-	{
+	public TextBlock defaultSystemBlock() {
 		return new TextBlock();
 	}
 	
-	public SectionName deriveBestNameFrom(Vector<TextSection> textData)
-	{
+	public SectionName deriveBestNameFrom(Vector<TextSection> textData) {
 		SectionName importedName = null;
 		
 		for (TextSection currentSection : textData)
@@ -36,13 +29,12 @@ public class BlockBuilder {
 		return (importedName != null) ? importedName : SectionName.defaultSystemName();
 	}
 	
-	public TextBlock newBlockNamedFrom(Vector<TextSection> textData)
-	{
+	public TextBlock newBlockNamedFrom(Vector<TextSection> textData) {
 		return new TextBlock(this.deriveBestNameFrom(textData));
 	}
 }
 
-/** Don't need an empty constructor.
+/** 
  * I'm not clear why you want the loop to keep going once you've found an import name.
  * Is the logic "if any block has a name, use it as the best name. Otherwise, use an import name if it exists, otherwise the default name.
  * Again, the getClass stuff. Might be in the original but feels out of place here. 

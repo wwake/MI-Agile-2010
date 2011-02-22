@@ -3,8 +3,7 @@ public class TextLine implements TextSection {
 
 	private String text;
 	
-	public TextLine(String theText)
-	{
+	public TextLine(String theText) {
 		text = theText;
 	}
 
@@ -14,9 +13,7 @@ public class TextLine implements TextSection {
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return text;
 	}
 }
-/* Too simple to argue with:) */

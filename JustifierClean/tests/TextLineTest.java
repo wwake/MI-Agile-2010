@@ -6,7 +6,7 @@ import org.junit.Test;
 public class TextLineTest {
 
 	@Test
-	public void testWidthIsTheLengthOfTheEnclosedString() {
+	public void widthIsTheLengthOfTheEnclosedString() {
 		TextLine line = new TextLine("");
 		assertEquals(0, line.width());
 		
@@ -15,22 +15,9 @@ public class TextLineTest {
 	}
 
 	@Test
-	public void testToStringShouldReturnTheEnclosedStringData() {
-		
+	public void toStringShouldReturnTheEnclosedStringData() {
 		String result = "just a string";
 		TextLine line = new TextLine(result);
 		assertEquals(result, line.toString());
 	}
 }
-/* I'd probably do these tests slightly differently, around empty string and non-empty string. '
-@Test emptyString
-assertEquals(0, emptyLine.width());
-assertEquals("", emptyLine.toString());
-
-@Test nonEmptyString
-String text = "just a string"
-assertEquals(text.length(), line.width())
-assertEquals(text, line.toString())
-
-[with initialization for the two lines]
-*/

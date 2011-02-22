@@ -8,8 +8,7 @@ import org.junit.Test;
 public class TextBlockTest {
 
 	@Test
-	public void testDefaultConstructorInitializesValues() {
-		
+	public void defaultConstructorInitializesValues() {
 		TextBlock block = new TextBlock();
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
 		assertTrue(
@@ -19,8 +18,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testConstructorWithNameSetsGivenName() {
-		
+	public void constructorWithNameSetsGivenName() {
 		SectionName blockName = SectionName.importedNameFrom("import");
 		TextBlock block = new TextBlock(blockName);
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
@@ -28,21 +26,19 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testIsEmptyIsTrueIfItContainsNoLines()
-	{
+	public void isEmptyIsTrueIfItContainsNoLines() {
 		assertTrue(new TextBlock().isEmpty());
 	}
 	
 	@Test
-	public void testIsEmptyIsFalseIfItContainsAnyLines()
-	{
+	public void isEmptyIsFalseIfItContainsAnyLines() {
 		TextBlock block = new TextBlock();
 		block.add(new TextLine(""), 0); // there doesn't need to be anything in the line
 		assertFalse(block.isEmpty());
 	}
 
 	@Test
-	public void testAdd() {
+	public void addAppendsGivenLineToBlock() {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 0);
@@ -57,7 +53,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testAddUpdatesOffsetOnAddedLine() {
+	public void addUpdatesOffsetOnAddedLine() {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 33);
@@ -66,14 +62,12 @@ public class TextBlockTest {
 	}
 
 	@Test
-	public void testWidthIsZeroIfBlockIsEmpty() {
-		
+	public void widthIsZeroIfBlockIsEmpty() {
 		assertEquals(0, new TextBlock().width());
 	}
 	
 	@Test
-	public void testWidthEqualsTheWidthOfContainedTextIfOnlySingleLine()
-	{
+	public void widthEqualsTheWidthOfContainedTextIfOnlySingleLine() {
 		TextLine line = new TextLine("12345");
 		TextBlock block = new TextBlock();
 		block.add(line, 0);
@@ -81,8 +75,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testWidthIncorporatesOffsetsInDeterminingValue()
-	{
+	public void widthIncorporatesOffsetsInDeterminingValue() {
 		TextLine line = new TextLine("12345");
 		TextLine lineOffsetRight = new TextLine("789");
 		TextBlock block = new TextBlock();
@@ -92,8 +85,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testWidthAccountsForNegativeOffsets()
-	{
+	public void widthAccountsForNegativeOffsets() {
 		TextLine line = new TextLine("1");
 		TextLine lineOffsetNegative = new TextLine("789");
 		TextBlock block = new TextBlock();
@@ -103,8 +95,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void testWidthStartsAtZeroIfAllContainedLinesHavePositiveOffsets()
-	{
+	public void widthStartsAtZeroIfAllContainedLinesHavePositiveOffsets() {
 		TextLine line1 = new TextLine("1");
 		TextLine line2 = new TextLine("789");
 		TextBlock block = new TextBlock();
@@ -113,7 +104,3 @@ public class TextBlockTest {
 		assertEquals(7, block.width());
 	}
 }
-
-/* Not consistent about blank lines. I'd say the latter tests look better - no blank after "{". 
- * Using Junit 4 (@Test), it's customary not to start test names with "test". 
- * */

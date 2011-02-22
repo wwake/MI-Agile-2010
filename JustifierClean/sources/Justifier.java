@@ -37,7 +37,7 @@ public abstract class Justifier {
 		result = new BlockBuilder().newBlockNamedFrom(lines);
 	}
 	
-	protected TextBlock resultBlock()
+	protected TextBlock workingBlock()
 	{
 		if (result == null)
 			this.resetResultBlock();
