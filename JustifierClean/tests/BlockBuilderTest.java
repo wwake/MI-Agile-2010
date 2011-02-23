@@ -9,13 +9,6 @@ import org.junit.Test;
 public class BlockBuilderTest {
 
 	@Test
-	public void defaultSystemBlockHasApplicationGeneratedName() {
-		BlockBuilder builder = new BlockBuilder();
-		TextBlock block = builder.defaultSystemBlock();
-		assertTrue(block.name().isApplicationGenerated());
-	}
-
-	@Test
 	public void deriveBestNameFromReturnsDefaultSystemNameIfListContainsNoBlocks()  {
 		Vector<TextSection> data = new Vector<TextSection>();
 		BlockBuilder builder = new BlockBuilder();

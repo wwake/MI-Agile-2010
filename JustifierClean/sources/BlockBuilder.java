@@ -3,10 +3,6 @@ import java.util.Vector;
 
 public class BlockBuilder {
 
-	public TextBlock defaultSystemBlock() {
-		return new TextBlock();
-	}
-	
 	public SectionName deriveBestNameFrom(Vector<TextSection> textData) {
 		SectionName importedName = null;
 		
