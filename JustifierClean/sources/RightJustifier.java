@@ -16,37 +16,31 @@ public class RightJustifier extends Justifier {
 		else
 		{
 			int offsetIncrease = aLine.width() - this.workingBlock().width();
-			this.addLongerLine(aLine, 0, offsetIncrease);
+			this.workingBlock().adjustAllOffsetsBy(offsetIncrease);
+			this.workingBlock().add(aLine, 0);
 		}
 	}
 
 	@Override
 	public void addLinesFrom(TextBlock aBlock) {
-		for (BlockEntry entry : aBlock.entries())
-		{
-			if (this.workingBlock().width() >= aBlock.width())
-			{
-				int currentOffset = entry.offset();
-				this.addShorterLine(entry.line(), currentOffset + (this.workingBlock().width() - aBlock.width()));
+		int difference = this.workingBlock().width() - aBlock.width();
+		boolean existingIsWider = (difference >= 0);
+		
+		if (!existingIsWider)
+			this.workingBlock().adjustAllOffsetsBy(-difference);
+		
+		for (BlockEntry entry : aBlock.entries()) {
+			if (existingIsWider) {
+				this.addShorterLine(entry.line(), entry.offset() + difference);
 			}
-			else
-			{
-				int offsetIncrease = aBlock.width() - this.workingBlock().width();
-				this.addLongerLine(entry.line(), entry.offset(), offsetIncrease);
+			else {
+				this.workingBlock().add(entry.line(), entry.offset());
 			}
 		}
 	}
 	
 	private void addShorterLine(TextLine line, int lengthDifference) {
 		this.workingBlock().add(line, lengthDifference);
-	}
-
-	private void addLongerLine(TextLine line, int initialOffset, int amountToGrowResult) {
-		for(BlockEntry resultEntry : this.workingBlock().entries())
-		{
-			resultEntry.changeOffset(resultEntry.offset() + amountToGrowResult);
-		}
-		this.workingBlock().add(line, initialOffset);
 	}
 }
 

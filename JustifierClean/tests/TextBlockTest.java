@@ -103,4 +103,24 @@ public class TextBlockTest {
 		block.add(line2, 4);
 		assertEquals(7, block.width());
 	}
+	
+	@Test
+	public void adjustAllOffsetsByShouldApplyGivenValueToAllLines()
+	{
+		TextLine line1 = new TextLine("Line 1");
+		TextLine line2 = new TextLine("AnotherLine");
+		TextLine line3 = new TextLine("XYZ");
+		TextBlock block = new TextBlock();
+		block.add(line1, -2);
+		block.add(line2, 22);
+		block.add(line3, 0);
+		block.adjustAllOffsetsBy(7);
+		
+		BlockEntry entry = block.entries().elementAt(0);
+		assertEquals(5, entry.offset());
+		entry = block.entries().elementAt(1);
+		assertEquals(29, entry.offset());
+		entry = block.entries().elementAt(2);
+		assertEquals(7, entry.offset());
+	}
 }

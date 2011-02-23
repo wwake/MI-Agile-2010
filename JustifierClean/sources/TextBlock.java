@@ -39,12 +39,17 @@ public class TextBlock implements TextSection {
 		
 		int minPosition = 0;  // if any offset goes negative use the neg as minimum, otherwise 0
 		int maxPosition = Integer.MIN_VALUE;
-		for(BlockEntry entry : this.entries())
-		{
+		for(BlockEntry entry : this.entries()) {
 			minPosition = Math.min(minPosition, entry.offset());
 			maxPosition = Math.max(maxPosition, entry.width());
 		}
 		return maxPosition - minPosition;
+	}
+
+	public void adjustAllOffsetsBy(int amount) {
+		for(BlockEntry entry : this.entries()) {
+			entry.changeOffset(entry.offset() + amount);
+		}
 	}
 }
 

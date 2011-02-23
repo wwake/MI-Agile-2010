@@ -5,9 +5,9 @@ public class Runner {
 
 	public static void main(String[] ignoredArgs)
 	{
-//		Runner.runJustifierWith(Runner.singleLinesData());
+		Runner.runJustifierWith(Runner.singleLinesData());
 //		Runner.runJustifierWith(Runner.twoTextBlocks());
-		Runner.runJustifierWith(Runner.mixOfLinesAndBlocks());
+//		Runner.runJustifierWith(Runner.mixOfLinesAndBlocks());
 	}
 	
 	public static void runJustifierWith(Vector<TextSection> textData){

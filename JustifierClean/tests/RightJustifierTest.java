@@ -7,7 +7,7 @@ import java.util.Vector;
 public class RightJustifierTest {
 
 	@Test
-	public void addPutsLineInBlockWithZeroOffsetIfFirstLineAdded() {
+	public void addShouldPutLineInBlockWithZeroOffsetIfFirstLineAdded() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
 		TextLine addedLine = new TextLine("ABCD");
 		justifier.add(addedLine);
@@ -15,9 +15,41 @@ public class RightJustifierTest {
 		assertSame(addedLine, entry.line());
 		assertEquals(0, entry.offset());
 	}
+	
+	@Test
+	public void addShouldAdjustOffsetOfGivenLineIfItIsShorter() {
+		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
+		TextLine longerLine = new TextLine("ABCD");
+		justifier.add(longerLine);
+		
+		TextLine shorterLine = new TextLine("12");
+		justifier.add(shorterLine);
+		BlockEntry entry = justifier.workingBlock().entries().get(0);
+		assertSame(longerLine, entry.line());
+		assertEquals("Should not have touched offset of existing line", 0, entry.offset());
+		entry = justifier.workingBlock().entries().get(1);
+		assertSame(shorterLine, entry.line());
+		assertEquals("Should have determined offset for shorter line", 2, entry.offset());
+	}
+	
+	@Test
+	public void addShouldAdjustOffsetsOfAnyExistingLinesIfGivenLineIsWiderThanWorkingBlockWidth() {
+		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
+		justifier.add(new TextLine("1234"));
+		justifier.add(new TextLine("12"));
+		
+		TextLine longer = new TextLine("1234567890");
+		justifier.add(longer);
+		BlockEntry entry = justifier.workingBlock().entries().get(0);
+		assertEquals("Should have moved first line offset", 6, entry.offset());
+		entry = justifier.workingBlock().entries().get(1);
+		assertEquals("Should have moved second line offset", 8, entry.offset());
+		entry = justifier.workingBlock().entries().get(2);
+		assertEquals("New longest line should have no offset", 0, entry.offset());
+	}
 
 	@Test
-	public void testAddLinesFromShouldUseExistingOffsetsIfBlockIsFirstItemAdded() {
+	public void addLinesFromShouldUseExistingOffsetsIfBlockIsFirstItemAdded() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
 		TextBlock block = new TextBlock();
 		TextLine line1 = new TextLine("line one offset 5");
