@@ -6,12 +6,12 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-public class BlockBuilderTest {
+public class NameChooserTest {
 
 	@Test
 	public void deriveBestNameFromReturnsDefaultSystemNameIfListContainsNoBlocks()  {
 		Vector<TextSection> data = new Vector<TextSection>();
-		BlockBuilder builder = new BlockBuilder();
+		NameChooser builder = new NameChooser();
 		SectionName bestName = builder.deriveBestNameFrom(data);
 		assertTrue(bestName.toString().startsWith(SectionName.DefaultNamePrefix));
 		assertTrue(bestName.isApplicationGenerated());
@@ -32,7 +32,7 @@ public class BlockBuilderTest {
 		data.add(block);
 		block = new TextBlock(SectionName.userSuppliedNameFrom("User Block"));
 		data.add(block);
-		BlockBuilder builder = new BlockBuilder();
+		NameChooser builder = new NameChooser();
 		SectionName bestName = builder.deriveBestNameFrom(data);
 		assertEquals("User Block", bestName.toString());
 		assertTrue(bestName.isFromUser());
@@ -47,7 +47,7 @@ public class BlockBuilderTest {
 		data.add(block);
 		block = new TextBlock();
 		data.add(block);
-		BlockBuilder builder = new BlockBuilder();
+		NameChooser builder = new NameChooser();
 		SectionName bestName = builder.deriveBestNameFrom(data);
 		assertEquals("Imported Block", bestName.toString());
 		assertTrue(bestName.isFromImport());
@@ -59,25 +59,9 @@ public class BlockBuilderTest {
 		SectionName existingBlockName = SectionName.defaultSystemName();
 		TextBlock block = new TextBlock(existingBlockName);
 		data.add(block);
-		BlockBuilder builder = new BlockBuilder();
+		NameChooser builder = new NameChooser();
 		SectionName bestName = builder.deriveBestNameFrom(data);
 		assertTrue(bestName.isApplicationGenerated());
 		assertFalse(existingBlockName.toString().equals(bestName.toString()));
 	}
-	
-	@Test
-	public void newBlockNamedFromUsesDerivedName() {
-		Vector<TextSection> data = new Vector<TextSection>();
-		TextBlock block = new TextBlock(SectionName.importedNameFrom("Imported Block"));
-		data.add(block);
-		block = new TextBlock(SectionName.userSuppliedNameFrom("User Block"));
-		data.add(block);
-		BlockBuilder builder = new BlockBuilder();
-		TextBlock newBlock = builder.newBlockNamedFrom(data);
-		assertEquals("User Block", newBlock.name().toString());
-	}
 }
-
-/* 
- * I'm surprised most of the tests seem to be about names. I thought BlockBuilder would be building blocks. Is it a NameBuilder?
- */
