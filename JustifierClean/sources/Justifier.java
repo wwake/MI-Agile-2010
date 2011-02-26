@@ -11,8 +11,7 @@ public abstract class Justifier {
 		lines = theLines;
 	}
 
-	public abstract void add(TextLine aLine);
-	public abstract void addLinesFrom(TextBlock aBlock);
+	public abstract void addSection(TextSection section);
 	
 	public void addToResult(TextLine line, int offset) {
 		this.workingBlock().add(line, offset);
@@ -23,14 +22,7 @@ public abstract class Justifier {
 		this.resetResultBlock();
 		for (TextSection text : lines)
 		{
-			if (text.getClass() == TextLine.class)
-			{
-				this.add((TextLine)text);
-			}
-			else if (text.getClass() == TextBlock.class)
-			{
-				this.addLinesFrom((TextBlock)text);
-			}
+			this.addSection(text);
 		}
 
 		return result;
@@ -49,8 +41,3 @@ public abstract class Justifier {
 		return result;
 	}
 }
-
-/** 
- * I'm surprised to see the add vs. addLinesFrom stuff and the class checks.
- * Not sure why you need the mechanism around null checks etc. - really need two result returns? 
- **/

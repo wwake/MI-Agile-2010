@@ -1,15 +1,13 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Vector;
 
-import org.junit.Test;
 
 public class NameChooserTest {
 
 	@Test
-	public void deriveBestNameFromReturnsDefaultSystemNameIfListContainsNoBlocks()  {
+	public void deriveBestNameFromShouldBeDefaultSystemNameIfListContainsNoBlocks()  {
 		Vector<TextSection> data = new Vector<TextSection>();
 		NameChooser builder = new NameChooser();
 		SectionName bestName = builder.deriveBestNameFrom(data);
@@ -24,7 +22,7 @@ public class NameChooserTest {
 	}
 	
 	@Test
-	public void deriveBestNameFromReturnsNameFromFirstBlockWithUserGeneratedName() {
+	public void deriveBestNameFromShouldBeNameFromFirstBlockWithUserGeneratedName() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		TextBlock block = new TextBlock(SectionName.importedNameFrom("Imported Block"));
 		data.add(block);
@@ -39,7 +37,7 @@ public class NameChooserTest {
 	}
 	
 	@Test
-	public void deriveBestNameFromReturnsNameFromFirstBlockWithImportedNameIfNoUserGeneratedBlocks() {
+	public void deriveBestNameFromShouldBeNameFromFirstBlockWithImportedNameIfNoUserGeneratedBlocks() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		TextBlock block = new TextBlock(SectionName.defaultSystemName());
 		data.add(block);
@@ -54,7 +52,7 @@ public class NameChooserTest {
 	}
 	
 	@Test
-	public void deriveBestNameFromReturnsNewSystemNameIfOnlyAppGeneratedBlocksInTheList() {
+	public void deriveBestNameFromShouldBeNewSystemNameIfOnlyAppGeneratedBlocksInTheList() {
 		Vector<TextSection> data = new Vector<TextSection>();
 		SectionName existingBlockName = SectionName.defaultSystemName();
 		TextBlock block = new TextBlock(existingBlockName);

@@ -10,7 +10,7 @@ public class RightJustifierTest {
 	public void addShouldPutLineInBlockWithZeroOffsetIfFirstLineAdded() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
 		TextLine addedLine = new TextLine("ABCD");
-		justifier.add(addedLine);
+		justifier.addSection(addedLine);
 		BlockEntry entry = justifier.workingBlock().entries().get(0);
 		assertSame(addedLine, entry.line());
 		assertEquals(0, entry.offset());
@@ -20,10 +20,10 @@ public class RightJustifierTest {
 	public void addShouldAdjustOffsetOfGivenLineIfItIsShorter() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
 		TextLine longerLine = new TextLine("ABCD");
-		justifier.add(longerLine);
+		justifier.addSection(longerLine);
 		
 		TextLine shorterLine = new TextLine("12");
-		justifier.add(shorterLine);
+		justifier.addSection(shorterLine);
 		BlockEntry entry = justifier.workingBlock().entries().get(0);
 		assertSame(longerLine, entry.line());
 		assertEquals("Should not have touched offset of existing line", 0, entry.offset());
@@ -35,11 +35,11 @@ public class RightJustifierTest {
 	@Test
 	public void addShouldAdjustOffsetsOfAnyExistingLinesIfGivenLineIsWiderThanWorkingBlockWidth() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
-		justifier.add(new TextLine("1234"));
-		justifier.add(new TextLine("12"));
+		justifier.addSection(new TextLine("1234"));
+		justifier.addSection(new TextLine("12"));
 		
 		TextLine longer = new TextLine("1234567890");
-		justifier.add(longer);
+		justifier.addSection(longer);
 		BlockEntry entry = justifier.workingBlock().entries().get(0);
 		assertEquals("Should have moved first line offset", 6, entry.offset());
 		entry = justifier.workingBlock().entries().get(1);
@@ -59,7 +59,7 @@ public class RightJustifierTest {
 		block.add(line2, 0);
 		block.add(line3, 2);
 		
-		justifier.addLinesFrom(block);
+		justifier.addSection(block);
 		assertEquals(
 			"Each line from given block should have been added to result", 
 			3, 
@@ -80,12 +80,12 @@ public class RightJustifierTest {
 	@Test
 	public void addLinesFromShouldAdjustOffsetsOfLinesInGivenBlockIfItsWidthIsShorter() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
-		justifier.add(new TextLine("ABCDEFG"));
+		justifier.addSection(new TextLine("ABCDEFG"));
 		TextBlock addedBlock = new TextBlock();
 		addedBlock.add(new TextLine("1234"), 2);
 		addedBlock.add(new TextLine("123"), 3);
 		
-		justifier.addLinesFrom(addedBlock);
+		justifier.addSection(addedBlock);
 		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals("Existing longer line offset should not have changed", 0, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);
@@ -97,13 +97,13 @@ public class RightJustifierTest {
 	@Test
 	public void addLinesFromShouldAdjustExistingLinesIfNewBlockWidthIsLarger() {
 		RightJustifier justifier = new RightJustifier(new Vector<TextSection>());
-		justifier.add(new TextLine("1234"));
-		justifier.add(new TextLine("567890"));
+		justifier.addSection(new TextLine("1234"));
+		justifier.addSection(new TextLine("567890"));
 		TextBlock addedBlock = new TextBlock();
 		addedBlock.add(new TextLine("1234"), 0);
 		addedBlock.add(new TextLine("5678"), 4);
 		
-		justifier.addLinesFrom(addedBlock);
+		justifier.addSection(addedBlock);
 		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals("First existing line should be updated", 4, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);

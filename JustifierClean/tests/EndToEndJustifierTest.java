@@ -9,13 +9,13 @@ public class EndToEndJustifierTest {
 	public void addShouldOffsetNewLineTheWidthOfTheCurrentWorkingBlock() {
 		EndToEndJustifier justifier = new EndToEndJustifier(new Vector<TextSection>());
 		int currentWidth = justifier.workingBlock().width();
-		justifier.add(new TextLine("abc"));
+		justifier.addSection(new TextLine("abc"));
 		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals(currentWidth, entry.offset());
 		
 		currentWidth = justifier.workingBlock().width();
 		assertEquals("Test setup: just making sure", 3, currentWidth);
-		justifier.add(new TextLine("bunch-o-text"));
+		justifier.addSection(new TextLine("bunch-o-text"));
 		entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals("Existing line offset should not have changed", 0, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);
@@ -23,13 +23,13 @@ public class EndToEndJustifierTest {
 	}
 
 	@Test
-	public void addLinesFromShouldKeepCurrentOffsetsOfEachLineInAddedBlockIfAddedFirst() {
+	public void addShouldKeepCurrentOffsetsOfEachLineInAddedBlockIfAddedFirst() {
 		TextBlock block = new TextBlock();
 		block.add(new TextLine("(*^&%"), 256);
 		block.add(new TextLine("whatever"), 3876);
 		
 		EndToEndJustifier justifier = new EndToEndJustifier(new Vector<TextSection>());
-		justifier.addLinesFrom(block);
+		justifier.addSection(block);
 		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals(256, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);
@@ -37,15 +37,15 @@ public class EndToEndJustifierTest {
 	}
 
 	@Test
-	public void addLinesFromShouldApplyCurrentWidthToOffsetsOfEachLineInAddedBlock() {
+	public void addShouldApplyCurrentWidthToOffsetsOfEachLineInAddedBlock() {
 		TextBlock block = new TextBlock();
 		block.add(new TextLine("(*^&%"), 4);
 		block.add(new TextLine("whatever"), 39);
 		
 		EndToEndJustifier justifier = new EndToEndJustifier(new Vector<TextSection>());
-		justifier.add(new TextLine("1234567890"));
+		justifier.addSection(new TextLine("1234567890"));
 		
-		justifier.addLinesFrom(block);
+		justifier.addSection(block);
 		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals("Existing line offset should not have changed", 0, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);

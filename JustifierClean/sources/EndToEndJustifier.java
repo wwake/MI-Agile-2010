@@ -1,6 +1,5 @@
 import java.util.Vector;
 
-
 public class EndToEndJustifier extends Justifier {
 
 	public EndToEndJustifier(Vector<TextSection> theLines) {
@@ -8,14 +7,9 @@ public class EndToEndJustifier extends Justifier {
 	}
 
 	@Override
-	public void add(TextLine aLine) {
-		this.addToResult(aLine, this.workingBlock().width());
-	}
-
-	@Override
-	public void addLinesFrom(TextBlock aBlock) {
+	public void addSection(TextSection section) {
 		int currentWidth = this.workingBlock().width();
-		for (BlockEntry entry : aBlock.entries())
+		for (BlockEntry entry : section.entries())
 		{
 			this.addToResult(entry.line(), entry.offset() + currentWidth);
 		}

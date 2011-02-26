@@ -9,18 +9,14 @@ public class JustifierTest {
 
 	public class CallTrackingJustifier extends Justifier
 	{
-		public int addCalledCount = 0;
-		public int addLinesFromCalledCount = 0;
+		public int addSectionCalledCount = 0;
 		
 		public CallTrackingJustifier(Vector<TextSection> theLines) {
 			super(theLines);
 		}
 
 		@Override
-		public void add(TextLine aLine) { ++addCalledCount; }
-
-		@Override
-		public void addLinesFrom(TextBlock aBlock) { ++addLinesFromCalledCount; }
+		public void addSection(TextSection section) { ++addSectionCalledCount;}
 	}
 	
 	@Test
@@ -48,17 +44,10 @@ public class JustifierTest {
 	}
 
 	@Test
-	public void newResultCallsAddForEveryTopLevelLineInInputList() {
+	public void newResultCallsAddForEveryEntryInAllSections() {
 		CallTrackingJustifier justifier = new CallTrackingJustifier(this.testData());
 		justifier.newResult();
-		assertEquals(3, justifier.addCalledCount);
-	}
-
-	@Test
-	public void newResultCallsAddLinesFromForEveryBlockInInputList() {
-		CallTrackingJustifier justifier = new CallTrackingJustifier(this.testData());
-		justifier.newResult();
-		assertEquals(2, justifier.addLinesFromCalledCount);
+		assertEquals(5, justifier.addSectionCalledCount);
 	}
 	
 	private Vector<TextSection> testData() {

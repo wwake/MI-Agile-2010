@@ -8,14 +8,8 @@ public class LeftJustifier extends Justifier {
 	}
 
 	@Override
-	public void add(TextLine aLine) {
-		this.addToResult(aLine, 0);
-	}
-
-	@Override
-	public void addLinesFrom(TextBlock aBlock) {		
-		for (BlockEntry entry : aBlock.entries())
-		{
+	public void addSection(TextSection section) {
+		for (BlockEntry entry : section.entries()) {
 			this.addToResult(entry.line(), entry.offset());
 		}
 	}
