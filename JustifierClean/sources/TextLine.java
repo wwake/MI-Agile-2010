@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 
 public class TextLine implements TextSection {
 
@@ -15,5 +17,12 @@ public class TextLine implements TextSection {
 	@Override
 	public String toString() {
 		return text;
+	}
+
+	@Override
+	public Vector<BlockEntry> entries() {
+		Vector<BlockEntry> entries = new Vector<BlockEntry>(1);
+		entries.add(new BlockEntry(this, 0));
+		return entries;
 	}
 }

@@ -8,21 +8,23 @@ import org.junit.Test;
 public class TextBlockTest {
 
 	@Test
-	public void defaultConstructorInitializesValues() {
+	public void defaultConstructorShouldInitializeValues() {
 		TextBlock block = new TextBlock();
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
 		assertTrue(
 				"name should be default system name", 
 				block.name().toString().startsWith(SectionName.DefaultNamePrefix));
 		assertTrue("name should be app generated", block.name().isApplicationGenerated());
+		assertTrue("List of entries should be empty", block.entries().isEmpty());
 	}
 	
 	@Test
-	public void constructorWithNameSetsGivenName() {
+	public void constructorWithNameShouldSetGivenName() {
 		SectionName blockName = SectionName.importedNameFrom("import");
 		TextBlock block = new TextBlock(blockName);
 		assertTrue("Should initialize an empty sections list", block.isEmpty());
 		assertSame(blockName, block.name());
+		assertTrue("List of entries should be empty", block.entries().isEmpty());
 	}
 	
 	@Test
@@ -38,22 +40,26 @@ public class TextBlockTest {
 	}
 
 	@Test
-	public void addAppendsGivenLineToBlock() {
+	public void addShouldAppendGivenLine() {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 0);
 		assertEquals(1, block.entries().size());
-		assertEquals(
+		assertSame(
 				"line value should be the same", 
-				aLine.toString(), 
-				block.entries().firstElement().line().toString());
+				aLine, 
+				block.entries().firstElement().line());
 
 		block.add(new TextLine("other"), 0);
 		assertEquals(2, block.entries().size());
+		assertSame(
+				"should have been appended to the end of the list", 
+				aLine, 
+				block.entries().elementAt(0).line());
 	}
 	
 	@Test
-	public void addUpdatesOffsetOnAddedLine() {
+	public void addShouldIncludeOffsetOnGivenEntry() {
 		TextBlock block = new TextBlock();
 		TextLine aLine = new TextLine("whatever");
 		block.add(aLine, 33);
@@ -67,7 +73,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void widthEqualsTheWidthOfContainedTextIfOnlySingleLine() {
+	public void widthShouldBeTheWidthOfContainedTextIfOnlySingleLine() {
 		TextLine line = new TextLine("12345");
 		TextBlock block = new TextBlock();
 		block.add(line, 0);
@@ -75,7 +81,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void widthIncorporatesOffsetsInDeterminingValue() {
+	public void widthShouldIncorporateOffsetsInDeterminingValue() {
 		TextLine line = new TextLine("12345");
 		TextLine lineOffsetRight = new TextLine("789");
 		TextBlock block = new TextBlock();
@@ -85,7 +91,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void widthAccountsForNegativeOffsets() {
+	public void widthShouldAccountForNegativeOffsets() {
 		TextLine line = new TextLine("1");
 		TextLine lineOffsetNegative = new TextLine("789");
 		TextBlock block = new TextBlock();
@@ -95,7 +101,7 @@ public class TextBlockTest {
 	}
 	
 	@Test
-	public void widthStartsAtZeroIfAllContainedLinesHavePositiveOffsets() {
+	public void widthShouldStartAtZeroIfAllContainedLinesHavePositiveOffsets() {
 		TextLine line1 = new TextLine("1");
 		TextLine line2 = new TextLine("789");
 		TextBlock block = new TextBlock();

@@ -14,6 +14,10 @@ public abstract class Justifier {
 	public abstract void add(TextLine aLine);
 	public abstract void addLinesFrom(TextBlock aBlock);
 	
+	public void addToResult(TextLine line, int offset) {
+		this.workingBlock().add(line, offset);
+	}
+	
 	public TextBlock newResult()
 	{
 		this.resetResultBlock();

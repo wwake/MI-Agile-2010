@@ -11,13 +11,13 @@ public class RightJustifier extends Justifier {
 	public void add(TextLine aLine) {
 		if (this.workingBlock().width() >= aLine.width())
 		{
-			this.addShorterLine(aLine, this.workingBlock().width() - aLine.width());
+			this.addToResult(aLine, (this.workingBlock().width() - aLine.width()));
 		}
 		else
 		{
 			int offsetIncrease = aLine.width() - this.workingBlock().width();
 			this.workingBlock().adjustAllOffsetsBy(offsetIncrease);
-			this.workingBlock().add(aLine, 0);
+			this.addToResult(aLine, 0);
 		}
 	}
 
@@ -31,22 +31,15 @@ public class RightJustifier extends Justifier {
 		
 		for (BlockEntry entry : aBlock.entries()) {
 			if (existingIsWider) {
-				this.addShorterLine(entry.line(), entry.offset() + difference);
+				this.addToResult(entry.line(), (entry.offset() + difference));
 			}
 			else {
-				this.workingBlock().add(entry.line(), entry.offset());
+				this.addToResult(entry.line(), entry.offset());
 			}
 		}
 	}
-	
-	private void addShorterLine(TextLine line, int lengthDifference) {
-		this.workingBlock().add(line, lengthDifference);
-	}
 }
 
-/* This implementation totally surprised me. I thought it would be "run through everything to find max width, 
- * run through it again to slide things to the right." With this approach, won't you be readjusting 
- * lines multiple times?
- * 
+/*  
  * Seems like the if & else clauses are similar enough there might be a way to fold them together.
  */ 

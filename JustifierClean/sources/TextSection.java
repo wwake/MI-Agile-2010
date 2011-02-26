@@ -1,6 +1,7 @@
+import java.util.Vector;
 
 public interface TextSection {
 	
 	public int width();	
-	//TODO: add lines() method to return OffsettableItems???
+	public Vector<BlockEntry> entries();
 }

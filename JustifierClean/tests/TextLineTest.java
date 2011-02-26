@@ -1,4 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -19,5 +22,15 @@ public class TextLineTest {
 		String result = "just a string";
 		TextLine line = new TextLine(result);
 		assertEquals(result, line.toString());
+	}
+
+	@Test
+	public void entriesShouldReturnCollectionContainingOnlyBlockEntryWithItselfAndNoOffset() {
+		TextLine aLine = new TextLine("1");
+		Vector<BlockEntry> theEntries = aLine.entries();
+		assertEquals(1, theEntries.size());
+		BlockEntry entry = theEntries.elementAt(0);
+		assertSame(aLine, entry.line());
+		assertEquals(0, entry.offset());
 	}
 }
