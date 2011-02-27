@@ -3,7 +3,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class ScorerTest {
-
 	private Scorer scorer = new Scorer();
 
 	@Test 
@@ -18,7 +17,7 @@ public class ScorerTest {
 	
 	@Test
 	public void scoreOfEachSingleChar_Is1() {
-		assertEquals(2, scorer.scoreColumn("AB"));
+		assertEquals(1+1, scorer.scoreColumn("AB"));
 	}
 	
 	@Test 
@@ -35,31 +34,5 @@ public class ScorerTest {
 	public void scoreIsSumOfColumns() {
 		Cluster cluster = new Pair(new IndentedWord("ABC"), new IndentedWord("BDA", 1));
 		assertEquals(1 + 4 + 2 + 1, scorer.score(cluster));
-	}
-	
-	@Test
-	public void bestInSet() {
-		Scorer fewerGapsIsBetterScorer = new Scorer() {
-			public int score(Cluster cluster) {
-				int sumOfFirstLetterGaps = 0;
-				Cluster previous = cluster.first();
-				for (int i = 1; i < cluster.height(); i++) {
-					Cluster current = cluster.wordAt(i);
-					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
-							- current.toString().charAt(0));
-					previous = current;
-				}
-				return 10000 - sumOfFirstLetterGaps;
-			}
-		};
-
-
-		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
-		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
-
-		Pool candidates = new Pool();
-		candidates.addAllCombos(pair1, pair2);
-		
-		assertEquals(new Pair(pair1, pair2), fewerGapsIsBetterScorer.bestIn(candidates));
 	}
 }

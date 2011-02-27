@@ -1,21 +1,30 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Main {
 	private static final long serialVersionUID = 1L;
+
+	private Scorer scorer = new Scorer();
+	private GreedyPuzzleMaker puzzleMaker = new GreedyPuzzleMaker();
+	private Formatter formatter = new Formatter();
+
 	private JTextArea input;
-	private JTextArea output;
+	private JTextArea answerKey;
+	private JTextArea puzzle;
 
 	public static void main(String[] args) {
 		new Main().makeFrame();
@@ -28,8 +37,13 @@ public class Main {
 		ActionListener listener = new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
 				String[] strings = input.getText().toUpperCase().split("\n");
-				Builder builder = new Builder(strings, new Scorer());
-				output.setText(builder.build());
+				
+				Pool pool = new Pool(strings);
+				
+				Cluster finalPuzzle = puzzleMaker.make(pool, scorer);
+
+				answerKey.setText(finalPuzzle.toString());
+				puzzle.setText(formatter.format(finalPuzzle));
 			}
 		};
 
@@ -37,7 +51,7 @@ public class Main {
 		
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
-		frame.setSize(550, 450);
+		frame.setSize(800, 450);
 		frame.setVisible(true);
 	}
 
@@ -46,18 +60,31 @@ public class Main {
 		BoxLayout layout = new BoxLayout(panel, BoxLayout.X_AXIS);
 		panel.setLayout(layout);
 		
-		input = new JTextArea(20, 15);
-		input.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-		input.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
-
-		output = new JTextArea(20, 20);
-		output.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-	    output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
+		input = makeTextArea(15, Font.SANS_SERIF);
+		answerKey = makeTextArea(20, Font.MONOSPACED);
+	    puzzle = makeTextArea(20, Font.MONOSPACED);
+	    
+	    panel.add(makeLabeledPanel("Input", input)); 
+	    panel.add(makeButton(listener));
+		panel.add(makeLabeledPanel("Key", answerKey));
+		panel.add(Box.createRigidArea(new Dimension(40, 0)));
+		panel.add(makeLabeledPanel("Puzzle", puzzle));
 		
-		panel.add(new JScrollPane(input)); 
-		panel.add(makeButton(listener));
-		panel.add(new JScrollPane(output));
 		return panel;
+	}
+
+	private JPanel makeLabeledPanel(String labelName, JTextArea textArea) {
+		JPanel labeled = new JPanel(new BorderLayout());
+		labeled.add(new JLabel(labelName, JLabel.CENTER), BorderLayout.NORTH);
+		labeled.add(new JScrollPane(textArea), BorderLayout.CENTER);
+		return labeled;
+	}
+
+	private JTextArea makeTextArea(int textAreaWidth, String fontName) {
+		JTextArea textArea = new JTextArea(20, textAreaWidth);
+		textArea.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+		textArea.setFont(new Font(fontName, Font.PLAIN, 16));
+		return textArea;
 	}
 
 	private JButton makeButton(ActionListener listener) {

@@ -1,47 +1,56 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 public class FormatterTest {
-	OldCluster cluster = new OldCluster();
 	Formatter formatter = new Formatter();
 
 	@Test
-	public void formatsEmptyCluster() {
-		assertEquals("", formatter.format(cluster));
-	}
-
-	@Test
 	public void formatsOneWordCluster() {
-		cluster.add(new IndentedWord("word"));
-
-		assertEquals("word\n", formatter.format(cluster));
+		assertEquals("word\n", formatter.format(new IndentedWord("word")));
 	}
 
 	@Test
 	public void formatsTwoWords() {
-		cluster.add(new IndentedWord("foo"));
-		cluster.add(new IndentedWord("bar"));
-		assertEquals("foo\nbar\n", formatter.format(cluster));
+		assertEquals("foo\nbar\n", formatter.format(new Pair(new IndentedWord("foo"), new IndentedWord("bar"), 0)));
 	}
 
 	@Test
 	public void formatsIndentedWord() {
-		cluster.add(new IndentedWord("foo", 2));
-		assertEquals("..foo\n", formatter.format(cluster));
+		assertEquals("..foo\n", formatter.format(new IndentedWord("foo", 2)));
 	}
 
 	@Test
-	public void overlappingLettersPrintDash() {
-		cluster.add(new IndentedWord("foo"));
-		cluster.add(new IndentedWord("fob"));
-		assertEquals("--o\n" + "--b\n", formatter.format(cluster));
+	public void firstAndLastOfRunAreMarked() {
+		Pair pair = new Pair(
+				new IndentedWord("f"),
+				new IndentedWord("f"));
+			
+		assertEquals("/\n\\\n", formatter.format(pair));
+	}
+	
+	@Test
+	public void middleOfRunIsMarked() {
+		IndentedWord wordF = new IndentedWord("f");
+		Pair words = new Pair(wordF, new Pair(wordF, wordF));
+			
+		assertEquals("/\n|\n\\\n", formatter.format(words));
+	}
+	
+	@Test
+	public void runsMarkedInEachColumn() {
+		Pair pair = new Pair(
+			new IndentedWord("foo"),
+			new IndentedWord("fob"));
+		
+		assertEquals("//o\n" + "\\\\b\n", formatter.format(pair));
 	}
 
 	@Test
-	public void overlappingLettersPrintDashTakingOffsetsIntoAccount() {
-		cluster.add(new IndentedWord("face", 0));
-		cluster.add(new IndentedWord("ace", 1));
-		assertEquals("f---\n" + ".---\n", formatter.format(cluster));
+	public void runsTakeOffsetsIntoAccount() {
+		Pair pair = new Pair(
+			new IndentedWord("face", 0),
+			new IndentedWord("ace", 1));
+		assertEquals("f///\n" + ".\\\\\\\n", formatter.format(pair));
 	}
 }

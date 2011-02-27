@@ -12,7 +12,7 @@ public class PoolTest {
 	
 	@Before
 	public void setUp() {
-		pool = new Pool();
+		pool = new Pool(new String[]{});
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ public class PoolTest {
 		assertTrue(pool.contains(new Pair(pair1, pair2)));							// ac-dg
 		assertTrue(pool.contains(new Pair(pair1, pair2.inverted())));				// ac-gd
 		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2)));				// ca-dg
-		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2.inverted())));		// ca-gd
+		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2.inverted())));	// ca-gd
 	}
 	
 	@Test
@@ -115,5 +115,31 @@ public class PoolTest {
 		pool.addAllCombos(cluster1, cluster2);
 		
 		assertEquals(9 + 7 + 7 + 5, pool.size());
+	}
+	
+	@Test
+	public void bestInSet() {
+		Scorer fewerGapsIsBetterScorer = new Scorer() {
+			public int score(Cluster cluster) {
+				int sumOfFirstLetterGaps = 0;
+				Cluster previous = cluster.first();
+				for (int i = 1; i < cluster.height(); i++) {
+					Cluster current = cluster.wordAt(i);
+					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
+							- current.toString().charAt(0));
+					previous = current;
+				}
+				return 10000 - sumOfFirstLetterGaps;
+			}
+		};
+
+
+		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
+		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
+
+		Pool candidates = new Pool(new String[]{});
+		candidates.addAllCombos(pair1, pair2);
+		
+		assertEquals(new Pair(pair1, pair2), candidates.bestIn(fewerGapsIsBetterScorer));
 	}
 }

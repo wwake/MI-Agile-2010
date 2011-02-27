@@ -8,6 +8,11 @@ import java.util.Set;
 public class Pool implements Iterable<Cluster> {
 	Set<Cluster> clusters = new HashSet<Cluster>();
 
+	public Pool(String[] words) {
+		for (String string : words)
+			clusters.add(new IndentedWord(string));
+	}
+	
 	public void add(Cluster cluster) {
 		clusters.add(cluster);
 	}
@@ -41,7 +46,7 @@ public class Pool implements Iterable<Cluster> {
 
 	public Pool candidates() {
 		List<Cluster> clusterList = new ArrayList<Cluster>(clusters);
-		Pool result = new Pool();
+		Pool result = new Pool(new String[]{});
 		
 		for (int i = 0; i < clusterList.size(); i++)
 			for (int j = i + 1; j < clusterList.size(); j++)
@@ -69,5 +74,20 @@ public class Pool implements Iterable<Cluster> {
 
 		for (int i = 1; i < firstWordFromCluster2.word().length(); i++)
 			this.add(new Pair(cluster1, cluster2, distanceToAlignFirstLetters - i));
+	}
+
+	public Cluster bestIn(Scorer scorer) {
+		int bestScore = -1;
+		Cluster bestResult = null;
+		
+		for (Cluster cluster : this) {
+			int score = scorer.score(cluster);
+			if (score > bestScore) {
+				bestResult = cluster;
+				bestScore = score;
+			}
+		}
+		
+		return bestResult;
 	}
 }

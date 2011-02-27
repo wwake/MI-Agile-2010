@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Formatter {
-
-	public String format(OldCluster cluster) {
+	public String format(Cluster cluster) {
 		StringBuffer result = new StringBuffer();
 		
 		List<IndentedWord> words = bracketWords(new IndentedWord(""), cluster, new IndentedWord(""));
@@ -24,14 +23,20 @@ public class Formatter {
 	private char charFor(char prevCh, char thisCh, char nextCh) {
 		if (thisCh == IndentedWord.UNOCCUPIED) return '.';
 		
-		return thisCh == prevCh || thisCh == nextCh ? '-' : thisCh;
+		if (thisCh != prevCh && thisCh == nextCh) return '/';
+		if (thisCh == prevCh && thisCh != nextCh) return '\\';
+		if (thisCh == prevCh && thisCh == nextCh) return '|';
+		
+		return thisCh;
 	}
 
-	private List<IndentedWord> bracketWords(IndentedWord before, OldCluster cluster, IndentedWord after) {
+	private List<IndentedWord> bracketWords(IndentedWord before, Cluster cluster, IndentedWord after) {
 		List<IndentedWord> words = new ArrayList<IndentedWord>();
 		words.add(before);
-		for (IndentedWord word : cluster)
-			words.add(word);
+		
+		for (int i = 0; i < cluster.height(); i++)
+			words.add(cluster.wordAt(i));
+
 		words.add(after);
 		return words;
 	}
