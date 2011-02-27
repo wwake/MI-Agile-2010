@@ -1,17 +1,17 @@
-public class Pair extends Puzzle {
+public class JoinedPuzzle extends Puzzle {
 	private Puzzle top;
 	private Puzzle bottom;
 
-	public Pair(Puzzle theTop, Puzzle theBottom) {
+	public JoinedPuzzle(Puzzle theTop, Puzzle theBottom) {
 		this.top = theTop;
 		this.bottom = theBottom;
 	}
 	
-	public Pair(Puzzle theTop, Puzzle theBottom, int distanceToRightShiftBottom) {
+	public JoinedPuzzle(Puzzle theTop, Puzzle theBottom, int distanceToRightShiftBottom) {
 		if (distanceToRightShiftBottom < 0) 
-			theTop = new RightShiftingPuzzle(theTop, -distanceToRightShiftBottom);
+			theTop = new RightShiftedPuzzle(theTop, -distanceToRightShiftBottom);
 		else if (distanceToRightShiftBottom > 0)
-			theBottom = new RightShiftingPuzzle(theBottom, distanceToRightShiftBottom);
+			theBottom = new RightShiftedPuzzle(theBottom, distanceToRightShiftBottom);
 		
 		this.top = theTop;
 		this.bottom = theBottom;
@@ -51,7 +51,7 @@ public class Pair extends Puzzle {
 
 	@Override
 	public Puzzle inverted() {
-		return new InvertingPuzzle(this);
+		return new InvertedPuzzle(this);
 	}
 
 	@Override

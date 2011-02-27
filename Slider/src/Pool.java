@@ -70,10 +70,10 @@ public class Pool implements Iterable<Puzzle> {
 				- firstWordFromPuzzle2.indent();
 
 		for (int i = 0; i < lastWordFromPuzzle1.word().length(); i++)
-			this.add(new Pair(puzzle1, puzzle2, distanceToAlignFirstLetters + i));
+			this.add(new JoinedPuzzle(puzzle1, puzzle2, distanceToAlignFirstLetters + i));
 
 		for (int i = 1; i < firstWordFromPuzzle2.word().length(); i++)
-			this.add(new Pair(puzzle1, puzzle2, distanceToAlignFirstLetters - i));
+			this.add(new JoinedPuzzle(puzzle1, puzzle2, distanceToAlignFirstLetters - i));
 	}
 
 	public Puzzle bestIn(Scorer scorer) {

@@ -1,5 +1,5 @@
-public class InvertingPuzzle extends WrappingPuzzle {
-	public InvertingPuzzle(Puzzle puzzleToWrap) {
+public class InvertedPuzzle extends WrappingPuzzle {
+	public InvertedPuzzle(Puzzle puzzleToWrap) {
 		super(puzzleToWrap);
 	}
 

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class InvertingPuzzleTest {
-	Pair pair = new Pair(new IndentedWord("fish"), new IndentedWord("sticks", 3));
+public class InvertedPuzzleTest {
+	JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("fish"), new IndentedWord("sticks", 3));
 	Puzzle reversed = pair.inverted();
 
 	@Test
@@ -33,24 +33,24 @@ public class InvertingPuzzleTest {
 
 	@Test
 	public void toStringGetsReversedByWord() {
-		Pair original = new Pair(
-				new Pair(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
-				new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)),
+		JoinedPuzzle original = new JoinedPuzzle(
+				new JoinedPuzzle(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
+				new JoinedPuzzle(new IndentedWord("efef"), new IndentedWord("ghgh", 2)),
 				1);
 		assertEquals("...ghgh\n.efef\n.cd\nab", original.inverted().toString());
 	}
 
 	@Test
 	public void equalsForEqualThings() {
-		Pair original = new Pair(
-				new Pair(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
-				new Pair(new IndentedWord("efef"), new IndentedWord("ghgh", 2)), 
+		JoinedPuzzle original = new JoinedPuzzle(
+				new JoinedPuzzle(new IndentedWord("ab"), new IndentedWord("cd", 1)), 
+				new JoinedPuzzle(new IndentedWord("efef"), new IndentedWord("ghgh", 2)), 
 				1);
-		Pair expected = new Pair(
+		JoinedPuzzle expected = new JoinedPuzzle(
 				new IndentedWord("ghgh", 3), 
-				new Pair(
+				new JoinedPuzzle(
 						new IndentedWord("efef", 1),
-						new Pair(new IndentedWord("cd", 1), new IndentedWord("ab"))));
+						new JoinedPuzzle(new IndentedWord("cd", 1), new IndentedWord("ab"))));
 		assertEquals(original.inverted(), expected);
 		assertEquals(expected, original.inverted());
 		assertEquals(expected.hashCode(), original.inverted().hashCode());
@@ -58,8 +58,8 @@ public class InvertingPuzzleTest {
 
 	@Test
 	public void contains() {
-		Pair pair = new Pair(new IndentedWord("foo"), new IndentedWord("gef", 2));
-		InvertingPuzzle flipper = new InvertingPuzzle(pair);
+		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("gef", 2));
+		InvertedPuzzle flipper = new InvertedPuzzle(pair);
 		assertTrue(flipper.contains("foo"));
 		assertFalse(flipper.contains("fo"));
 	}

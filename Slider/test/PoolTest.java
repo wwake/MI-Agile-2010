@@ -37,9 +37,9 @@ public class PoolTest {
 
 	@Test 
 	public void bestMatches() {
-		pool.add(new Pair(new IndentedWord("a"), new IndentedWord("b")));
-		pool.add(new Pair(new IndentedWord("c"), new IndentedWord("d")));
-		pool.add(new Pair(new IndentedWord("e"), new IndentedWord("f")));
+		pool.add(new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("b")));
+		pool.add(new JoinedPuzzle(new IndentedWord("c"), new IndentedWord("d")));
+		pool.add(new JoinedPuzzle(new IndentedWord("e"), new IndentedWord("f")));
 		
 		Pool candidates = pool.candidates();
 
@@ -51,21 +51,21 @@ public class PoolTest {
 	
 	@Test
 	public void allCombosContains4BaseCombinations() {
-		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
-		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
+		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
+		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
 		
 		pool.addAllCombos(pair1, pair2);
 		
-		assertTrue(pool.contains(new Pair(pair1, pair2)));							// ac-dg
-		assertTrue(pool.contains(new Pair(pair1, pair2.inverted())));				// ac-gd
-		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2)));				// ca-dg
-		assertTrue(pool.contains(new Pair(pair1.inverted(), pair2.inverted())));	// ca-gd
+		assertTrue(pool.contains(new JoinedPuzzle(pair1, pair2)));							// ac-dg
+		assertTrue(pool.contains(new JoinedPuzzle(pair1, pair2.inverted())));				// ac-gd
+		assertTrue(pool.contains(new JoinedPuzzle(pair1.inverted(), pair2)));				// ca-dg
+		assertTrue(pool.contains(new JoinedPuzzle(pair1.inverted(), pair2.inverted())));	// ca-gd
 	}
 	
 	@Test
 	public void removingAStringTakesPuzzleOutOfPool() {
-		Pair pair1 = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
-		Pair pair2 = new Pair(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
+		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bar", 3));
+		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
 		pool.add(pair1);
 		pool.add(pair2);
 		
@@ -83,10 +83,10 @@ public class PoolTest {
 		pool.allSlidePositions(puzzle1, puzzle2);
 		
 		assertEquals(4, pool.size());
-		assertTrue(pool.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do"))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do", 1))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do", 2))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("sol", 1), new IndentedWord("do"))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do"))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do", 1))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do", 2))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol", 1), new IndentedWord("do"))));
 	}	
 	
 	@Test
@@ -98,19 +98,19 @@ public class PoolTest {
 		
 		assertEquals(6, pool.size());
 
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 2), new IndentedWord("dot", 2))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 2), new IndentedWord("dot", 3))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 2), new IndentedWord("dot", 4))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 2), new IndentedWord("dot", 5))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 2))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 3))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 4))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 5))));
 
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 2), new IndentedWord("dot", 1))));
-		assertTrue(pool.contains(new Pair(new IndentedWord("cant", 3), new IndentedWord("dot", 1))));		
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 1))));
+		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 3), new IndentedWord("dot", 1))));		
 	}
 	
 	@Test
 	public void addAllCombinations() {
-		Puzzle puzzle1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
-		Puzzle puzzle2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
+		Puzzle puzzle1 = new JoinedPuzzle(new IndentedWord("fish"), new IndentedWord("wishes"));
+		Puzzle puzzle2 = new JoinedPuzzle(new IndentedWord("iffy"), new IndentedWord("of"));
 		
 		pool.addAllCombos(puzzle1, puzzle2);
 		
@@ -134,12 +134,12 @@ public class PoolTest {
 		};
 
 
-		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
-		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
+		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
+		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
 
 		Pool candidates = new Pool(new String[]{});
 		candidates.addAllCombos(pair1, pair2);
 		
-		assertEquals(new Pair(pair1, pair2), candidates.bestIn(fewerGapsIsBetterScorer));
+		assertEquals(new JoinedPuzzle(pair1, pair2), candidates.bestIn(fewerGapsIsBetterScorer));
 	}
 }

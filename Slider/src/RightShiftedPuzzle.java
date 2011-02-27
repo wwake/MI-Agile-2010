@@ -1,8 +1,8 @@
 
-public class RightShiftingPuzzle extends WrappingPuzzle {
+public class RightShiftedPuzzle extends WrappingPuzzle {
 	private final int amountToShift;
 
-	public RightShiftingPuzzle(Puzzle puzzleToWrap, int theAmountToShiftRight) {
+	public RightShiftedPuzzle(Puzzle puzzleToWrap, int theAmountToShiftRight) {
 		super(puzzleToWrap);
 		this.amountToShift = theAmountToShiftRight;
 	}
@@ -37,6 +37,6 @@ public class RightShiftingPuzzle extends WrappingPuzzle {
 
 	@Override
 	public Puzzle inverted() {
-		return new RightShiftingPuzzle(originalPuzzle.inverted(), amountToShift);
+		return new RightShiftedPuzzle(originalPuzzle.inverted(), amountToShift);
 	}
 }

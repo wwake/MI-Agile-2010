@@ -12,7 +12,7 @@ public class FormatterTest {
 
 	@Test
 	public void formatsTwoWords() {
-		assertEquals("foo\nbar\n", formatter.format(new Pair(new IndentedWord("foo"), new IndentedWord("bar"), 0)));
+		assertEquals("foo\nbar\n", formatter.format(new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bar"), 0)));
 	}
 
 	@Test
@@ -22,7 +22,7 @@ public class FormatterTest {
 
 	@Test
 	public void firstAndLastOfRunAreMarked() {
-		Pair pair = new Pair(
+		JoinedPuzzle pair = new JoinedPuzzle(
 				new IndentedWord("f"),
 				new IndentedWord("f"));
 			
@@ -32,14 +32,14 @@ public class FormatterTest {
 	@Test
 	public void middleOfRunIsMarked() {
 		IndentedWord wordF = new IndentedWord("f");
-		Pair words = new Pair(wordF, new Pair(wordF, wordF));
+		JoinedPuzzle words = new JoinedPuzzle(wordF, new JoinedPuzzle(wordF, wordF));
 			
 		assertEquals("/\n|\n\\\n", formatter.format(words));
 	}
 	
 	@Test
 	public void runsMarkedInEachColumn() {
-		Pair pair = new Pair(
+		JoinedPuzzle pair = new JoinedPuzzle(
 			new IndentedWord("foo"),
 			new IndentedWord("fob"));
 		
@@ -48,7 +48,7 @@ public class FormatterTest {
 
 	@Test
 	public void runsTakeOffsetsIntoAccount() {
-		Pair pair = new Pair(
+		JoinedPuzzle pair = new JoinedPuzzle(
 			new IndentedWord("face", 0),
 			new IndentedWord("ace", 1));
 		assertEquals("f///\n" + ".\\\\\\\n", formatter.format(pair));

@@ -5,7 +5,7 @@ import org.junit.Test;
 public class WrappingPuzzleTest {
 	@Test
 	public void wrappedPuzzleActsLikeOriginal() {
-		Puzzle puzzle = new Pair(new IndentedWord("what"), new IndentedWord("ever"), 1);
+		Puzzle puzzle = new JoinedPuzzle(new IndentedWord("what"), new IndentedWord("ever"), 1);
 		WrappingPuzzle wrappedPuzzle = new WrappingPuzzle(puzzle);
 
 		assertEquals(puzzle, wrappedPuzzle);

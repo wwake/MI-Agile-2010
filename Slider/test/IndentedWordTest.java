@@ -32,7 +32,7 @@ public class IndentedWordTest {
 	@Test
 	public void singleWordCanEqualOtherPuzzle() {
 		IndentedWord word = new IndentedWord("word", 3);
-		InvertingPuzzle flippedWord = new InvertingPuzzle(word);
+		InvertedPuzzle flippedWord = new InvertedPuzzle(word);
 		
 		assertEquals(word, flippedWord);
 	}
@@ -40,7 +40,7 @@ public class IndentedWordTest {
 	@Test
 	public void singleWordCantEqualPuzzleWithMultipleWords() {
 		IndentedWord word = new IndentedWord("another");
-		Pair pair = new Pair(new IndentedWord("another"), new IndentedWord("can"), 2);
+		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("another"), new IndentedWord("can"), 2);
 		
 		assertFalse(word.equals(pair));
 	}
