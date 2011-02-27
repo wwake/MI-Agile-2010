@@ -44,35 +44,35 @@ public class PoolTest {
 		Pool candidates = pool.candidates();
 
 		int numberOfPossiblePairs = 3;
-		int waysToArrangeAPair = 4;
+		int waysToArrangeEachPair = 4;
 		
-		assertEquals(numberOfPossiblePairs * waysToArrangeAPair, candidates.size());
+		assertEquals(numberOfPossiblePairs * waysToArrangeEachPair, candidates.size());
 	}
 	
 	@Test
 	public void allCombosContains4BaseCombinations() {
-		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
-		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
+		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
+		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
 		
-		pool.addAllCombos(pair1, pair2);
+		pool.addAllCombos(puzzle1, puzzle2);
 		
-		assertTrue(pool.contains(new JoinedPuzzle(pair1, pair2)));							// ac-dg
-		assertTrue(pool.contains(new JoinedPuzzle(pair1, pair2.inverted())));				// ac-gd
-		assertTrue(pool.contains(new JoinedPuzzle(pair1.inverted(), pair2)));				// ca-dg
-		assertTrue(pool.contains(new JoinedPuzzle(pair1.inverted(), pair2.inverted())));	// ca-gd
+		assertTrue(pool.contains(new JoinedPuzzle(puzzle1, puzzle2)));							// ac-dg
+		assertTrue(pool.contains(new JoinedPuzzle(puzzle1, puzzle2.inverted())));				// ac-gd
+		assertTrue(pool.contains(new JoinedPuzzle(puzzle1.inverted(), puzzle2)));				// ca-dg
+		assertTrue(pool.contains(new JoinedPuzzle(puzzle1.inverted(), puzzle2.inverted())));	// ca-gd
 	}
 	
 	@Test
 	public void removingAStringTakesPuzzleOutOfPool() {
-		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bar", 3));
-		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
-		pool.add(pair1);
-		pool.add(pair2);
+		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bar", 3));
+		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
+		pool.add(puzzle1);
+		pool.add(puzzle2);
 		
 		pool.remove("baz");
 		
-		assertTrue(pool.contains(pair1));
-		assertFalse(pool.contains(pair2));
+		assertTrue(pool.contains(puzzle1));
+		assertFalse(pool.contains(puzzle2));
 	}
 	
 	@Test
@@ -134,12 +134,12 @@ public class PoolTest {
 		};
 
 
-		JoinedPuzzle pair1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
-		JoinedPuzzle pair2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
+		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
+		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
 
 		Pool candidates = new Pool(new String[]{});
-		candidates.addAllCombos(pair1, pair2);
+		candidates.addAllCombos(puzzle1, puzzle2);
 		
-		assertEquals(new JoinedPuzzle(pair1, pair2), candidates.bestIn(fewerGapsIsBetterScorer));
+		assertEquals(new JoinedPuzzle(puzzle1, puzzle2), candidates.bestIn(fewerGapsIsBetterScorer));
 	}
 }

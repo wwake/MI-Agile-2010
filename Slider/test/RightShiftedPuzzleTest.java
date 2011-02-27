@@ -13,8 +13,8 @@ public class RightShiftedPuzzleTest {
 	
 	@Test
 	public void shiftsLastWordRight() {
-		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bard"));
-		RightShiftedPuzzle shifter = new RightShiftedPuzzle(pair, 1);
+		JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bard"));
+		RightShiftedPuzzle shifter = new RightShiftedPuzzle(puzzle, 1);
 		assertEquals(".bard", shifter.last().toString());	
 		assertEquals(5, shifter.width());
 		assertEquals(".foo", shifter.wordAt(0).toString());
@@ -22,8 +22,8 @@ public class RightShiftedPuzzleTest {
 	
 	@Test
 	public void shiftedTextHasRightColumnsAndHeight() {
-		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("wish"), new IndentedWord("fishes"));
-		RightShiftedPuzzle shifter = new RightShiftedPuzzle(pair, 3);
+		JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("wish"), new IndentedWord("fishes"));
+		RightShiftedPuzzle shifter = new RightShiftedPuzzle(puzzle, 3);
 		assertEquals("..", shifter.column(0));
 		assertEquals("wf", shifter.column(3));
 		assertEquals(2, shifter.height());
@@ -31,8 +31,8 @@ public class RightShiftedPuzzleTest {
 	
 	@Test
 	public void flippedShiftedTextIsShiftOfFlip() {
-		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("wish"), new IndentedWord("fishes"));
-		RightShiftedPuzzle shifter = new RightShiftedPuzzle(pair, 3);
+		JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("wish"), new IndentedWord("fishes"));
+		RightShiftedPuzzle shifter = new RightShiftedPuzzle(puzzle, 3);
 		assertEquals(
 				new JoinedPuzzle(
 						new IndentedWord("fishes", 3),

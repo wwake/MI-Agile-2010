@@ -40,9 +40,9 @@ public class IndentedWordTest {
 	@Test
 	public void singleWordCantEqualPuzzleWithMultipleWords() {
 		IndentedWord word = new IndentedWord("another");
-		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("another"), new IndentedWord("can"), 2);
+		JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("another"), new IndentedWord("can"), 2);
 		
-		assertFalse(word.equals(pair));
+		assertFalse(word.equals(puzzle));
 	}
 	
 	@Test 

@@ -22,11 +22,11 @@ public class FormatterTest {
 
 	@Test
 	public void firstAndLastOfRunAreMarked() {
-		JoinedPuzzle pair = new JoinedPuzzle(
+		JoinedPuzzle puzzle = new JoinedPuzzle(
 				new IndentedWord("f"),
 				new IndentedWord("f"));
 			
-		assertEquals("/\n\\\n", formatter.format(pair));
+		assertEquals("/\n\\\n", formatter.format(puzzle));
 	}
 	
 	@Test
@@ -39,18 +39,18 @@ public class FormatterTest {
 	
 	@Test
 	public void runsMarkedInEachColumn() {
-		JoinedPuzzle pair = new JoinedPuzzle(
+		JoinedPuzzle puzzle = new JoinedPuzzle(
 			new IndentedWord("foo"),
 			new IndentedWord("fob"));
 		
-		assertEquals("//o\n" + "\\\\b\n", formatter.format(pair));
+		assertEquals("//o\n" + "\\\\b\n", formatter.format(puzzle));
 	}
 
 	@Test
 	public void runsTakeOffsetsIntoAccount() {
-		JoinedPuzzle pair = new JoinedPuzzle(
+		JoinedPuzzle puzzle = new JoinedPuzzle(
 			new IndentedWord("face", 0),
 			new IndentedWord("ace", 1));
-		assertEquals("f///\n" + ".\\\\\\\n", formatter.format(pair));
+		assertEquals("f///\n" + ".\\\\\\\n", formatter.format(puzzle));
 	}
 }

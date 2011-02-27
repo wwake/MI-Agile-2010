@@ -5,29 +5,29 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class InvertedPuzzleTest {
-	JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("fish"), new IndentedWord("sticks", 3));
-	Puzzle reversed = pair.inverted();
+	JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("fish"), new IndentedWord("sticks", 3));
+	Puzzle reversed = puzzle.inverted();
 
 	@Test
-	public void reversedPairResemblesOriginal() {
-		assertEquals(pair.width(), reversed.width());
-		assertEquals(pair.height(), reversed.height());
+	public void reversedPuzzleResemblesOriginal() {
+		assertEquals(puzzle.width(), reversed.width());
+		assertEquals(puzzle.height(), reversed.height());
 	}
 
 	@Test
-	public void reversedPairIsSameAsOriginal() {
-		assertEquals(pair, reversed.inverted());
+	public void doublyReversedPuzzleIsSameAsOriginal() {
+		assertEquals(puzzle, reversed.inverted());
 	}
 
 	@Test
 	public void firstAndLastSwapPlaces() {
-		assertEquals(pair.last(), reversed.first());
-		assertEquals(pair.first(), reversed.last());
+		assertEquals(puzzle.last(), reversed.first());
+		assertEquals(puzzle.first(), reversed.last());
 	}
 
 	@Test
 	public void columnIsReversedFromBase() {
-		assertEquals("hs", pair.column(3));
+		assertEquals("hs", puzzle.column(3));
 		assertEquals("sh", reversed.column(3));
 	}
 
@@ -58,8 +58,8 @@ public class InvertedPuzzleTest {
 
 	@Test
 	public void contains() {
-		JoinedPuzzle pair = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("gef", 2));
-		InvertedPuzzle flipper = new InvertedPuzzle(pair);
+		JoinedPuzzle puzzleFromParts = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("gef", 2));
+		InvertedPuzzle flipper = new InvertedPuzzle(puzzleFromParts);
 		assertTrue(flipper.contains("foo"));
 		assertFalse(flipper.contains("fo"));
 	}
