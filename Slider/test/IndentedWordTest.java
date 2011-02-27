@@ -30,7 +30,7 @@ public class IndentedWordTest {
 	}
 	
 	@Test
-	public void singleWordCanEqualOtherCluster() {
+	public void singleWordCanEqualOtherPuzzle() {
 		IndentedWord word = new IndentedWord("word", 3);
 		InvertingPuzzle flippedWord = new InvertingPuzzle(word);
 		
@@ -38,7 +38,7 @@ public class IndentedWordTest {
 	}
 	
 	@Test
-	public void singleWordCantEqualClusterWithManyWords() {
+	public void singleWordCantEqualPuzzleWithMultipleWords() {
 		IndentedWord word = new IndentedWord("another");
 		Pair pair = new Pair(new IndentedWord("another"), new IndentedWord("can"), 2);
 		

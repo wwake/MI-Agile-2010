@@ -2,41 +2,41 @@
 public class RightShiftingPuzzle extends WrappingPuzzle {
 	private final int amountToShift;
 
-	public RightShiftingPuzzle(Puzzle clusterToWrap, int theAmountToShiftRight) {
-		super(clusterToWrap);
+	public RightShiftingPuzzle(Puzzle puzzleToWrap, int theAmountToShiftRight) {
+		super(puzzleToWrap);
 		this.amountToShift = theAmountToShiftRight;
 	}
 
 	@Override
 	public IndentedWord first() {
-		return new IndentedWord(originalCluster.first(), amountToShift);
+		return new IndentedWord(originalPuzzle.first(), amountToShift);
 	}
 
 	@Override
 	public IndentedWord last() {
-		return new IndentedWord(originalCluster.last(), amountToShift);
+		return new IndentedWord(originalPuzzle.last(), amountToShift);
 	}
 
 	@Override
 	public int width() {
-		return amountToShift + originalCluster.width();
+		return amountToShift + originalPuzzle.width();
 	}
 
 	@Override
 	public String column(int c) {
 		if (c < amountToShift) 
-			return StringUtil.repeat('.', originalCluster.height());
+			return StringUtil.repeat('.', originalPuzzle.height());
 		
-		return originalCluster.column(c - amountToShift);
+		return originalPuzzle.column(c - amountToShift);
 	}
 
 	@Override
 	public IndentedWord wordAt(int i) {
-		return new IndentedWord(originalCluster.wordAt(i), amountToShift);
+		return new IndentedWord(originalPuzzle.wordAt(i), amountToShift);
 	}
 
 	@Override
 	public Puzzle inverted() {
-		return new RightShiftingPuzzle(originalCluster.inverted(), amountToShift);
+		return new RightShiftingPuzzle(originalPuzzle.inverted(), amountToShift);
 	}
 }

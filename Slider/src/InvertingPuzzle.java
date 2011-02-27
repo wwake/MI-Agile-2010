@@ -1,30 +1,30 @@
 public class InvertingPuzzle extends WrappingPuzzle {
-	public InvertingPuzzle(Puzzle clusterToWrap) {
-		super(clusterToWrap);
+	public InvertingPuzzle(Puzzle puzzleToWrap) {
+		super(puzzleToWrap);
 	}
 
 	@Override
 	public IndentedWord first() {
-		return originalCluster.last();
+		return originalPuzzle.last();
 	}
 
 	@Override
 	public IndentedWord last() {
-		return originalCluster.first();
+		return originalPuzzle.first();
 	}
 
 	@Override
 	public String column(int c) {
-		return new StringBuffer(originalCluster.column(c)).reverse().toString(); 
+		return new StringBuffer(originalPuzzle.column(c)).reverse().toString(); 
 	}
 
 	@Override
 	public IndentedWord wordAt(int row) {
-		return originalCluster.wordAt(originalCluster.height() - 1 - row);
+		return originalPuzzle.wordAt(originalPuzzle.height() - 1 - row);
 	}
 
 	@Override
 	public Puzzle inverted() {
-		return originalCluster;
+		return originalPuzzle;
 	}	
 }

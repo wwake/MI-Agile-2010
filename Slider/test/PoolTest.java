@@ -63,7 +63,7 @@ public class PoolTest {
 	}
 	
 	@Test
-	public void removingAStringTakesClusterOutOfPool() {
+	public void removingAStringTakesPuzzleOutOfPool() {
 		Pair pair1 = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
 		Pair pair2 = new Pair(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
 		pool.add(pair1);
@@ -77,10 +77,10 @@ public class PoolTest {
 	
 	@Test
 	public void allSlidePositions() {
-		Puzzle cluster1 = new IndentedWord("sol");
-		Puzzle cluster2 = new IndentedWord("do");
+		Puzzle puzzle1 = new IndentedWord("sol");
+		Puzzle puzzle2 = new IndentedWord("do");
 
-		pool.allSlidePositions(cluster1, cluster2);
+		pool.allSlidePositions(puzzle1, puzzle2);
 		
 		assertEquals(4, pool.size());
 		assertTrue(pool.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do"))));
@@ -91,10 +91,10 @@ public class PoolTest {
 	
 	@Test
 	public void allSlidePositionsHandlesIndentedFirstItem() {
-		Puzzle cluster1 = new IndentedWord("cant", 2);
-		Puzzle cluster2 = new IndentedWord("dot", 1);
+		Puzzle puzzle1 = new IndentedWord("cant", 2);
+		Puzzle puzzle2 = new IndentedWord("dot", 1);
 
-		pool.allSlidePositions(cluster1, cluster2);
+		pool.allSlidePositions(puzzle1, puzzle2);
 		
 		assertEquals(6, pool.size());
 
@@ -109,10 +109,10 @@ public class PoolTest {
 	
 	@Test
 	public void addAllCombinations() {
-		Puzzle cluster1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
-		Puzzle cluster2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
+		Puzzle puzzle1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
+		Puzzle puzzle2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
 		
-		pool.addAllCombos(cluster1, cluster2);
+		pool.addAllCombos(puzzle1, puzzle2);
 		
 		assertEquals(9 + 7 + 7 + 5, pool.size());
 	}
@@ -120,11 +120,11 @@ public class PoolTest {
 	@Test
 	public void bestInSet() {
 		Scorer fewerGapsIsBetterScorer = new Scorer() {
-			public int score(Puzzle cluster) {
+			public int score(Puzzle puzzle) {
 				int sumOfFirstLetterGaps = 0;
-				Puzzle previous = cluster.first();
-				for (int i = 1; i < cluster.height(); i++) {
-					Puzzle current = cluster.wordAt(i);
+				Puzzle previous = puzzle.first();
+				for (int i = 1; i < puzzle.height(); i++) {
+					Puzzle current = puzzle.wordAt(i);
 					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
 							- current.toString().charAt(0));
 					previous = current;

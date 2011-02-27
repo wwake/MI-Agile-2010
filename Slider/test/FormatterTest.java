@@ -6,7 +6,7 @@ public class FormatterTest {
 	Formatter formatter = new Formatter();
 
 	@Test
-	public void formatsOneWordCluster() {
+	public void formatsOneWordPuzzle() {
 		assertEquals("word\n", formatter.format(new IndentedWord("word")));
 	}
 

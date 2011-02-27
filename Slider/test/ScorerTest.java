@@ -32,7 +32,7 @@ public class ScorerTest {
 	
 	@Test
 	public void scoreIsSumOfColumns() {
-		Puzzle cluster = new Pair(new IndentedWord("ABC"), new IndentedWord("BDA", 1));
-		assertEquals(1 + 4 + 2 + 1, scorer.score(cluster));
+		Puzzle puzzle = new Pair(new IndentedWord("ABC"), new IndentedWord("BDA", 1));
+		assertEquals(1 + 4 + 2 + 1, scorer.score(puzzle));
 	}
 }

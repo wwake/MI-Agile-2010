@@ -1,11 +1,11 @@
 
 public class Scorer {
 
-	public int score(Puzzle cluster) {
+	public int score(Puzzle puzzle) {
 		int result = 0;
 		
-		for (int i = 0; i < cluster.width(); i++) 
-			result += this.scoreColumn(cluster.column(i));
+		for (int i = 0; i < puzzle.width(); i++) 
+			result += this.scoreColumn(puzzle.column(i));
 
 		return result;
 	}
