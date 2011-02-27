@@ -1,19 +1,19 @@
 
-public abstract class Cluster {
+public abstract class Puzzle {
 	public abstract IndentedWord first();
 	public abstract IndentedWord last();
 	public abstract int width();
 	public abstract String column(int c);
 	public abstract IndentedWord wordAt(int i);
 	public abstract int height();
-	public abstract Cluster inverted();
+	public abstract Puzzle inverted();
 	public abstract boolean contains(String string);
 		
 	@Override
 	public boolean equals(Object obj) {
-		if (! (obj instanceof Cluster)) return false;
+		if (! (obj instanceof Puzzle)) return false;
 		
-		Cluster that = (Cluster) obj;
+		Puzzle that = (Puzzle) obj;
 		
 		if (this.height() != that.height()) return false;
 		for (int i = 0; i < height(); i++) {

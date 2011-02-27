@@ -1,4 +1,4 @@
-public class IndentedWord extends Cluster {
+public class IndentedWord extends Puzzle {
 	public final static char UNOCCUPIED = '.';
 	
 	private final String word;
@@ -45,7 +45,7 @@ public class IndentedWord extends Cluster {
 
 	@Override
 	public boolean equals(Object obj) {
-		Cluster that = (Cluster) obj;
+		Puzzle that = (Puzzle) obj;
 		
 		if (that.height() != 1) return false;
 		
@@ -82,7 +82,7 @@ public class IndentedWord extends Cluster {
 		return 1;
 	}
 
-	public Cluster inverted() {
+	public Puzzle inverted() {
 		return this;
 	}
 

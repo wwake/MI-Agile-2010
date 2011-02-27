@@ -1,5 +1,5 @@
-public class InvertingCluster extends WrappingCluster {
-	public InvertingCluster(Cluster clusterToWrap) {
+public class InvertingPuzzle extends WrappingPuzzle {
+	public InvertingPuzzle(Puzzle clusterToWrap) {
 		super(clusterToWrap);
 	}
 
@@ -24,7 +24,7 @@ public class InvertingCluster extends WrappingCluster {
 	}
 
 	@Override
-	public Cluster inverted() {
+	public Puzzle inverted() {
 		return originalCluster;
 	}	
 }

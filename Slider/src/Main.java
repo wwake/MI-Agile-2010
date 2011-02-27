@@ -40,7 +40,7 @@ public class Main {
 				
 				Pool pool = new Pool(strings);
 				
-				Cluster finalPuzzle = puzzleMaker.make(pool, scorer);
+				Puzzle finalPuzzle = puzzleMaker.make(pool, scorer);
 
 				answerKey.setText(finalPuzzle.toString());
 				puzzle.setText(formatter.format(finalPuzzle));

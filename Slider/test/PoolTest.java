@@ -77,8 +77,8 @@ public class PoolTest {
 	
 	@Test
 	public void allSlidePositions() {
-		Cluster cluster1 = new IndentedWord("sol");
-		Cluster cluster2 = new IndentedWord("do");
+		Puzzle cluster1 = new IndentedWord("sol");
+		Puzzle cluster2 = new IndentedWord("do");
 
 		pool.allSlidePositions(cluster1, cluster2);
 		
@@ -91,8 +91,8 @@ public class PoolTest {
 	
 	@Test
 	public void allSlidePositionsHandlesIndentedFirstItem() {
-		Cluster cluster1 = new IndentedWord("cant", 2);
-		Cluster cluster2 = new IndentedWord("dot", 1);
+		Puzzle cluster1 = new IndentedWord("cant", 2);
+		Puzzle cluster2 = new IndentedWord("dot", 1);
 
 		pool.allSlidePositions(cluster1, cluster2);
 		
@@ -109,8 +109,8 @@ public class PoolTest {
 	
 	@Test
 	public void addAllCombinations() {
-		Cluster cluster1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
-		Cluster cluster2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
+		Puzzle cluster1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
+		Puzzle cluster2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
 		
 		pool.addAllCombos(cluster1, cluster2);
 		
@@ -120,11 +120,11 @@ public class PoolTest {
 	@Test
 	public void bestInSet() {
 		Scorer fewerGapsIsBetterScorer = new Scorer() {
-			public int score(Cluster cluster) {
+			public int score(Puzzle cluster) {
 				int sumOfFirstLetterGaps = 0;
-				Cluster previous = cluster.first();
+				Puzzle previous = cluster.first();
 				for (int i = 1; i < cluster.height(); i++) {
-					Cluster current = cluster.wordAt(i);
+					Puzzle current = cluster.wordAt(i);
 					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
 							- current.toString().charAt(0));
 					previous = current;

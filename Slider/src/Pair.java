@@ -1,17 +1,17 @@
-public class Pair extends Cluster {
-	private Cluster top;
-	private Cluster bottom;
+public class Pair extends Puzzle {
+	private Puzzle top;
+	private Puzzle bottom;
 
-	public Pair(Cluster theTop, Cluster theBottom) {
+	public Pair(Puzzle theTop, Puzzle theBottom) {
 		this.top = theTop;
 		this.bottom = theBottom;
 	}
 	
-	public Pair(Cluster theTop, Cluster theBottom, int distanceToRightShiftBottom) {
+	public Pair(Puzzle theTop, Puzzle theBottom, int distanceToRightShiftBottom) {
 		if (distanceToRightShiftBottom < 0) 
-			theTop = new RightShiftingCluster(theTop, -distanceToRightShiftBottom);
+			theTop = new RightShiftingPuzzle(theTop, -distanceToRightShiftBottom);
 		else if (distanceToRightShiftBottom > 0)
-			theBottom = new RightShiftingCluster(theBottom, distanceToRightShiftBottom);
+			theBottom = new RightShiftingPuzzle(theBottom, distanceToRightShiftBottom);
 		
 		this.top = theTop;
 		this.bottom = theBottom;
@@ -50,8 +50,8 @@ public class Pair extends Cluster {
 	}
 
 	@Override
-	public Cluster inverted() {
-		return new InvertingCluster(this);
+	public Puzzle inverted() {
+		return new InvertingPuzzle(this);
 	}
 
 	@Override

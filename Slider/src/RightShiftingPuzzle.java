@@ -1,8 +1,8 @@
 
-public class RightShiftingCluster extends WrappingCluster {
+public class RightShiftingPuzzle extends WrappingPuzzle {
 	private final int amountToShift;
 
-	public RightShiftingCluster(Cluster clusterToWrap, int theAmountToShiftRight) {
+	public RightShiftingPuzzle(Puzzle clusterToWrap, int theAmountToShiftRight) {
 		super(clusterToWrap);
 		this.amountToShift = theAmountToShiftRight;
 	}
@@ -36,7 +36,7 @@ public class RightShiftingCluster extends WrappingCluster {
 	}
 
 	@Override
-	public Cluster inverted() {
-		return new RightShiftingCluster(originalCluster.inverted(), amountToShift);
+	public Puzzle inverted() {
+		return new RightShiftingPuzzle(originalCluster.inverted(), amountToShift);
 	}
 }

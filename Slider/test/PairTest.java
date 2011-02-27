@@ -60,7 +60,7 @@ public class PairTest {
 	public void equalsAndHashCodeDependOnWordsAndOffsets() {
 		Pair pair1a = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
 		Pair pair2a = new Pair(new IndentedWord("gab"), new IndentedWord("job", 4));
-		Pair pairBothA = new Pair(pair1a, new RightShiftingCluster(pair2a, 1));
+		Pair pairBothA = new Pair(pair1a, new RightShiftingPuzzle(pair2a, 1));
 		
 		Pair pair1b = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
 		Pair pair2b = new Pair(pair1b, new IndentedWord("gab", 1));

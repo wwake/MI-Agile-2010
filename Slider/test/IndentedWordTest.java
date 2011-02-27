@@ -32,7 +32,7 @@ public class IndentedWordTest {
 	@Test
 	public void singleWordCanEqualOtherCluster() {
 		IndentedWord word = new IndentedWord("word", 3);
-		InvertingCluster flippedWord = new InvertingCluster(word);
+		InvertingPuzzle flippedWord = new InvertingPuzzle(word);
 		
 		assertEquals(word, flippedWord);
 	}

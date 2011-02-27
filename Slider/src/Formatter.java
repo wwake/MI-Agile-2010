@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Formatter {
-	public String format(Cluster cluster) {
+	public String format(Puzzle cluster) {
 		StringBuffer result = new StringBuffer();
 		
 		List<IndentedWord> words = bracketWords(new IndentedWord(""), cluster, new IndentedWord(""));
@@ -30,7 +30,7 @@ public class Formatter {
 		return thisCh;
 	}
 
-	private List<IndentedWord> bracketWords(IndentedWord before, Cluster cluster, IndentedWord after) {
+	private List<IndentedWord> bracketWords(IndentedWord before, Puzzle cluster, IndentedWord after) {
 		List<IndentedWord> words = new ArrayList<IndentedWord>();
 		words.add(before);
 		

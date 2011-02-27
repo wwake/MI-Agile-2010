@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class InvertingClusterTest {
+public class InvertingPuzzleTest {
 	Pair pair = new Pair(new IndentedWord("fish"), new IndentedWord("sticks", 3));
-	Cluster reversed = pair.inverted();
+	Puzzle reversed = pair.inverted();
 
 	@Test
 	public void reversedPairResemblesOriginal() {
@@ -59,7 +59,7 @@ public class InvertingClusterTest {
 	@Test
 	public void contains() {
 		Pair pair = new Pair(new IndentedWord("foo"), new IndentedWord("gef", 2));
-		InvertingCluster flipper = new InvertingCluster(pair);
+		InvertingPuzzle flipper = new InvertingPuzzle(pair);
 		assertTrue(flipper.contains("foo"));
 		assertFalse(flipper.contains("fo"));
 	}

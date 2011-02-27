@@ -1,7 +1,7 @@
 
 public class Scorer {
 
-	public int score(Cluster cluster) {
+	public int score(Puzzle cluster) {
 		int result = 0;
 		
 		for (int i = 0; i < cluster.width(); i++) 

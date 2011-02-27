@@ -1,8 +1,8 @@
-public class WrappingCluster extends Cluster {
+public class WrappingPuzzle extends Puzzle {
 
-	protected final Cluster originalCluster;
+	protected final Puzzle originalCluster;
 
-	public WrappingCluster(Cluster clusterToWrap) {
+	public WrappingPuzzle(Puzzle clusterToWrap) {
 		originalCluster = clusterToWrap;
 	}
 
@@ -37,7 +37,7 @@ public class WrappingCluster extends Cluster {
 	}
 
 	@Override
-	public Cluster inverted() {
+	public Puzzle inverted() {
 		return originalCluster.inverted();
 	}
 
