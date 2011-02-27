@@ -47,7 +47,7 @@ public class SectionName {
 	}	
 	
 	public Boolean isApplicationGenerated() {
-		return ! this.isFromImport() && ! this.isFromUser();
+		return type == NameSource.APPLICATION;
 	}
 	
 	@Override
@@ -55,7 +55,3 @@ public class SectionName {
 		return name;
 	}
 }
-/* isFromXyz feels a bit clunky. Seems like whoever is calling these methods should be trusting some other object to do its job.
-I'm not terribly fond of the multiple isXyz() methods anyway. Note how isApplicationGenerated() is different - seems like it should 
-parallel the others. (Notice how nobody ever looks at NameSource.APPLICATION.)
-*/

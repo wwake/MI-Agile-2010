@@ -1,8 +1,6 @@
 import java.util.Vector;
 
 
-//Note: This corresponds to Seq. Contig
-
 public class TextBlock extends TextSection {
 
 	private TextLine.CreationType howCreated;

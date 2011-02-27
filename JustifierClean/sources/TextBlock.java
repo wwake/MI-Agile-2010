@@ -19,6 +19,10 @@ public class TextBlock implements TextSection {
 		return name;
 	}
 	
+	public void setName(SectionName newName) {
+		name = newName;
+	}
+	
 	public boolean isEmpty() {
 		return this.entries().isEmpty();
 	}
@@ -52,12 +56,3 @@ public class TextBlock implements TextSection {
 		}
 	}
 }
-
-/* 
- * 
- * This width() stuff is a bit confusing. Maybe the word "entry" isn't helping. 
- * (I still don't understand BlockEntry vs. TextBlock vs anything else.)
- * 
- * I'm not clear on why you're setting minPosition=0 rather than say Integer.MAX_VALUE.
- * (Could you have a text block with an positive offset?)
- */

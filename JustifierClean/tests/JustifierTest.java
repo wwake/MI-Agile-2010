@@ -64,7 +64,3 @@ public class JustifierTest {
 		return data;
 	}
 }
-
-/* 
-   I wonder if this can all be simplified by unifying the interfaces.
-*/

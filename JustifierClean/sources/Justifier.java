@@ -20,8 +20,7 @@ public abstract class Justifier {
 	public TextBlock newResult()
 	{
 		this.resetResultBlock();
-		for (TextSection text : lines)
-		{
+		for (TextSection text : lines) {
 			this.addSection(text);
 		}
 

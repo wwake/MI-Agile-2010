@@ -9,8 +9,7 @@ public class EndToEndJustifier extends Justifier {
 	@Override
 	public void addSection(TextSection section) {
 		int currentWidth = this.workingBlock().width();
-		for (BlockEntry entry : section.entries())
-		{
+		for (BlockEntry entry : section.entries()) {
 			this.addToResult(entry.line(), entry.offset() + currentWidth);
 		}
 	}

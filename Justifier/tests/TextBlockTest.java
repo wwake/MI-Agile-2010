@@ -49,7 +49,6 @@ public class TextBlockTest {
 				"line value should be the same", 
 				aLine.toString(), 
 				block.sections().firstElement().toString());
-//		assertNotSame("stored line should not be same object", aLine, block.sections().firstElement());
 
 		block.add(new TextLine("other"), 0);
 		assertEquals(2, block.sections().size());
@@ -62,7 +61,6 @@ public class TextBlockTest {
 		block.add(aLine, 33);
 		assertEquals(1, block.sections().size());
 		assertEquals(33, block.sections().firstElement().offset());
-//		assertEquals("original line offest should not have changed", 0, aLine.offset());
 	}
 
 	@Test
