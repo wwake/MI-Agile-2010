@@ -10,7 +10,7 @@ public class EndToEndJustifierTest {
 		EndToEndJustifier justifier = new EndToEndJustifier(new Vector<TextSection>());
 		int currentWidth = justifier.workingBlock().width();
 		justifier.addSection(new TextLine("abc"));
-		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
+		OffsetLine entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals(currentWidth, entry.offset());
 		
 		currentWidth = justifier.workingBlock().width();
@@ -30,7 +30,7 @@ public class EndToEndJustifierTest {
 		
 		EndToEndJustifier justifier = new EndToEndJustifier(new Vector<TextSection>());
 		justifier.addSection(block);
-		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
+		OffsetLine entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals(256, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);
 		assertEquals(3876, entry.offset());
@@ -46,7 +46,7 @@ public class EndToEndJustifierTest {
 		justifier.addSection(new TextLine("1234567890"));
 		
 		justifier.addSection(block);
-		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
+		OffsetLine entry = justifier.workingBlock().entries().elementAt(0);
 		assertEquals("Existing line offset should not have changed", 0, entry.offset());
 		entry = justifier.workingBlock().entries().elementAt(1);
 		assertEquals(14, entry.offset());

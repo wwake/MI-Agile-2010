@@ -30,7 +30,7 @@ public class JustifierTest {
 		Justifier justifier = new CallTrackingJustifier(new Vector<TextSection>());
 		TextLine line = new TextLine("OIU");
 		justifier.addToResult(line, 3);
-		BlockEntry entry = justifier.workingBlock().entries().elementAt(0);
+		OffsetLine entry = justifier.workingBlock().entries().elementAt(0);
 		assertSame(line, entry.line());
 		assertEquals(3, entry.offset());
 	}

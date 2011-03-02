@@ -4,14 +4,14 @@ import java.util.Vector;
 public class TextBlock implements TextSection {
 
 	private SectionName name;
-	private Vector<BlockEntry> textSections;
+	private Vector<OffsetLine> textSections;
 	
 	public TextBlock()  {
 		this(SectionName.defaultSystemName());
 	}
 	
 	public TextBlock(SectionName blockName) {
-		textSections = new Vector<BlockEntry>();
+		textSections = new Vector<OffsetLine>();
 		name = blockName;
 	}
 	
@@ -28,11 +28,11 @@ public class TextBlock implements TextSection {
 	}
 	
 	public void add(TextLine text, int offset) {
-		BlockEntry entry = new BlockEntry(text, offset);
+		OffsetLine entry = new OffsetLine(text, offset);
 		textSections.add(entry);
 	}
 	
-	public Vector<BlockEntry> entries() {
+	public Vector<OffsetLine> entries() {
 		return textSections;
 	}
 
@@ -43,7 +43,7 @@ public class TextBlock implements TextSection {
 		
 		int minPosition = 0;  // if any offset goes negative use the neg as minimum, otherwise 0
 		int maxPosition = Integer.MIN_VALUE;
-		for(BlockEntry entry : this.entries()) {
+		for(OffsetLine entry : this.entries()) {
 			minPosition = Math.min(minPosition, entry.offset());
 			maxPosition = Math.max(maxPosition, entry.width());
 		}
@@ -51,7 +51,7 @@ public class TextBlock implements TextSection {
 	}
 
 	public void adjustAllOffsetsBy(int amount) {
-		for(BlockEntry entry : this.entries()) {
+		for(OffsetLine entry : this.entries()) {
 			entry.changeOffset(entry.offset() + amount);
 		}
 	}

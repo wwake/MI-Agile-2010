@@ -20,9 +20,9 @@ public class TextLine implements TextSection {
 	}
 
 	@Override
-	public Vector<BlockEntry> entries() {
-		Vector<BlockEntry> entries = new Vector<BlockEntry>(1);
-		entries.add(new BlockEntry(this, 0));
+	public Vector<OffsetLine> entries() {
+		Vector<OffsetLine> entries = new Vector<OffsetLine>(1);
+		entries.add(new OffsetLine(this, 0));
 		return entries;
 	}
 }

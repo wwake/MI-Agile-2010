@@ -27,9 +27,9 @@ public class TextLineTest {
 	@Test
 	public void entriesShouldReturnCollectionContainingOnlyBlockEntryWithItselfAndNoOffset() {
 		TextLine aLine = new TextLine("1");
-		Vector<BlockEntry> theEntries = aLine.entries();
+		Vector<OffsetLine> theEntries = aLine.entries();
 		assertEquals(1, theEntries.size());
-		BlockEntry entry = theEntries.elementAt(0);
+		OffsetLine entry = theEntries.elementAt(0);
 		assertSame(aLine, entry.line());
 		assertEquals(0, entry.offset());
 	}
