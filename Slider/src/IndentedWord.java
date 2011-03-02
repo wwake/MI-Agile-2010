@@ -1,21 +1,19 @@
-public class IndentedWord extends Puzzle {
-	public final static char UNOCCUPIED = '.';
-	
+public class IndentedWord extends Piece {
 	private final String word;
 	private final int indent;
 
-	public IndentedWord(String aWord) {
-		this(aWord, 0);
+	public IndentedWord(String word) {
+		this(word, 0);
 	}
 
-	public IndentedWord(String aWord, int anOffset) {
-		this.word = aWord;
-		this.indent = anOffset;
+	public IndentedWord(String word, int offset) {
+		this.word = word;
+		this.indent = offset;
 	}
 
-	public IndentedWord(IndentedWord aWord, int moreIndent) {
-		this.word = aWord.word;
-		this.indent = aWord.indent + moreIndent;
+	public IndentedWord(IndentedWord word, int moreIndent) {
+		this.word = word.word;
+		this.indent = word.indent + moreIndent;
 	}
 
 	public IndentedWord shiftRight(int distance) {
@@ -32,25 +30,25 @@ public class IndentedWord extends Puzzle {
 
 	public char at(int i) {
 		if (i < indent)
-			return UNOCCUPIED;
+			return '.';
 		if (i < indent + word.length())
 			return word.charAt(i - indent);
-		return UNOCCUPIED;
+		return '.';
 	}
 
 	@Override
 	public String toString() {
-		return StringUtil.repeat(UNOCCUPIED, indent) + word;
+		return repeat('.', indent) + word;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		Puzzle that = (Puzzle) obj;
-		
-		if (that.height() != 1) return false;
-		
-		IndentedWord thatWord = that.wordAt(0);
-		return this.word.equals(thatWord.word) && this.indent == thatWord.indent;
+		if (!(obj instanceof IndentedWord))
+			return false;
+
+		IndentedWord that = (IndentedWord) obj;
+
+		return this.word.equals(that.word) && this.indent == that.indent;
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class IndentedWord extends Puzzle {
 		return String.valueOf(this.at(c));
 	}
 
-	public IndentedWord wordAt(int i) {
+	public IndentedWord get(int i) {
 		return this;
 	}
 
@@ -82,7 +80,7 @@ public class IndentedWord extends Puzzle {
 		return 1;
 	}
 
-	public Puzzle inverted() {
+	public Piece flipped() {
 		return this;
 	}
 

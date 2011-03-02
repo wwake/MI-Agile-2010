@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class IndentedWordTest {
 	@Test
-	public void wordKnowsItsContents() {
+	public void wordKnowsCharacters() {
 		IndentedWord word = new IndentedWord("fob", 1);
 		assertEquals(1, word.indent());
 		assertEquals("fob", word.word());
@@ -28,21 +28,10 @@ public class IndentedWordTest {
 		assertEquals(word1a.hashCode(), word1b.hashCode());
 		assertFalse(word1a.equals(word2));
 	}
-	
-	@Test
-	public void singleWordCanEqualOtherPuzzle() {
-		IndentedWord word = new IndentedWord("word", 3);
-		InvertedPuzzle flippedWord = new InvertedPuzzle(word);
 		
-		assertEquals(word, flippedWord);
-	}
-	
 	@Test
-	public void singleWordCantEqualPuzzleWithMultipleWords() {
-		IndentedWord word = new IndentedWord("another");
-		JoinedPuzzle puzzle = new JoinedPuzzle(new IndentedWord("another"), new IndentedWord("can"), 2);
-		
-		assertFalse(word.equals(puzzle));
+	public void singleWordCantEqualNonOffsetWord() {
+		assertFalse(new IndentedWord("skip", 2).equals(new Object()));
 	}
 	
 	@Test 
@@ -83,13 +72,13 @@ public class IndentedWordTest {
 	@Test
 	public void getGetsTheOnlyWord() {
 		IndentedWord baz = new IndentedWord("baz", 2);
-		assertEquals(baz, baz.wordAt(0));
+		assertEquals(baz, baz.get(0));
 	}
 	
 	@Test
 	public void wordReversedIsItself() {
 		IndentedWord word = new IndentedWord("blink", 3);
-		assertEquals(word, word.inverted());
+		assertEquals(word, word.flipped());
 	}
 	
 	@Test

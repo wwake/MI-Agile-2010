@@ -1,145 +1,115 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.NoSuchElementException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class PoolTest {
-	Pool pool;
+	private Pool poolWider;
 	
+	private IndentedWord word1;
+	private IndentedWord word2;
+	private IndentedWord word3;
+	private IndentedWord word4;
+
 	@Before
 	public void setUp() {
-		pool = new Pool(new String[]{});
+		poolWider = new Pool();
+		word1 = new IndentedWord("w");
+		word2 = new IndentedWord("wo");
+		word3 = new IndentedWord("wor");
+		word4 = new IndentedWord("word");
+
+		poolWider.add(word2);
+		poolWider.add(word4);
+		poolWider.add(word3);
+		poolWider.add(word1);
 	}
 	
 	@Test
 	public void poolAddsItems() {
-		pool.add(new IndentedWord("woo"));
-		pool.add(new IndentedWord("able"));
-		pool.add(new IndentedWord("back"));
-
-		assertEquals(3, pool.size());
-		
-		assertTrue(pool.contains(new IndentedWord("woo")));
-		assertTrue(pool.contains(new IndentedWord("able")));
-		assertTrue(pool.contains(new IndentedWord("back")));
-	
-		assertTrue(pool.contains(pool.any()));
-		assertFalse(pool.contains(new IndentedWord("notPresent")));
-	}
-	
-	@Test (expected=NoSuchElementException.class) public void anyThrowsExceptionIfPoolEmpty() {
-		pool.any();
+		assertEquals(4, poolWider.size());
+		assertEquals(word2, poolWider.get(0));
+		assertEquals(word1, poolWider.get(3));
 	}
 
 	@Test 
 	public void bestMatches() {
-		pool.add(new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("b")));
-		pool.add(new JoinedPuzzle(new IndentedWord("c"), new IndentedWord("d")));
-		pool.add(new JoinedPuzzle(new IndentedWord("e"), new IndentedWord("f")));
+		Pool pool = new Pool();
+		pool.add(new Pair(new IndentedWord("a"), new IndentedWord("b")));
+		pool.add(new Pair(new IndentedWord("c"), new IndentedWord("d")));
+		pool.add(new Pair(new IndentedWord("e"), new IndentedWord("f")));
 		
-		Pool candidates = pool.candidates();
+		Set<Piece> candidates = pool.candidates();
 
 		int numberOfPossiblePairs = 3;
-		int waysToArrangeEachPair = 4;
+		int waysToArrangeAPair = 4;
 		
-		assertEquals(numberOfPossiblePairs * waysToArrangeEachPair, candidates.size());
+		assertEquals(numberOfPossiblePairs * waysToArrangeAPair, candidates.size());
+	}
+	
+	@Test
+	public void toStringHasContents() {
+		assertEquals("wo\nword\nwor\nw\n", poolWider.toString());
 	}
 	
 	@Test
 	public void allCombosContains4BaseCombinations() {
-		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
-		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
+		Pool poolCloser = new Pool();
+		Pair pair1 = new Pair(new IndentedWord("a"), new IndentedWord("c"));
+		Pair pair2 = new Pair(new IndentedWord("d"), new IndentedWord("g"));
 		
-		pool.addAllCombos(puzzle1, puzzle2);
+		Set<Piece> candidates = new HashSet<Piece>();
+		poolCloser.allCombos(candidates, pair1, pair2);
 		
-		assertTrue(pool.contains(new JoinedPuzzle(puzzle1, puzzle2)));							// ac-dg
-		assertTrue(pool.contains(new JoinedPuzzle(puzzle1, puzzle2.inverted())));				// ac-gd
-		assertTrue(pool.contains(new JoinedPuzzle(puzzle1.inverted(), puzzle2)));				// ca-dg
-		assertTrue(pool.contains(new JoinedPuzzle(puzzle1.inverted(), puzzle2.inverted())));	// ca-gd
-	}
-	
-	@Test
-	public void removingAStringTakesPuzzleOutOfPool() {
-		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("foo"), new IndentedWord("bar", 3));
-		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("baz", 2), new IndentedWord("boff"), 1);
-		pool.add(puzzle1);
-		pool.add(puzzle2);
-		
-		pool.remove("baz");
-		
-		assertTrue(pool.contains(puzzle1));
-		assertFalse(pool.contains(puzzle2));
+		assertTrue(candidates.contains(new Pair(pair1, pair2)));							// ac-dg
+		assertTrue(candidates.contains(new Pair(pair1, pair2.flipped())));					// ac-gd
+		assertTrue(candidates.contains(new Pair(pair1.flipped(), pair2)));					// ca-dg
+		assertTrue(candidates.contains(new Pair(pair1.flipped(), pair2.flipped())));		// ca-gd
 	}
 	
 	@Test
 	public void allSlidePositions() {
-		Puzzle puzzle1 = new IndentedWord("sol");
-		Puzzle puzzle2 = new IndentedWord("do");
+		Pool poolCloser = new Pool();
+		Piece piece1 = new IndentedWord("sol");
+		Piece piece2 = new IndentedWord("do");
 
-		pool.allSlidePositions(puzzle1, puzzle2);
+		Set<Piece> allSlides = new HashSet<Piece>();
+		poolCloser.allSlidePositions(allSlides, piece1, piece2);
 		
-		assertEquals(4, pool.size());
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do"))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do", 1))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol"), new IndentedWord("do", 2))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("sol", 1), new IndentedWord("do"))));
+		assertEquals(4, allSlides.size());
+		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do"))));
+		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do", 1))));
+		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol"), new IndentedWord("do", 2))));
+		assertTrue(allSlides.contains(new Pair(new IndentedWord("sol", 1), new IndentedWord("do"))));
 	}	
 	
 	@Test
-	public void allSlidePositionsHandlesIndentedFirstItem() {
-		Puzzle puzzle1 = new IndentedWord("cant", 2);
-		Puzzle puzzle2 = new IndentedWord("dot", 1);
-
-		pool.allSlidePositions(puzzle1, puzzle2);
+	public void removeString() {
+		Pool pool = new Pool();
+		Pair pair1 = new Pair(new IndentedWord("foo"), new IndentedWord("bar", 3));
+		Pair pair2 = new Pair(new IndentedWord("baz", 2), new RightShifter(new IndentedWord("boff"), 1));
+		pool.add(pair1);
+		pool.add(pair2);
 		
-		assertEquals(6, pool.size());
-
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 2))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 3))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 4))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 5))));
-
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 2), new IndentedWord("dot", 1))));
-		assertTrue(pool.contains(new JoinedPuzzle(new IndentedWord("cant", 3), new IndentedWord("dot", 1))));		
+		pool.remove("baz");
+		
+		assertEquals("foo\n...bar\n", pool.toString());
 	}
 	
 	@Test
-	public void addAllCombinations() {
-		Puzzle puzzle1 = new JoinedPuzzle(new IndentedWord("fish"), new IndentedWord("wishes"));
-		Puzzle puzzle2 = new JoinedPuzzle(new IndentedWord("iffy"), new IndentedWord("of"));
+	public void addAllSlidePositions() {
+		Set<Piece> candidates = new HashSet<Piece>();
 		
-		pool.addAllCombos(puzzle1, puzzle2);
+		Piece piece1 = new Pair(new IndentedWord("fish"), new IndentedWord("wishes"));
+		Piece piece2 = new Pair(new IndentedWord("iffy"), new IndentedWord("of"));
 		
-		assertEquals(9 + 7 + 7 + 5, pool.size());
-	}
-	
-	@Test
-	public void bestInSet() {
-		Scorer fewerGapsIsBetterScorer = new Scorer() {
-			public int score(Puzzle puzzle) {
-				int sumOfFirstLetterGaps = 0;
-				Puzzle previous = puzzle.first();
-				for (int i = 1; i < puzzle.height(); i++) {
-					Puzzle current = puzzle.wordAt(i);
-					sumOfFirstLetterGaps += Math.abs(previous.toString().charAt(0)
-							- current.toString().charAt(0));
-					previous = current;
-				}
-				return 10000 - sumOfFirstLetterGaps;
-			}
-		};
-
-
-		JoinedPuzzle puzzle1 = new JoinedPuzzle(new IndentedWord("a"), new IndentedWord("c"));
-		JoinedPuzzle puzzle2 = new JoinedPuzzle(new IndentedWord("d"), new IndentedWord("g"));
-
-		Pool candidates = new Pool(new String[]{});
-		candidates.addAllCombos(puzzle1, puzzle2);
+		poolWider.allCombos(candidates , piece1, piece2);
 		
-		assertEquals(new JoinedPuzzle(puzzle1, puzzle2), candidates.bestIn(fewerGapsIsBetterScorer));
+		assertEquals(9 + 7 + 7 + 5, candidates.size());
 	}
 }
