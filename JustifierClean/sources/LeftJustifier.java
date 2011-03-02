@@ -9,7 +9,7 @@ public class LeftJustifier extends Justifier {
 
 	@Override
 	public void addSection(TextSection section) {
-		for (BlockEntry entry : section.entries()) {
+		for (OffsetLine entry : section.entries()) {
 			this.addToResult(entry.line(), entry.offset());
 		}
 	}

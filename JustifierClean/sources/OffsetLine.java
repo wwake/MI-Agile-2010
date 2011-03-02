@@ -1,16 +1,16 @@
 import java.util.Vector;
 
 
-public class BlockEntry implements TextSection {
+public class OffsetLine implements TextSection {
 
 	private TextLine line;
 	private int offset;
 	
-	public BlockEntry(TextLine aLine) {
+	public OffsetLine(TextLine aLine) {
 		this(aLine, 0);
 	}
 	
-	public BlockEntry(TextLine aLine, int blockOffset) {
+	public OffsetLine(TextLine aLine, int blockOffset) {
 		line = aLine;
 		offset = blockOffset;
 	}
@@ -33,8 +33,8 @@ public class BlockEntry implements TextSection {
 	}
 
 	@Override
-	public Vector<BlockEntry> entries() {
-		Vector<BlockEntry> entries = new Vector<BlockEntry>();
+	public Vector<OffsetLine> entries() {
+		Vector<OffsetLine> entries = new Vector<OffsetLine>();
 		entries.add(this);
 		return entries;
 	}

@@ -15,7 +15,7 @@ public class RightJustifier extends Justifier {
 		if ( ! existingIsWider)
 			this.workingBlock().adjustAllOffsetsBy(-difference);
 		
-		for (BlockEntry entry : section.entries()) {
+		for (OffsetLine entry : section.entries()) {
 			if (existingIsWider) {
 				this.addToResult(entry.line(), (entry.offset() + difference));
 			}

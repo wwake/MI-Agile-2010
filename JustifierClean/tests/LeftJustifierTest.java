@@ -11,7 +11,7 @@ public class LeftJustifierTest {
 		LeftJustifier justifier = new LeftJustifier(new Vector<TextSection>());
 		TextLine addedLine = new TextLine("ABCD");
 		justifier.addSection(addedLine);
-		BlockEntry entry = justifier.workingBlock().entries().get(0);
+		OffsetLine entry = justifier.workingBlock().entries().get(0);
 		assertSame(addedLine, entry.line());
 		assertEquals(0, entry.offset());
 	}
@@ -29,7 +29,7 @@ public class LeftJustifierTest {
 		
 		justifier.addSection(block);
 		assertEquals("Each line from given block should have been added to result", 3, justifier.workingBlock().entries().size());
-		BlockEntry entry = justifier.workingBlock().entries().get(0);
+		OffsetLine entry = justifier.workingBlock().entries().get(0);
 		assertSame(line1, entry.line());
 		assertEquals(5, entry.offset());
 

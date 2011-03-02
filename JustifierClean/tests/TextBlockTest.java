@@ -122,7 +122,7 @@ public class TextBlockTest {
 		block.add(line3, 0);
 		block.adjustAllOffsetsBy(7);
 		
-		BlockEntry entry = block.entries().elementAt(0);
+		OffsetLine entry = block.entries().elementAt(0);
 		assertEquals(5, entry.offset());
 		entry = block.entries().elementAt(1);
 		assertEquals(29, entry.offset());

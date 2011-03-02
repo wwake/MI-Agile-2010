@@ -23,7 +23,7 @@ public class Runner {
 	
 	public static void showOutput(TextBlock block)
 	{
-		for (BlockEntry entry : block.entries())
+		for (OffsetLine entry : block.entries())
 		{
 			for (int indent = 0; indent < entry.offset(); indent++)
 				System.out.print(' ');
