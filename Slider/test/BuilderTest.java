@@ -1,5 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,14 +32,6 @@ public class BuilderTest {
 		Builder builder = new Builder(new String[] { "only" }, new PieceScorer());
 		builder.build();
 		assertEquals("only\n", builder.result());
-	}
-
-	@Test
-	public void foo() { // TODO
-		String[] strings = new String[] { "wo", "wor", "w", "word" };
-		Builder builder = new Builder(strings, new PieceScorer());
-		builder.build();
-		assertTrue(builder.row(0).startsWith("b") || builder.row(0).startsWith("f"));
 	}
 
 	@Test

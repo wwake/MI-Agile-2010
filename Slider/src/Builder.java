@@ -1,8 +1,7 @@
-import java.util.Set;
 
 public class Builder {
 	private Pool pool;
-	private final PieceScorer scorer;
+	final PieceScorer scorer;
 
 	public Builder(String[] strings, PieceScorer scorer) {
 		this.scorer = scorer;
@@ -11,21 +10,15 @@ public class Builder {
 			pool.add(new IndentedWord(string));
 	}
 
-	public String row(int row) {
-		return "bobb";
-	}
-
 	public void build() {
-		while (pool.size() > 1) {
-			Set<Piece> possibilities = pool.candidates();
-			Pair best = (Pair) scorer.bestIn(possibilities);
-			pool.remove(best.part1().get(0).word());
-			pool.remove(best.part2().get(0).word());
-			pool.add(best);
-		}
+		pool.build(scorer);
 	}
 	
 	public String result() {
 		return pool.toString();
+	}
+	
+	public Piece finalPiece() {
+		return pool.get(0);
 	}
 }
