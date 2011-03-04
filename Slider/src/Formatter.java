@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Formatter {
-
-	public String format(Cluster cluster) {
+	public String format(Piece puzzle) {
 		StringBuffer result = new StringBuffer();
 		
-		List<IndentedWord> words = bracketWords(new IndentedWord(""), cluster, new IndentedWord(""));
+		List<IndentedWord> words = bracketWords(new IndentedWord(""), puzzle, new IndentedWord(""));
 		
 		for (int i = 1; i < words.size() - 1; i++)
 			formatWord(result, words.get(i - 1), words.get(i), words.get(i + 1));
@@ -24,14 +23,20 @@ public class Formatter {
 	private char charFor(char prevCh, char thisCh, char nextCh) {
 		if (thisCh == '.') return '.';
 		
-		return thisCh == prevCh || thisCh == nextCh ? '-' : thisCh;
+		if (thisCh != prevCh && thisCh == nextCh) return '/';
+		if (thisCh == prevCh && thisCh != nextCh) return '\\';
+		if (thisCh == prevCh && thisCh == nextCh) return '|';
+		
+		return thisCh;
 	}
 
-	private List<IndentedWord> bracketWords(IndentedWord before, Cluster cluster, IndentedWord after) {
+	private List<IndentedWord> bracketWords(IndentedWord before, Piece puzzle, IndentedWord after) {
 		List<IndentedWord> words = new ArrayList<IndentedWord>();
 		words.add(before);
-		for (IndentedWord word : cluster)
-			words.add(word);
+		
+		for (int i = 0; i < puzzle.height(); i++)
+			words.add(puzzle.get(i));
+
 		words.add(after);
 		return words;
 	}

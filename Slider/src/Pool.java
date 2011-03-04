@@ -80,4 +80,14 @@ public class Pool {
 			}
 		}
 	}
+
+	public void build(PieceScorer scorer) {
+		while (size() > 1) {
+			Set<Piece> possibilities = candidates();
+			Pair best = (Pair) scorer.bestIn(possibilities);
+			remove(best.part1().get(0).word());
+			remove(best.part2().get(0).word());
+			add(best);
+		}
+	}
 }
