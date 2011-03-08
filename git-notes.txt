@@ -1,5 +1,6 @@
 git status          # status
 
+git add .		# adds any new files
 git commit -a        # Copies changed file to local repository
 git push             # Commits local repository to main repository
 
