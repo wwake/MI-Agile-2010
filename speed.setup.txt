@@ -1,0 +1,15 @@
+The Speed of Clean - MI Agile and Beyond '11
+Tom Kubit and Bill Wake
+
+Download the file SpeedOfClean.zip
+
+Unzip it, but don't unzip the files it contains. 
+
+Follow the directions in Readme.txt
+
+
+We're assuming you'll have Eclipse, to run Java and JUnit.
+Nothing is very version-dependent, though we do assume JUnit 4.x.
+
+Looking forward to seeing you!
+  Tom & Bill
